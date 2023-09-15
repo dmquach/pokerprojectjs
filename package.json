@@ -1,0 +1,39 @@
+{
+  "name": "pokerprojectjs",
+  "version": "1.0.0",
+  "description": "# Background Pot Limit Omaha (PLO) is a 4 card variant of poker played against opponents where the winner of the hand is the person with the best 5 cards out of the community cards and hole cards with no more and no less than 2 cards coming from hand.",
+  "main": "index.js",
+
+  "browserslist": [
+    "defaults"
+  ],
+  "scripts": {
+    "start": "webpack --watch --mode=development",
+    "build": "webpack --mode=production"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmquach/pokerprojectjs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmquach/pokerprojectjs/issues"
+  },
+  "homepage": "https://github.com/dmquach/pokerprojectjs#readme",
+  "dependencies": {
+    "@babel/core": "^7.22.19",
+    "@babel/preset-env": "^7.22.15",
+    "babel-loader": "^9.1.3",
+    "core-js": "^3.32.2",
+    "css-loader": "^6.8.1",
+    "mini-css-extract-plugin": "^2.7.6",
+    "regenerator-runtime": "^0.14.0",
+    "sass": "^1.67.0",
+    "sass-loader": "^13.3.2",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  }
+}
