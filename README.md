@@ -16,7 +16,7 @@ In Trainiing mode a user can:
 * View guessing stats for a session
 
 # Wireframes
-https://wireframe.cc/uTyGW4 
+https://wireframe.cc/uTyGW4
 
 # Technologies, Libraries, APIs
 This project is considering the implementation of the following technologies:
