@@ -35,7 +35,7 @@ function isStraight(ranksCount) {
     return false;
   }
 // takes in an array of cards
-function isFlush(cards) {
+function isStaightFlush(cards) {
 for (const card of cards) {
     const suitIndex = cardSuits.indexOf(card[1]);
     suitsCount[suitIndex]++;
@@ -54,7 +54,7 @@ function hasThreeOfAKind(cards) {
     // Check if any rank occurs three times
     return Object.values(rankCounts).some(count => count === 3);
   }
-  
+
   function countCardRanks(cards) {
     const rankCounts = {};
 
@@ -69,3 +69,39 @@ function hasThreeOfAKind(cards) {
 
     return rankCounts;
   }
+
+
+  function is(cards) {
+    for (const card of cards) {
+        const suitIndex = cardSuits.indexOf(card[1]);
+        suitsCount[suitIndex]++;
+    }
+
+    return suitsCount.some(count => count === 5);
+    }
+
+function hasThreeOfAKind(cards) {
+if (cards.length !== 5) {
+    return false; // A poker hand must contain exactly 5 cards.
+}
+
+const rankCounts = countCardRanks(cards);
+
+// Check if any rank occurs three times
+return Object.values(rankCounts).some(count => count === 3);
+}
+
+function countCardRanks(cards) {
+const rankCounts = {};
+
+for (const card of cards) {
+    const rank = card[0];
+    if (rankCounts[rank]) {
+    rankCounts[rank]++;
+    } else {
+    rankCounts[rank] = 1;
+    }
+}
+
+return rankCounts;
+}
