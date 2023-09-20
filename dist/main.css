@@ -1,25 +1,42 @@
-/*!*************************************************************************************************************************************!*\
+/* !*************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
   \*************************************************************************************************************************************/
 @import url("");
+:root{
+  --card-width-lg:157px;
+  --card-height-lg:220px;
 
-body {
+  --card-width-sm:120px;
+  --card-height-sm:168px;
+
+  --num-cards:52;
+
+  --card-horizontal-space-lg: 100px;
+  --card-horizontal-space-sm: 50px;
+
+  --badge-bg-color:green;
+  --primary-color: black;
+  --secondary-color: #ffffff;
+
+  --primary-font: 'Quicksand', sans-serif;
+}
+body{
   height:100vh;
+  font-family: var(--primary-font);
 }
 
 main{
   height: 55%;
   display: flex;
   justify-content: center;
+
 }
 
-.card-container {
-  margin-top: 10px;
+.card-container{
   position: relative;
-  height: 100%;
-  width:10%;
+  height:100%;
+  width:calc(var(--card-width-lg) * (var(--num-cards) / 2) + var(--card-horizontal-space-lg));
   display: grid;
-  background-color: green;
 }
 
 .card {
@@ -78,3 +95,69 @@ main{
   justify-content: center;
   align-items: center;
 } */
+
+/*!*********************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/styles/home-page.scss ***!
+  \*********************************************************************************************************/
+
+/*!*************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
+  \*************************************************************************************************************************************/
+  * {
+    background-color: rgb(114, 43, 43);
+    background-color: rgb(200, 19, 19);
+  }
+
+  #scoring {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    vertical-align: middle;
+  }
+
+  #start-message {
+    position: relative;
+  }
+
+  .header-container {
+    display: flex;
+    justify-content: space-around;
+  }
+  .header-container #personal-links {
+    display: inline-block;
+  }
+  .header-container #title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(244, 215, 210);
+    color: rgb(0, 0, 0);
+  }
+  .header-container #controls {
+    display: inline-block;
+  }
+
+  #players-hands {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #players-hands #player-hand {
+    padding: 0.5%;
+  }
+  #players-hands #cards-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    max-height: 140px;
+    padding: 3.5%;
+  }
+  #players-hands #cards-container img {
+    width: 48%;
+  }
+
+  h3 {
+    color: rgb(244, 215, 210);
+    color: black;
+  }
+
