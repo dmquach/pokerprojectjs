@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
   <head>
@@ -10,169 +10,162 @@
     <title>Poker Project</title>
   </head>
 
-  <body>
-    <h1>Poker Project</h1>
-    <canvas id="canvas">
+<body>
+  <h1>Poker Project</h1>
+  <div class="card-container">
+    <img src="/images/2_of_clubs.png" id="2c">
+    <img src="/images/3_of_clubs.png" id="3c">
+    <img src="/images/4_of_clubs.png" id="4c">
+    <img src="/images/5_of_clubs.png" id="5c">
+    <img src="/images/6_of_clubs.png" id="6c">
+    <img src="/images/7_of_clubs.png" id="7c">
+    <img src="/images/8_of_clubs.png" id="8c">
+    <img src="/images/9_of_clubs.png" id="9c">
+    <img src="/images/10_of_clubs.png" id="10c">
+    <img src="/images/J_of_clubs.png" id="Jc">
+    <img src="/images/Q_of_clubs.png" id="Qc">
+    <img src="/images/K_of_clubs.png" id="Kc">
+    <img src="/images/A_of_clubs.png" id="Ac">
 
-    </canvas>
-    <div class="card-container">
-      <div class="card">
-        <div class="card-front">
-          <img src="/images/2_of_clubs.png" class="card-img">
-          <img src="/images/2_of_diamonds.png" class="card-img">
-          <img src="/images/2_of_hearts.png" class="card-img">
-          <img src="/images/2_of_spades.png" class="card-img">
+    <img src="/images/2_of_diamonds.png" id="2d">
+    <img src="/images/3_of_diamonds.png" id="3d">
+    <img src="/images/4_of_diamonds.png" id="4d">
+    <img src="/images/5_of_diamonds.png" id="5d">
+    <img src="/images/6_of_diamonds.png" id="6d">
+    <img src="/images/7_of_diamonds.png" id="7d">
+    <img src="/images/8_of_diamonds.png" id="8d">
+    <img src="/images/9_of_diamonds.png" id="9d">
+    <img src="/images/10_of_diamonds.png" id="10d">
+    <img src="/images/J_of_diamonds.png" id="Jd">
+    <img src="/images/Q_of_diamonds.png" id="Qd">
+    <img src="/images/K_of_diamonds.png" id="Kd">
+    <img src="/images/A_of_diamonds.png" id="Ad">
 
-          <img src="/images/3_of_clubs.png" class="card-img">
-          <img src="/images/3_of_diamonds.png" class="card-img">
-          <img src="/images/3_of_hearts.png" class="card-img">
-          <img src="/images/3_of_spades.png" class="card-img">
+    <img src="/images/2_of_spades.png" id="2s">
+    <img src="/images/3_of_spades.png" id="3s">
+    <img src="/images/4_of_spades.png" id="4s">
+    <img src="/images/5_of_spades.png" id="5s">
+    <img src="/images/6_of_spades.png" id="6s">
+    <img src="/images/7_of_spades.png" id="7s">
+    <img src="/images/8_of_spades.png" id="8s">
+    <img src="/images/9_of_spades.png" id="9s">
+    <img src="/images/10_of_spades.png" id="10s">
+    <img src="/images/J_of_spades.png" id="Js">
+    <img src="/images/Q_of_spades.png" id="Qs">
+    <img src="/images/K_of_spades.png" id="Ks">
+    <img src="/images/A_of_spades.png" id="As">
 
-          <img src="/images/4_of_clubs.png" class="card-img">
-          <img src="/images/4_of_diamonds.png" class="card-img">
-          <img src="/images/4_of_hearts.png" class="card-img">
-          <img src="/images/4_of_spades.png" class="card-img">
+    <img src="/images/2_of_hearts.png" id="2h">
+    <img src="/images/3_of_hearts.png" id="3h">
+    <img src="/images/4_of_hearts.png" id="4h">
+    <img src="/images/5_of_hearts.png" id="5h">
+    <img src="/images/6_of_hearts.png" id="6h">
+    <img src="/images/7_of_hearts.png" id="7h">
+    <img src="/images/8_of_hearts.png" id="8h">
+    <img src="/images/9_of_hearts.png" id="9h">
+    <img src="/images/10_of_hearts.png" id="10h">
+    <img src="/images/J_of_hearts.png" id="Jh">
+    <img src="/images/Q_of_hearts.png" id="Qh">
+    <img src="/images/K_of_hearts.png" id="Kh">
+    <img src="/images/A_of_hearts.png" id="Ah">
+  </div>
 
-          <img src="/images/4_of_clubs.png" class="card-img">
-          <img src="/images/4_of_diamonds.png" class="card-img">
-          <img src="/images/4_of_hearts.png" class="card-img">
-          <img src="/images/4_of_spades.png" class="card-img">
+  <div class="table-container">
+    <!-- <div class="card">
+      <div class="card-front"> -->
+        <div class="board1">
 
-          <img src="/images/5_of_clubs.png" class="card-img">
-          <img src="/images/5_of_diamonds.png" class="card-img">
-          <img src="/images/5_of_hearts.png" class="card-img">
-          <img src="/images/5_of_spades.png" class="card-img">
-
-          <img src="/images/6_of_clubs.png" class="card-img">
-          <img src="/images/6_of_diamonds.png" class="card-img">
-          <img src="/images/6_of_hearts.png" class="card-img">
-          <img src="/images/6_of_spades.png" class="card-img">
-
-          <img src="/images/7_of_clubs.png" class="card-img">
-          <img src="/images/7_of_diamonds.png" class="card-img">
-          <img src="/images/7_of_hearts.png" class="card-img">
-          <img src="/images/7_of_spades.png" class="card-img">
-
-          <img src="/images/8_of_clubs.png" class="card-img">
-          <img src="/images/8_of_diamonds.png" class="card-img">
-          <img src="/images/8_of_hearts.png" class="card-img">
-          <img src="/images/8_of_spades.png" class="card-img">
-
-          <img src="/images/9_of_clubs.png" class="card-img">
-          <img src="/images/9_of_diamonds.png" class="card-img">
-          <img src="/images/9_of_hearts.png" class="card-img">
-          <img src="/images/9_of_spades.png" class="card-img">
-
-          <img src="/images/10_of_clubs.png" class="card-img">
-          <img src="/images/10_of_diamonds.png" class="card-img">
-          <img src="/images/10_of_hearts.png" class="card-img">
-          <img src="/images/10_of_spades.png" class="card-img">
-
-          <img src="/images/A_of_clubs.png" class="card-img">
-          <img src="/images/A_of_diamonds.png" class="card-img">
-          <img src="/images/A_of_hearts.png" class="card-img">
-          <img src="/images/A_of_spades.png" class="card-img">
-
-          <img src="/images/J_of_clubs.png" class="card-img">
-          <img src="/images/J_of_diamonds.png" class="card-img">
-          <img src="/images/J_of_hearts.png" class="card-img">
-          <img src="/images/J_of_spades.png" class="card-img">
-
-          <img src="/images/Q_of_clubs.png" class="card-img">
-          <img src="/images/Q_of_diamonds.png" class="card-img">
-          <img src="/images/Q_of_hearts.png" class="card-img">
-          <img src="/images/Q_of_spades.png" class="card-img">
-
-          <img src="/images/K_of_clubs.png" class="card-img">
-          <img src="/images/K_of_diamonds.png" class="card-img">
-          <img src="/images/K_of_hearts.png" class="card-img">
-          <img src="/images/K_of_spades.png" class="card-img">
         </div>
-        <div class="card-back">
-          <img src="/images/cardback.png" class="card-img-back">
+        <div class="board2">
+
         </div>
-      </div>
-    </div>
+        <div class="board3">
 
-    <!DOCTYPE html>
-    <html>
-    <head>
-    </head>
-    <body>
-
-    </body>
-    </html>
-
-    <main>
-      <div>
-        <div class="card">
-          <img src="/images" alt="">
         </div>
-      </div>
-    </main>
-  </body>
+        <div class="board4">
 
-</html> -->
-
-<!DOCTYPE html>
-<html lang="en">
-
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="./dist/main.css" />
-    <script src="./dist/main.js" defer></script>
-    <title>Poker Game</title>
-  </head>
-
-  <body id="body">
-    <header>
-
-      <div class="header-container">
-
-        <div id="personal-links">
-          <a href="https://github.com/FilbertBrit/JS-Project-POKER-BLACKJACK.git" target="_blank"><img src="./images/github-2.png"></a>
-          <a href=""><img src="./images/linkedin-2.png"></a>
         </div>
-        <div id="title">
-          <h1>Poker Pro</h1>
+        <div class="board5">
+
+        </div>
+        <div class="p1-1">
+
+        </div>
+        <div class="p1-2">
+
+        </div>
+        <div class="p1-3">
+
+        </div>
+        <div class="p1-4">
+
         </div>
 
-        <div id="controls">
-          <img src="./images/info.png" id="info-button">
-          <!-- <button>Start/pause</button>
-          <div id="start/pause"></div> -->
-          <!-- <img src="./images/sound-off.png" alt=""> -->
+        <div class="p2-1">
+
+        </div>
+        <div class="p2-2">
+
+        </div>
+        <div class="p2-3">
+
+        </div>
+        <div class="p2-4">
+
         </div>
 
-      </div>
+        <div class="p3-1">
 
-    </header>
+        </div>
+        <div class="p3-2">
 
-    <div class="board">
-      <div id="start-message">
-        <div id="start-button"></div>
-      </div>
+        </div>
+        <div class="p3-3">
 
-      <div class="questions">
-        <h3>questions</h3>
-      </div>
+        </div>
+        <div class="p3-4">
 
-      <div id="dealer-cards">
-        <!-- <h3>Dealer's Hand</h3>
-        <img id='hidden'src="./images/blank.png"> -->
-      </div>
+        </div>
 
-      <div id="scoring"></div>
+        <div class="p4-1">
 
-      <div id="players-hands">
-        <!-- <h3>Players</h3> -->
-      </div>
-        <!-- <canvas id="canvas" width="500" height="200"> -->
-        <!-- </canvas> -->
-    </div>
+        </div>
+        <div class="p4-2">
 
+        </div>
+        <div class="p4-3">
 
-  </body>
+        </div>
+        <div class="p4-4">
+
+        </div>
+
+        <div class="p5-1">
+
+        </div>
+        <div class="p5-2">
+
+        </div>
+        <div class="p5-3">
+
+        </div>
+        <div class="p5-4">
+
+        </div>
+
+        <div class="p6-1">
+
+        </div>
+        <div class="p6-2">
+
+        </div>
+        <div class="p6-3">
+
+        </div>
+        <div class="p6-4">
+
+        </div>
+  </div>
+</body>
+
 </html>
