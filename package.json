@@ -29,7 +29,6 @@
     "css-loader": "^6.8.1",
     "mini-css-extract-plugin": "^2.7.6",
     "poker-evaluator": "^2.0.5",
-    "poker-odds-calc": "github:siavashg87/poker-odds-calc",
     "regenerator-runtime": "^0.14.0",
     "sass": "^1.67.0",
     "sass-loader": "^13.3.2"

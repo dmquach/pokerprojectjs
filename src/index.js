@@ -1,6 +1,4 @@
 // import
-var PokerEvaluator = require("poker-evaluator");
-
 const cardIds = ['2c', '3c', '4c', '5c', '6c', '7c', '8c', '9c', '10c', 'Jc', 'Qc', 'Kc', 'Ac',
 '2d', '3d', '4d', '5d', '6d', '7d', '8d', '9d', '10d', 'Jd', 'Qd', 'Kd', 'Ad',
 '2s', '3s', '4s', '5s', '6s', '7s', '8s', '9s', '10s', 'Js', 'Qs', 'Ks', 'As',
@@ -55,7 +53,7 @@ function onBoard(card) {
 
 
 async function addToBoard(card) {
-    fullBoard = false;
+    let fullBoard = false;
     while (!fullBoard) {
         // place player cards first depending on player count
         for (let j = 1; j < numPlayers+1; j++) {
@@ -177,7 +175,7 @@ async function changeSrcToId(src) {
 }
 function playerHand() {
     // each player
-    const handCount = 0;
+    let handCount = 0;
     for (let i = 1; i < numPlayers + 1; i++) {
         for (let j = 1; j < 5; j++) {
             const replace = document.getElementById(`p${i}-${j}`)
@@ -190,8 +188,12 @@ function playerHand() {
         // if reaching here the hands are complete
         handCount += 1;
     }
+
     if (handCount > 1) {
         equityCalc()
     }
 }
 
+function equityCalc() {
+    return 100
+}
