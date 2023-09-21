@@ -403,6 +403,12 @@ main{
   grid-column: 4;
   grid-row: 10/13;
 }
+
+/* .hidden {
+  display: none;
+} */
+
+
 /*
 .card {
   position: absolute;

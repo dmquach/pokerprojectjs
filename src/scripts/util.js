@@ -8,7 +8,6 @@ PokerEvaluator.evalHand(["As", "Ks", "Qs", "Js", "Ts", "3c", "5h"]);
 //  handName: 'straight flush' }
 
 const a = PokerEvaluator.evalHand(["As", "Ac", "Ad", "8h", "8s"]);
-console.log(a)
 
 //{ handType: 7,
 //  handRank: 148,
