@@ -356,7 +356,7 @@ function equityCalc() {
             // }
         }
         const pl1 = document.getElementById(`p1`)
-        let eq = (Math.random() * 90).toFixed(2)
+        let eq = (Math.random() * (80-50) + 50).toFixed(2)
         pl1.textContent = `Equity = ${eq}%`
 
         const pl2 = document.getElementById(`p2`)
