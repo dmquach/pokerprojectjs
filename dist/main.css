@@ -182,7 +182,7 @@ main{
 }
 /* community cards */
 .table-container #cc {
-  grid-row: 6;
+  grid-row: 11;
   grid-column: 5/10;
   display: flex;
   text-align: center;
@@ -192,7 +192,7 @@ main{
 }
 
 .table-container #p1 {
-  grid-row: 16;
+  grid-row: 17;
   grid-column: 6/10;
   display: flex;
   text-align: center;
@@ -201,7 +201,7 @@ main{
   font-size: 30px;
 }
 .table-container #p2 {
-  grid-row: 13;
+  grid-row: 14;
   grid-column: 11/15;
   display: flex;
   text-align: center;
@@ -210,7 +210,7 @@ main{
   font-size: 30px;
 }
 .table-container #p3 {
-  grid-row: 6;
+  grid-row: 7;
   grid-column: 11/15;
   display: flex;
   text-align: center;
@@ -219,7 +219,7 @@ main{
   font-size: 30px;
 }
 .table-container #p4 {
-  grid-row: 4;
+  grid-row: 5;
   grid-column: 6/10;
   display: flex;
   text-align: center;
@@ -228,7 +228,7 @@ main{
   font-size: 30px;
 }
 .table-container #p5 {
-  grid-row: 6;
+  grid-row: 7;
   grid-column: 1/5;
   display: flex;
   text-align: center;
@@ -237,7 +237,7 @@ main{
   font-size: 30px;
 }
 .table-container #p6 {
-  grid-row: 13;
+  grid-row: 14;
   grid-column: 1/5;
   display: flex;
   text-align: center;
