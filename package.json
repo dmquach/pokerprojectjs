@@ -32,7 +32,9 @@
     "poker-odds-calc": "github:siavashg87/poker-odds-calc",
     "regenerator-runtime": "^0.14.0",
     "sass": "^1.67.0",
-    "sass-loader": "^13.3.2",
+    "sass-loader": "^13.3.2"
+  },
+  "devDependencies": {
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4"
   }

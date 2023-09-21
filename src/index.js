@@ -1,4 +1,6 @@
 // import
+var PokerEvaluator = require("poker-evaluator");
+
 const cardIds = ['2c', '3c', '4c', '5c', '6c', '7c', '8c', '9c', '10c', 'Jc', 'Qc', 'Kc', 'Ac',
 '2d', '3d', '4d', '5d', '6d', '7d', '8d', '9d', '10d', 'Jd', 'Qd', 'Kd', 'Ad',
 '2s', '3s', '4s', '5s', '6s', '7s', '8s', '9s', '10s', 'Js', 'Qs', 'Ks', 'As',
@@ -14,12 +16,17 @@ const boardIds = [
     'p6-1', 'p6-2', 'p6-3', 'p6-4'
 ];
 
+
+
+const numPlayers = 2
+
 cardIds.forEach(cardId => {
     const card = document.getElementById(cardId);
 
     card.addEventListener("click", async (e) => {
         if (!onBoard(card)) {
             await addToBoard(card);
+            playerHand();
         }
     })
 })
@@ -30,6 +37,7 @@ boardIds.forEach(boardId => {
     board.addEventListener("click", async (e) => {
         if (!board.src.endsWith("/images/cardback.png")) {
             await removeFromBoard(board);
+            playerHand();
         }
     })
 })
@@ -49,7 +57,17 @@ function onBoard(card) {
 async function addToBoard(card) {
     fullBoard = false;
     while (!fullBoard) {
-        
+        // place player cards first depending on player count
+        for (let j = 1; j < numPlayers+1; j++) {
+            for (let m = 1; m < 5; m++) {
+                const replace = document.getElementById(`p${j}-${m}`)
+                if (replace.src.endsWith("/images/cardback.png")) {
+                    replace.src = card.src
+                    card.src = "./images/cardback.png";
+                    break
+                }
+            }
+        }
         for (let i = 1; i < 6; i++) {
             // replace is the board position
             const replace = document.getElementById(`board${i}`)
@@ -157,3 +175,23 @@ async function changeSrcToId(src) {
     }
     return `${val}${suit}`
 }
+function playerHand() {
+    // each player
+    const handCount = 0;
+    for (let i = 1; i < numPlayers + 1; i++) {
+        for (let j = 1; j < 5; j++) {
+            const replace = document.getElementById(`p${i}-${j}`)
+            if (replace.src.endsWith("/images/cardback.png")) {
+                const player = document.getElementById(`p${i}`)
+                player.textContent = "incomplete hand"
+                break
+            }
+        }
+        // if reaching here the hands are complete
+        handCount += 1;
+    }
+    if (handCount > 1) {
+        equityCalc()
+    }
+}
+
