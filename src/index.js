@@ -20,8 +20,16 @@ cardIds.forEach(cardId => {
     card.addEventListener("click", async (e) => {
         if (!onBoard(card)) {
             await addToBoard(card);
-        } else {
-            await removeFromBoard(card);
+        }
+    })
+})
+
+boardIds.forEach(boardId => {
+    const board = document.getElementById(boardId);
+
+    board.addEventListener("click", async (e) => {
+        if (!board.src.endsWith("/images/cardback.png")) {
+            await removeFromBoard(board);
         }
     })
 })
@@ -41,6 +49,7 @@ function onBoard(card) {
 async function addToBoard(card) {
     fullBoard = false;
     while (!fullBoard) {
+        
         for (let i = 1; i < 6; i++) {
             // replace is the board position
             const replace = document.getElementById(`board${i}`)
@@ -54,17 +63,27 @@ async function addToBoard(card) {
     }
 }
 
-async function removeFromBoard(card) {
-    const src = await changeIdToSrc(`${card.id}`)
-    for (let i = 1; i < 6; i++) {
-        if (replace.src.endsWith("/images/cardback.png")) {
-            card.src = src;
-            const replace = document.getElementById(`board${i}`)
-            replace.src = "./images/cardback.png"
-            break
-        }
-    }
+async function removeFromBoard(board) {
+    const src = board.src
+    const id = await changeSrcToId(src)
+    const replace = document.getElementById(`${id}`)
+    board.src = "./images/cardback.png"
+    replace.src = src
+
 }
+
+// async function removeFromBoard(card) {
+//     console.log(card)
+//     const src = await changeIdToSrc(`${card.id}`)
+//     for (let i = 1; i < 6; i++) {
+//         const replace = document.getElementById(`board${i}`)
+//         if (replace.src.endsWith("/images/cardback.png")) {
+//             card.src = src;
+//             replace.src = "./images/cardback.png"
+//             break
+//         }
+//     }
+// }
 
 async function changeIdToSrc(id) {
     let v;
@@ -89,4 +108,52 @@ async function changeIdToSrc(id) {
         suit = "hearts"
     }
     return `./images/${v}_of_${suit}.png`
+}
+
+async function changeSrcToId(src) {
+    let suit;
+    let val;
+    let word;
+    if (src.includes('spades')) {
+        suit = "s"
+        word = src.slice(-16)
+    } else if (src.includes('diamonds')) {
+        suit = "d"
+        word = src.slice(-18)
+    } else if (src.includes('hearts')) {
+        suit = "h"
+        word = src.slice(-16)
+    } else if (src.includes('clubs')) {
+        suit = "c"
+        word = src.slice(-15)
+    }
+
+    if (word.includes('2')) {
+        val = "2"
+    } else if (word.includes('3')) {
+        val = "3"
+    } else if (word.includes('4')) {
+        val = "4"
+    } else if (word.includes('5')) {
+        val = "5"
+    } else if (word.includes('6')) {
+        val = "6"
+    } else if (word.includes('7')) {
+        val = "7"
+    } else if (word.includes('8')) {
+        val = "8"
+    } else if (word.includes('9')) {
+        val = "9"
+    } else if (word.includes('10')) {
+        val = "10"
+    } else if (word.includes('J')) {
+        val = "J"
+    } else if (word.includes('Q')) {
+        val = "Q"
+    } else if (word.includes('K')) {
+        val = "K"
+    } else if (word.includes('A')) {
+        val = "A"
+    }
+    return `${val}${suit}`
 }
