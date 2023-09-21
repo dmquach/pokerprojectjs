@@ -356,10 +356,12 @@ function equityCalc() {
             // }
         }
         const pl1 = document.getElementById(`p1`)
-        pl1.textContent = `Equity = ${Math.random() * (1400) / 2000}`
+        let eq = (Math.random() * 90).toFixed(2)
+        pl1.textContent = `Equity = ${eq}%`
 
         const pl2 = document.getElementById(`p2`)
-        pl2.textContent = `Equity = ${Math.random() * (600) / 2000}`
+        let eq2 = (100 - eq).toFixed(2)
+        pl2.textContent = `Equity = ${eq2}%`
     }
 }
 

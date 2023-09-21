@@ -423,3 +423,8 @@ h1 {
   margin-left: 500px;
   margin-right: 500px;
 }
+
+h4 {
+  width: 100%;
+  text-align: center;
+}
