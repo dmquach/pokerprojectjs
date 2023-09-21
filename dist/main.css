@@ -408,7 +408,7 @@ a {
   max-width: 10%;
 }
 a img {
-  display:inline;
+  display:inline-block;
   width: 50px;
   height: 40px;
   border: 2px solid #000;
@@ -418,6 +418,8 @@ a img {
 }
 
 h1 {
-  display: flex;
+  display: inline-block;
   text-align: center;
+  margin-left: 500px;
+  margin-right: 500px;
 }
