@@ -10,17 +10,10 @@
     "start": "webpack --watch --mode=development",
     "build": "webpack --mode=production"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dmquach/pokerprojectjs.git"
-  },
+
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/dmquach/pokerprojectjs/issues"
-  },
-  "homepage": "https://github.com/dmquach/pokerprojectjs#readme",
   "dependencies": {
     "@babel/core": "^7.22.19",
     "@babel/preset-env": "^7.22.15",
@@ -28,7 +21,6 @@
     "core-js": "^3.32.2",
     "css-loader": "^6.8.1",
     "mini-css-extract-plugin": "^2.7.6",
-    "poker-evaluator": "^2.0.5",
     "regenerator-runtime": "^0.14.0",
     "sass": "^1.67.0",
     "sass-loader": "^13.3.2"
