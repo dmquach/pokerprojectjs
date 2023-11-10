@@ -27,8 +27,6 @@ Deck.prototype.addClickCards = function () {
             // if in deck and no next part highlighted
             if (this.cardDeck[card.id] === "deck") {
                 this.addToBoard(card.id)
-            } else {
-                this.returnToDeck(card.id)
             }
         })
     }
@@ -77,6 +75,7 @@ Deck.prototype.addToBoard = function (cardKey) {
 Deck.prototype.removeFromBoard = function (boardKey) {
     // boardKey = p1-1
     const changePos = document.getElementById(boardKey);
+    console.log(boardKey, changePos)
     const tempSrc = changePos.src;
 
     this.boardPos[changePos.id] = 'open'
@@ -93,6 +92,7 @@ Deck.prototype.removeFromBoard = function (boardKey) {
 Deck.prototype.changeSrcToId = function (src) {
     let val;
     let word;
+    let suit;
     if (src.includes('spades')) {
         suit = "s"
         word = src.slice(-16)
