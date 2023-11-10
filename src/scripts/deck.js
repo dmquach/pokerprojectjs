@@ -34,18 +34,19 @@ Deck.prototype.addClickCards = function () {
     }
 }
 
-Game.prototype.addClickBoard = function () {
+Deck.prototype.addClickBoard = function () {
     for (let pos in this.boardPos) {
         const newPos = document.getElementById(pos);
+        if (pos !== 'highlight') {
+            newPos.addEventListener("click", () => {
+                if (this.boardPos[newPos.id] === '') {
+                    this.boardPos['highlight'] = newPos.id
+                } else {
+                    this.removeFromBoard(newPos.id)
+                }
+            })
+        }
         // newPos.id = p1-1
-        newPos.addEventListener("click", () => {
-            if (this.boardPos[newPos.id] === '') {
-                this.boardPos['highlight'] = newPos.id
-            } else {
-                this.removeFromBoard(newPos.id)
-            }
-        })
-
     }
 }
 
@@ -62,7 +63,7 @@ Deck.prototype.addToBoard = function (cardKey) {
                 const changePos = document.getElementById(pos);
                 const tempSrc = changePos.src;
                 //  <img src="./images/2_of_hearts.png" id="2h">
-                const changeCard = document.getElementById(key);
+                const changeCard = document.getElementById(cardKey);
                 changePos.src = changeCard.src;
                 changeCard.src = tempSrc;
                 return console.log("switched")
@@ -135,3 +136,31 @@ Deck.prototype.changeSrcToId = function (src) {
     }
     return `${val}${suit}`
 }
+
+Deck.prototype.changeIdToSrc = function (id) {
+    let v;
+    let s;
+
+    if (id.length == 2) {
+        v = id[0]
+        s = id[1]
+    } else {
+        v = 10
+        s = id[2]
+    }
+
+    let suit;
+    if (s == "c") {
+        suit = "clubs"
+    } else if (s == "d") {
+        suit = "diamonds"
+    } else if (s == "s") {
+        suit = "spades"
+    } else if (s == "h") {
+        suit = "hearts"
+    }
+    return `./images/${v}_of_${suit}.png`
+}
+
+
+export { Deck };
