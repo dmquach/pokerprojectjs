@@ -34,13 +34,18 @@ Deck.prototype.addClickCards = function () {
 
 Deck.prototype.addClickBoard = function () {
     for (let pos in this.boardPos) {
-        const newPos = document.getElementById(pos);
         if (pos !== 'highlight') {
-            newPos.addEventListener("click", () => {
-                if (this.boardPos[newPos.id] === '') {
-                    this.boardPos['highlight'] = newPos.id
+            const newPos = document.getElementById(pos);
+            console.log(this.boardPos[newPos.id])
+            newPos.addEventListener("click", (e) => {
+                if (this.boardPos[e.target.id] === 'open') {
+                    console.log('eacher')
+                    this.boardPos['highlight'] = e.target.id
+                    console.log("test: ", this.boardPos)
+                } else if (this.boardPos[e.target.id] === '') {
+                    console.log("should skip")
                 } else {
-                    this.removeFromBoard(newPos.id)
+                    this.removeFromBoard(e.target.id)
                 }
             })
         }
@@ -49,7 +54,7 @@ Deck.prototype.addClickBoard = function () {
 }
 
 Deck.prototype.addToBoard = function (cardKey) {
-    // add card to board
+    // add card to board Qh
     if (this.boardPos['highlight'] === '') {
         for (let pos in this.boardPos) {
             if (this.boardPos[pos] === 'open') {
@@ -64,18 +69,30 @@ Deck.prototype.addToBoard = function (cardKey) {
                 const changeCard = document.getElementById(cardKey);
                 changePos.src = changeCard.src;
                 changeCard.src = tempSrc;
-                return console.log("switched")
+                this.boardPos['highlight'] = ''
+                return console.log("finished")
             }
         }
         // if none open
         return console.log("no open spaces")
+    } else {
+        this.boardPos[this.boardPos['highlight']] = 'taken'
+        this.cardDeck[cardKey] = 'board'
+        //  <img src="./images/cardback.png" id="p1-1">
+        const changePos = document.getElementById(this.boardPos['highlight']);
+        const tempSrc = changePos.src;
+        //  <img src="./images/2_of_hearts.png" id="2h">
+        const changeCard = document.getElementById(cardKey);
+        changePos.src = changeCard.src;
+        changeCard.src = tempSrc;
+        this.boardPos['highlight'] = ''
+        return console.log("switched highlighted area")
     }
 }
 
 Deck.prototype.removeFromBoard = function (boardKey) {
     // boardKey = p1-1
     const changePos = document.getElementById(boardKey);
-    console.log(boardKey, changePos)
     const tempSrc = changePos.src;
 
     this.boardPos[changePos.id] = 'open'
