@@ -18,7 +18,9 @@ function Deck () {
     this.numPlayers = 2
     this.addClickCards()
     this.addClickBoard()
+    this._initialBorder()
 }
+
 
 Deck.prototype.addClickCards = function () {
     for (let key in this.cardDeck) {
@@ -36,16 +38,15 @@ Deck.prototype.addClickBoard = function () {
     for (let pos in this.boardPos) {
         if (pos !== 'highlight') {
             const newPos = document.getElementById(pos);
-            console.log(this.boardPos[newPos.id])
             newPos.addEventListener("click", (e) => {
                 if (this.boardPos[e.target.id] === 'open') {
-                    console.log('eacher')
-                    this.boardPos['highlight'] = e.target.id
-                    console.log("test: ", this.boardPos)
-                } else if (this.boardPos[e.target.id] === '') {
-                    console.log("should skip")
-                } else {
+                    this._removeBorder()
+                    this._addBorder(e.target)
+                } else if (!(this.boardPos[e.target.id] === '')) {
                     this.removeFromBoard(e.target.id)
+                    this._addBorder(e.target)
+                } else {
+                    console.log("add player first!")
                 }
             })
         }
@@ -56,24 +57,24 @@ Deck.prototype.addClickBoard = function () {
 Deck.prototype.addToBoard = function (cardKey) {
     // add card to board Qh
     if (this.boardPos['highlight'] === '') {
-        for (let pos in this.boardPos) {
-            if (this.boardPos[pos] === 'open') {
-                // pos = first open pos p1-1
-                // cardKey = "2c"
-                this.boardPos[pos] = 'taken'
-                this.cardDeck[cardKey] = 'board'
-                //  <img src="./images/cardback.png" id="p1-1">
-                const changePos = document.getElementById(pos);
-                const tempSrc = changePos.src;
-                //  <img src="./images/2_of_hearts.png" id="2h">
-                const changeCard = document.getElementById(cardKey);
-                changePos.src = changeCard.src;
-                changeCard.src = tempSrc;
-                this.boardPos['highlight'] = ''
-                return console.log("finished")
-            }
-        }
-        // if none open
+        // for (let pos in this.boardPos) {
+        //     if (this.boardPos[pos] === 'open') {
+        //         // pos = first open pos p1-1
+        //         // cardKey = "2c"
+        //         this.boardPos[pos] = 'taken'
+        //         this.cardDeck[cardKey] = 'board'
+        //         //  <img src="./images/cardback.png" id="p1-1">
+        //         const changePos = document.getElementById(pos);
+        //         const tempSrc = changePos.src;
+        //         //  <img src="./images/2_of_hearts.png" id="2h">
+        //         const changeCard = document.getElementById(cardKey);
+        //         changePos.src = changeCard.src;
+        //         changeCard.src = tempSrc;
+        //         this.boardPos['highlight'] = ''
+        //         return console.log("finished")
+        //     }
+        // }
+        // // if none open
         return console.log("no open spaces")
     } else {
         this.boardPos[this.boardPos['highlight']] = 'taken'
@@ -85,7 +86,7 @@ Deck.prototype.addToBoard = function (cardKey) {
         const changeCard = document.getElementById(cardKey);
         changePos.src = changeCard.src;
         changeCard.src = tempSrc;
-        this.boardPos['highlight'] = ''
+        this._createNextBorder()
         return console.log("switched highlighted area")
     }
 }
@@ -179,5 +180,31 @@ Deck.prototype.changeIdToSrc = function (id) {
     return `./images/${v}_of_${suit}.png`
 }
 
+Deck.prototype._addBorder = function (pos) {
+    this._removeBorder()
+    this.boardPos['highlight'] = pos.id
+    pos.style.border = '2px solid red';
+}
 
-export { Deck };
+Deck.prototype._removeBorder = function() {
+    const prevBorder = document.getElementById(this.boardPos['highlight'])
+    if (prevBorder) prevBorder.removeAttribute('style')
+    // this._createNextBorder()
+}
+
+Deck.prototype._createNextBorder = function() {
+    for (let pos in this.boardPos) {
+        if (this.boardPos[pos] === 'open') {
+            const nextBorder = document.getElementById(pos)
+            return this._addBorder(nextBorder)
+        }
+        // newPos.id = p1-1
+    }
+}
+
+Deck.prototype._initialBorder = function () {
+    const initial = document.getElementById('p1-1');
+    this._addBorder(initial)
+}
+
+export { Deck }
