@@ -1,8 +1,6 @@
-import { winner } from "./scripts/card.js";
-import { remainingDeck } from "./scripts/card.js";
-import { Deck } from "./scripts/deck.js";
+import { Game } from "./scripts/game.js";
 
-const deck = new Deck()
+const game = new Game()
 
 // function playerHand() {
 //     // each player

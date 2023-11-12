@@ -15,7 +15,6 @@ function Deck () {
         'board1': 'open', 'board2': 'open', 'board3': 'open', 'board4': 'open', 'board5': 'open',
         'highlight': ''
     }
-    this.numPlayers = 2
     this.addClickCards()
     this.addClickBoard()
     this._initialBorder()
@@ -57,24 +56,6 @@ Deck.prototype.addClickBoard = function () {
 Deck.prototype.addToBoard = function (cardKey) {
     // add card to board Qh
     if (this.boardPos['highlight'] === '') {
-        // for (let pos in this.boardPos) {
-        //     if (this.boardPos[pos] === 'open') {
-        //         // pos = first open pos p1-1
-        //         // cardKey = "2c"
-        //         this.boardPos[pos] = 'taken'
-        //         this.cardDeck[cardKey] = 'board'
-        //         //  <img src="./images/cardback.png" id="p1-1">
-        //         const changePos = document.getElementById(pos);
-        //         const tempSrc = changePos.src;
-        //         //  <img src="./images/2_of_hearts.png" id="2h">
-        //         const changeCard = document.getElementById(cardKey);
-        //         changePos.src = changeCard.src;
-        //         changeCard.src = tempSrc;
-        //         this.boardPos['highlight'] = ''
-        //         return console.log("finished")
-        //     }
-        // }
-        // // if none open
         return console.log("no open spaces")
     } else {
         this.boardPos[this.boardPos['highlight']] = 'taken'
