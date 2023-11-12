@@ -25,11 +25,15 @@ Deck.prototype.addClickCards = function () {
         card.addEventListener("click", () => {
             // if in deck and no next part highlighted
             if (this.cardDeck[card.id] === "deck") {
+                const player = this.board._getHighlightedPos()
+                if (player !== -1) this[player].addToHand(card.id)
                 this.board.addToBoard(card.id)
                 // add this.playerH
             }
         })
     }
 }
+
+Deck.prototype.getHigh
 
 export { Deck }

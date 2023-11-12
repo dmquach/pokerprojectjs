@@ -155,6 +155,8 @@ Board.prototype._removeBorder = function() {
 }
 
 Board.prototype._createNextBorder = function() {
+    // FIX: make next border go to next part of the hand
+
     for (let pos in this.boardPos) {
         if (this.boardPos[pos] === 'open') {
             const nextBorder = document.getElementById(pos)
@@ -167,6 +169,16 @@ Board.prototype._createNextBorder = function() {
 Board.prototype._initialBorder = function () {
     const initial = document.getElementById('p1-1');
     this._addBorder(initial)
+}
+
+Board.prototype._getHighlightedPos = function () {
+    const pos = this.boardPos.highlight
+    if (pos[0] === 'p') {
+        // returns player
+        return pos.slice(0, 2)
+    } else {
+        return -1
+    }
 }
 
 export { Board }
