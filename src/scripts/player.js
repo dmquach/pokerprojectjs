@@ -4,17 +4,14 @@ function Player(active, playerNum, deck) {
     this.active = active
 }
 
-Player.prototype.activate = function () {
-    this.active = true
-}
-
 Player.prototype.setDeck = function (deck) {
     this.deck = deck
     this.addPlayerButton()
 }
 
-
-// Player.prototype.addPlayer
+Player.prototype.activate = function () {
+    this.active = !this.active
+}
 
 Player.prototype.addPlayerButton = function () {
     const player = document.getElementById(this.playerNum)
@@ -22,29 +19,13 @@ Player.prototype.addPlayerButton = function () {
         if (!this.active) {
             this.activate()
             this.deck.board._addPlayers(this.playerNum)
+            this.deck.board._createNewPlayerBorder
+        } else {
+            // FIX: Add different icon buttons when changed
+            this.activate()
+            this.deck.board._removePlayers(this.playerNum)
         }
     })
-}
-
-// CREATE EVENT LISTENER WHICH IN TURN REMOVES EVENT LISTENER
-
-// Deck.prototype.addClickCards = function () {
-//     for (let key in this.cardDeck) {
-//         const card = document.getElementById(key);
-//         card.addEventListener("click", () => {
-//             // if in deck and no next part highlighted
-//             if (this.cardDeck[card.id] === "deck") {
-//                 const player = this.board._getHighlightedPos()
-//                 if (player !== -1) this[player].addToHand(card.id)
-//                 this.board.addToBoard(card.id)
-//                 // add this.playerH
-//             }
-//         })
-//     }
-// }
-
-Player.prototype.removePlayerButton = function () {
-
 }
 
 Player.prototype.addToHand = function (card) {

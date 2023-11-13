@@ -36,7 +36,7 @@ Board.prototype.addClickBoard = function () {
 
 Board.prototype.addToBoard = function (cardKey) {
     // add card to board Qh
-    if (this.boardPos['highlight'] === '') {
+    if (this.boardPos['highlight'] === 'taken') {
         return console.log("no open spaces")
     } else {
         this.boardPos[this.boardPos['highlight']] = 'taken'
@@ -49,7 +49,6 @@ Board.prototype.addToBoard = function (cardKey) {
         changePos.src = changeCard.src;
         changeCard.src = tempSrc;
         this._createNextBorder()
-        return console.log("switched highlighted area")
     }
 }
 
@@ -66,7 +65,6 @@ Board.prototype.removeFromBoard = function (boardKey) {
     const changeCard = document.getElementById(cardKey);
     changePos.src = changeCard.src;
     changeCard.src = tempSrc;
-    return console.log("switched")
 }
 
 Board.prototype.changeSrcToId = function (src) {
@@ -156,15 +154,19 @@ Board.prototype._removeBorder = function() {
 
 Board.prototype._createNextBorder = function() {
     // FIX: make next border go to next part of the hand
-    // FIX: when board full dont add new cards
-
     for (let pos in this.boardPos) {
         if (this.boardPos[pos] === 'open') {
             const nextBorder = document.getElementById(pos)
             return this._addBorder(nextBorder)
         }
-        // newPos.id = p1-1
     }
+    // if no open spaces
+    this._removeBorder()
+    this.boardPos.highlight = 'taken'
+}
+
+Board.prototype._createNewPlayerBorder = function () {
+
 }
 
 Board.prototype._initialBorder = function () {
@@ -187,6 +189,16 @@ Board.prototype._addPlayers = function (playerNum) {
     for (let key in this.boardPos) {
         if (key[1] === playerNum[1]) {
             this.boardPos[key] = 'open'
+        }
+    }
+}
+
+Board.prototype._removePlayers = function (playerNum) {
+    //p1 boardPos[0-3], p2 [4-7]
+    for (let key in this.boardPos) {
+        if (key[1] === playerNum[1]) {
+            if (this.boardPos[key] !== 'open') this.removeFromBoard(key)
+            this.boardPos[key] = ''
         }
     }
 }
