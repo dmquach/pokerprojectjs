@@ -156,6 +156,7 @@ Board.prototype._removeBorder = function() {
 
 Board.prototype._createNextBorder = function() {
     // FIX: make next border go to next part of the hand
+    // FIX: when board full dont add new cards
 
     for (let pos in this.boardPos) {
         if (this.boardPos[pos] === 'open') {
@@ -178,6 +179,15 @@ Board.prototype._getHighlightedPos = function () {
         return pos.slice(0, 2)
     } else {
         return -1
+    }
+}
+
+Board.prototype._addPlayers = function (playerNum) {
+    //p1 boardPos[0-3], p2 [4-7]
+    for (let key in this.boardPos) {
+        if (key[1] === playerNum[1]) {
+            this.boardPos[key] = 'open'
+        }
     }
 }
 

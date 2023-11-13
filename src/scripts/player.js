@@ -1,22 +1,32 @@
-function Player(active, playerNum) {
+function Player(active, playerNum, deck) {
     this.playerHand = []
     this.playerNum = playerNum
     this.active = active
-    this.addPlayerButton()
 }
 
 Player.prototype.activate = function () {
-    this.active = !this.active
+    this.active = true
 }
 
-Player.prototype.addPlayer
+Player.prototype.setDeck = function (deck) {
+    this.deck = deck
+    this.addPlayerButton()
+}
+
+
+// Player.prototype.addPlayer
 
 Player.prototype.addPlayerButton = function () {
     const player = document.getElementById(this.playerNum)
     player.addEventListener("click", () => {
-        this.activate()
+        if (!this.active) {
+            this.activate()
+            this.deck.board._addPlayers(this.playerNum)
+        }
     })
 }
+
+// CREATE EVENT LISTENER WHICH IN TURN REMOVES EVENT LISTENER
 
 // Deck.prototype.addClickCards = function () {
 //     for (let key in this.cardDeck) {
