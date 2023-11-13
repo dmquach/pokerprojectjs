@@ -19,9 +19,10 @@ Player.prototype.addPlayerButton = function () {
         if (!this.active) {
             this.activate()
             this.deck.board._addPlayers(this.playerNum)
-            this.deck.board._createNewPlayerBorder
+            this.deck.board._createNewPlayerBorder(this.playerNum)
         } else {
             // FIX: Add different icon buttons when changed
+            // FIX: remove border when player removed
             this.activate()
             this.deck.board._removePlayers(this.playerNum)
         }

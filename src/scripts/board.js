@@ -7,7 +7,7 @@ function Board (deck) {
         'p5-1': '', 'p5-2': '', 'p5-3': '', 'p5-4': '',
         'p6-1': '', 'p6-2': '', 'p6-3': '', 'p6-4': '',
         'board1': 'open', 'board2': 'open', 'board3': 'open', 'board4': 'open', 'board5': 'open',
-        'highlight': ''
+        'highlight': 'p1-1'
     }
     this.deck = deck
     this.addClickBoard()
@@ -36,9 +36,10 @@ Board.prototype.addClickBoard = function () {
 
 Board.prototype.addToBoard = function (cardKey) {
     // add card to board Qh
-    if (this.boardPos['highlight'] === 'taken') {
+    if (this.boardPos['highlight'] === '') {
         return console.log("no open spaces")
     } else {
+        console.log(this.boardPos)
         this.boardPos[this.boardPos['highlight']] = 'taken'
         this.deck.cardDeck[cardKey] = 'board'
         //  <img src="./images/cardback.png" id="p1-1">
@@ -149,6 +150,7 @@ Board.prototype._addBorder = function (pos) {
 Board.prototype._removeBorder = function() {
     const prevBorder = document.getElementById(this.boardPos['highlight'])
     if (prevBorder) prevBorder.removeAttribute('style')
+    this.boardPos.highlight = ''
     // this._createNextBorder()
 }
 
@@ -162,11 +164,12 @@ Board.prototype._createNextBorder = function() {
     }
     // if no open spaces
     this._removeBorder()
-    this.boardPos.highlight = 'taken'
+    this.boardPos.highlight = ''
 }
 
-Board.prototype._createNewPlayerBorder = function () {
-
+Board.prototype._createNewPlayerBorder = function (playerNum) {
+    const nextBorder = document.getElementById(`${playerNum}-1`)
+    this._addBorder(nextBorder)
 }
 
 Board.prototype._initialBorder = function () {
@@ -199,6 +202,7 @@ Board.prototype._removePlayers = function (playerNum) {
         if (key[1] === playerNum[1]) {
             if (this.boardPos[key] !== 'open') this.removeFromBoard(key)
             this.boardPos[key] = ''
+            this._createNextBorder()
         }
     }
 }
