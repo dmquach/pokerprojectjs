@@ -1,4 +1,4 @@
-function Player(active, playerNum, deck) {
+function Player(active, playerNum) {
     this.playerHand = []
     this.playerNum = playerNum
     this.active = active
@@ -11,6 +11,11 @@ Player.prototype.setDeck = function (deck) {
 
 Player.prototype.activate = function () {
     this.active = !this.active
+}
+
+Player.prototype.handLength = function () {
+    const length = this.playerHand.length
+    return length
 }
 
 Player.prototype.addPlayerButton = function () {
@@ -31,6 +36,10 @@ Player.prototype.addPlayerButton = function () {
 
 Player.prototype.addToHand = function (card) {
     this.playerHand.push(card)
+}
+
+Player.prototype.handFull = function () {
+    return this.playerHand.length === 4
 }
 
 export { Player }

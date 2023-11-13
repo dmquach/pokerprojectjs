@@ -39,3 +39,5 @@ NB:
 # Bonus features
 * add possible nut hands (best possible hand) on the board
 * add No Limit Holdem support
+* add dead cards
+* add message to add players

@@ -34,12 +34,11 @@ Board.prototype.addClickBoard = function () {
     }
 }
 
-Board.prototype.addToBoard = function (cardKey) {
+Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
     // add card to board Qh
     if (this.boardPos['highlight'] === '') {
-        return console.log("no open spaces")
+
     } else {
-        console.log(this.boardPos)
         this.boardPos[this.boardPos['highlight']] = 'taken'
         this.deck.cardDeck[cardKey] = 'board'
         //  <img src="./images/cardback.png" id="p1-1">
@@ -49,7 +48,7 @@ Board.prototype.addToBoard = function (cardKey) {
         const changeCard = document.getElementById(cardKey);
         changePos.src = changeCard.src;
         changeCard.src = tempSrc;
-        this._createNextBorder()
+        this._createNextBorder(playerNum)
     }
 }
 
@@ -68,6 +67,95 @@ Board.prototype.removeFromBoard = function (boardKey) {
     changeCard.src = tempSrc;
 }
 
+
+
+Board.prototype._addBorder = function (pos) {
+    this._removeBorder()
+    this.boardPos['highlight'] = pos.id
+    pos.style.border = '2px solid red';
+}
+
+Board.prototype._removeBorder = function() {
+    const prevBorder = document.getElementById(this.boardPos['highlight'])
+    if (prevBorder) prevBorder.removeAttribute('style')
+    this.boardPos.highlight = ''
+// this._createNextBorder()
+}
+
+Board.prototype._createNextBorder = function(playerNum = 0) {
+    // playerNum should tell what player to make next border for
+    // 0 means add to next available space
+    // -1 means add to board
+    // num means add to that player
+    if(playerNum > 0 && this.deck['p' + playerNum].handLength() === 4) {
+        for (let pos in this.boardPos) {
+            if (this.boardPos[pos] === 'open') {
+                const nextBorder = document.getElementById(pos)
+                return this._addBorder(nextBorder)
+            }
+        }
+    } else if (playerNum === -1) {
+        for (let pos in this.boardPos) {
+            if (pos[0] === 'b' && this.boardPos[pos] === 'open') {
+                const nextBorder = document.getElementById(pos)
+                return this._addBorder(nextBorder)
+            }
+        }
+    } else if (playerNum !== 0) {
+        for (let pos in this.boardPos) {
+            if (Number(pos[1]) === playerNum && this.boardPos[pos] === 'open') {
+                const nextBorder = document.getElementById(pos)
+                return this._addBorder(nextBorder)
+            }
+        }
+    }
+    // if no open spaces
+    this._removeBorder()
+    this.boardPos.highlight = ''
+    // -1 when no empty spaces
+    return -1
+}
+
+
+Board.prototype._createNewPlayerBorder = function (playerNum) {
+    const nextBorder = document.getElementById(`${playerNum}-1`)
+    this._addBorder(nextBorder)
+}
+
+Board.prototype._initialBorder = function () {
+    const initial = document.getElementById('p1-1');
+    this._addBorder(initial)
+}
+
+Board.prototype._getHighlightedPos = function () {
+    const pos = this.boardPos.highlight
+    if (pos[0] === 'p') {
+        // returns player
+        return pos.slice(0, 2)
+    } else {
+        return -1
+    }
+}
+
+Board.prototype._addPlayers = function (playerNum) {
+    //p1 boardPos[0-3], p2 [4-7]
+    for (let key in this.boardPos) {
+        if (key[1] === playerNum[1]) {
+            this.boardPos[key] = 'open'
+        }
+    }
+}
+
+Board.prototype._removePlayers = function (playerNum) {
+    //p1 boardPos[0-3], p2 [4-7]
+    for (let key in this.boardPos) {
+        if (key[1] === playerNum[1]) {
+            if (this.boardPos[key] !== 'open') this.removeFromBoard(key)
+            this.boardPos[key] = ''
+        this._createNextBorder()
+    }
+}
+}
 Board.prototype.changeSrcToId = function (src) {
     let val;
     let word;
@@ -139,72 +227,6 @@ Board.prototype.changeIdToSrc = function (id) {
         suit = "hearts"
     }
     return `./images/${v}_of_${suit}.png`
-}
-
-Board.prototype._addBorder = function (pos) {
-    this._removeBorder()
-    this.boardPos['highlight'] = pos.id
-    pos.style.border = '2px solid red';
-}
-
-Board.prototype._removeBorder = function() {
-    const prevBorder = document.getElementById(this.boardPos['highlight'])
-    if (prevBorder) prevBorder.removeAttribute('style')
-    this.boardPos.highlight = ''
-    // this._createNextBorder()
-}
-
-Board.prototype._createNextBorder = function() {
-    // FIX: make next border go to next part of the hand
-    for (let pos in this.boardPos) {
-        if (this.boardPos[pos] === 'open') {
-            const nextBorder = document.getElementById(pos)
-            return this._addBorder(nextBorder)
-        }
-    }
-    // if no open spaces
-    this._removeBorder()
-    this.boardPos.highlight = ''
-}
-
-Board.prototype._createNewPlayerBorder = function (playerNum) {
-    const nextBorder = document.getElementById(`${playerNum}-1`)
-    this._addBorder(nextBorder)
-}
-
-Board.prototype._initialBorder = function () {
-    const initial = document.getElementById('p1-1');
-    this._addBorder(initial)
-}
-
-Board.prototype._getHighlightedPos = function () {
-    const pos = this.boardPos.highlight
-    if (pos[0] === 'p') {
-        // returns player
-        return pos.slice(0, 2)
-    } else {
-        return -1
-    }
-}
-
-Board.prototype._addPlayers = function (playerNum) {
-    //p1 boardPos[0-3], p2 [4-7]
-    for (let key in this.boardPos) {
-        if (key[1] === playerNum[1]) {
-            this.boardPos[key] = 'open'
-        }
-    }
-}
-
-Board.prototype._removePlayers = function (playerNum) {
-    //p1 boardPos[0-3], p2 [4-7]
-    for (let key in this.boardPos) {
-        if (key[1] === playerNum[1]) {
-            if (this.boardPos[key] !== 'open') this.removeFromBoard(key)
-            this.boardPos[key] = ''
-            this._createNextBorder()
-        }
-    }
 }
 
 export { Board }
