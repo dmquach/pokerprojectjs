@@ -1,15 +1,20 @@
-function isFlush(cards) {
-    const suit = cards[0].slice(-1)
-    for (let i = 0; i < cards.length; i++) {
-        if (cards[i].slice(-1) !== suit) {
-            return false
-        }
-    }
+function Handtype() {
+
+}
+
+Handtype.prototype.isFlush = function (fiveCards) {
+    // console.log(fiveCards)
+    const suit = fiveCards[0].slice(-1)
+    // for (let i = 0; i < cards.length; i++) {
+    //     if (cards[i].slice(-1) !== suit) {
+    //         return false
+    //     }
+    // }
     return true
 }
 
 
-function isStraight(cards) {
+Handtype.prototype.isStraight = function (fiveCards) {
     let sortedRanks = []
     cards.sort()
     for (let i = 0; i < cards.length; i++) {
@@ -33,7 +38,7 @@ function isStraight(cards) {
     }
 }
 
-function isFourOfAKind(cards) {
+Handtype.prototype.isFourOfAKind = function (cards) {
     let count = 0;
     let pair = cards[0][0]
     cards.sort()
@@ -48,7 +53,7 @@ function isFourOfAKind(cards) {
     return count === 4
 }
 
-function isFullHouse(cards) {
+Handtype.prototype.isFullHouse = function (cards) {
     cards.sort()
     if (cards[0][0] === cards[1][0] && cards[1][0] === cards[2][0] && cards[3][0] === cards[4][0]) {
         return true
@@ -59,7 +64,7 @@ function isFullHouse(cards) {
     return false
 }
 
-function isThreeOfAKind(cards){
+Handtype.prototype.isThreeOfAKind = function (cards) {
     let pair = cards[0][0]
     cards.sort()
     if (cards[0][0] === cards[1][0] && cards[1][0] == cards[2][0]) {
@@ -73,7 +78,7 @@ function isThreeOfAKind(cards){
     }
 }
 
-function isTwoPair(cards) {
+Handtype.prototype.isTwoPair = function (cards) {
     cards.sort()
     if (cards[0][0] === cards[1][0] && cards[2][0] === cards[3][0]) {
         return true
@@ -86,7 +91,7 @@ function isTwoPair(cards) {
     }
 }
 
-function isOnePair(cards) {
+Handtype.prototype.isOnePair = function (cards) {
     cards.sort()
     if (cards[0][0] === cards[1][0]) {
         return true
@@ -101,7 +106,7 @@ function isOnePair(cards) {
     }
 }
 
-function isNoPair(cards) {
+Handtype.prototype.isNoPair = function (cards) {
     cards.sort()
     if (cards[0][0] === cards[1][0]) {
         return false
@@ -116,7 +121,7 @@ function isNoPair(cards) {
     }
 }
 
-function getPokerHand(cards) {
+Handtype.prototype.getPokerHand = function (cards) {
     if (isFlush(cards) && isStraight(cards)) {
         return "8";
     }
@@ -152,7 +157,7 @@ function getPokerHand(cards) {
     }
 }
 
-function bestHand(hand, board) {
+Handtype.prototype.bestHand = function (hand, board) {
     let handCombos = []
     let boardCombos = []
     let nhand = hand
@@ -182,29 +187,31 @@ function bestHand(hand, board) {
     return top
 }
 
-export function winner(p1, p2, board) {
-    const p1type = bestHand(p1, board)
-    const p2type = bestHand(p2, board)
+// export function winner(p1, p2, board) {
+//     const p1type = bestHand(p1, board)
+//     const p2type = bestHand(p2, board)
 
-    if (p1type < p2type) {
-        return "p2"
-    } else {
-        return "p1"
-    }
-}
+//     if (p1type < p2type) {
+//         return "p2"
+//     } else {
+//         return "p1"
+//     }
+// }
 
-export function remainingDeck(hand1, hand2) {
-    const deck = [
-        "2c", "3c", "4c", "5c", "6c", "7c", "8c", "9c", "10c", "Jc", "Qc", "Kc", "Ac",
-        "2d", "3d", "4d", "5d", "6d", "7d", "8d", "9d", "10d", "Jd", "Qd", "Kd", "Ad",
-        "2h", "3h", "4h", "5h", "6h", "7h", "8h", "9h", "10h", "Jh", "Qh", "Kh", "Ah",
-        "2s", "3s", "4s", "5s", "6s", "7s", "8s", "9s", "10s", "Js", "Qs", "Ks", "As"
-    ];
-    const newDeck = []
-    for (let i = 0; i < 44; i++) {
-        if (!hand1.includes(deck[i]) && !hand2.includes(deck[i])) {
-            newDeck.push(deck[i])
-        }
-    }
-    return newDeck
-}
+// export function remainingDeck(hand1, hand2) {
+//     const deck = [
+//         "2c", "3c", "4c", "5c", "6c", "7c", "8c", "9c", "10c", "Jc", "Qc", "Kc", "Ac",
+//         "2d", "3d", "4d", "5d", "6d", "7d", "8d", "9d", "10d", "Jd", "Qd", "Kd", "Ad",
+//         "2h", "3h", "4h", "5h", "6h", "7h", "8h", "9h", "10h", "Jh", "Qh", "Kh", "Ah",
+//         "2s", "3s", "4s", "5s", "6s", "7s", "8s", "9s", "10s", "Js", "Qs", "Ks", "As"
+//     ];
+//     const newDeck = []
+//     for (let i = 0; i < 44; i++) {
+//         if (!hand1.includes(deck[i]) && !hand2.includes(deck[i])) {
+//             newDeck.push(deck[i])
+//         }
+//     }
+//     return newDeck
+// }
+
+export { Handtype }

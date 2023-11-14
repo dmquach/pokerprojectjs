@@ -10,6 +10,7 @@ function Board (deck) {
         'highlight': 'p1-1'
     }
     this.deck = deck
+    this.onBoard = []
     this.addClickBoard()
     this._initialBorder()
 }
@@ -41,6 +42,12 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
     } else {
         this.boardPos[this.boardPos['highlight']] = 'taken'
         this.deck.cardDeck[cardKey] = 'board'
+        if (this.boardPos.highlight[0] === 'b') {
+            this.onBoard.push(cardKey)
+            // if (this.full) {
+            //     this.deck.handtype.isFlush(this.onBoard)
+            // }
+        }
         //  <img src="./images/cardback.png" id="p1-1">
         const changePos = document.getElementById(this.boardPos['highlight']);
         const tempSrc = changePos.src;
@@ -52,12 +59,18 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
     }
 }
 
+Board.prototype.full = function () {
+    // console.log(this.onBoard.length === 5)
+    return this.onBoard.length === 5
+}
+
 Board.prototype.removeFromBoard = function (boardKey) {
     // boardKey = p1-1
     const changePos = document.getElementById(boardKey);
     const tempSrc = changePos.src;
 
     this.boardPos[changePos.id] = 'open'
+    // cardKey "2h"
     const cardKey = this.changeSrcToId(tempSrc)
     this.deck.cardDeck[cardKey] = 'deck'
 
@@ -66,7 +79,20 @@ Board.prototype.removeFromBoard = function (boardKey) {
     changeCard.src = tempSrc;
 }
 
-
+Board.prototype.boardCards = function () {
+    const b1 = document.getElementById('board1');
+    const b2 = document.getElementById('board2');
+    const b3 = document.getElementById('board3');
+    const b4 = document.getElementById('board4');
+    const b5 = document.getElementById('board5');
+    if (b1 && b2 && b3 && b4 && b5) {
+        const pos1 = this.changeSrcToId(b1.src)
+        const pos2 = this.changeSrcToId(b2.src)
+        const pos3 = this.changeSrcToId(b3.src)
+        const pos4 = this.changeSrcToId(b4.src)
+        const pos5 = this.changeSrcToId(b5.src)
+    }
+}
 
 Board.prototype._addBorder = function (pos) {
     this._removeBorder()
@@ -85,7 +111,7 @@ Board.prototype._createNextBorder = function(playerNum = 0) {
     // 0 means add to next available space
     // -1 means add to board
     // num means add to that player
-    if(playerNum > 0 && this.deck['p' + playerNum].handLength() === 4) {
+    if((playerNum > 0 && this.deck['p' + playerNum].handLength() === 4) || (playerNum === -1 && this.full())) {
         for (let pos in this.boardPos) {
             if (this.boardPos[pos] === 'open') {
                 const nextBorder = document.getElementById(pos)

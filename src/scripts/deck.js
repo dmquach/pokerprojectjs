@@ -1,4 +1,5 @@
 import { Board } from "./board.js"
+import { Handtype } from "./handType.js"
 
 function Deck (p1, p2, p3, p4, p5, p6) {
     this.cardDeck = {
@@ -17,6 +18,7 @@ function Deck (p1, p2, p3, p4, p5, p6) {
     // this.lastPlayer = 0
 
     this.addClickCards()
+    this.handtype = new Handtype()
 }
 
 Deck.prototype.lastPlayerAdded = function (lastPlayer) {

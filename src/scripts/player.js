@@ -2,6 +2,7 @@ function Player(active, playerNum) {
     this.playerHand = []
     this.playerNum = playerNum
     this.active = active
+
 }
 
 Player.prototype.setDeck = function (deck) {
@@ -31,8 +32,6 @@ Player.prototype.addPlayerButton = function () {
             this.deck.board._addPlayers(this.playerNum)
             this.deck.board._createNewPlayerBorder(this.playerNum)
         } else {
-            // FIX: Add different icon buttons when changed
-            // FIX: remove border when player removed
             const player = document.getElementById(this.playerNum)
             const text = player.childNodes[2]
             const img = player.querySelector('img');
