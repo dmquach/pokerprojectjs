@@ -35,7 +35,7 @@ Player.prototype.addPlayerButton = function () {
             const player = document.getElementById(this.playerNum)
             const text = player.childNodes[2]
             const img = player.querySelector('img');
-            img.src = "./images/icons8-minus-50.png"
+            img.src = "./images/icons8-plus-button-50.png"
             text.nodeValue = `P${this.playerNum[1]}`
             this.activate()
             this.deck.board._removePlayers(this.playerNum)
