@@ -12,6 +12,7 @@ function Board (deck) {
     this.deck = deck
     this.onBoard = []
     this.addClickBoard()
+    this.createReset()
     this._initialBorder()
 }
 
@@ -35,6 +36,19 @@ Board.prototype.addClickBoard = function () {
     }
 }
 
+Board.prototype.createReset = function () {
+    const res = document.getElementById('resetButton')
+    res.addEventListener("click", () => {
+        for (let i = 1; i < 7; i++) {
+            if (this.deck[`p${i}`].active) this._removePlayers(`p${i}`)
+            if (i < 3) {
+                this._addPlayers(`p${i}`)
+            }
+        }
+        this.clearBoard()
+    })
+}
+
 Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
     // add card to board Qh
     if (this.boardPos['highlight'] === '') {
@@ -45,7 +59,8 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
         if (this.boardPos.highlight[0] === 'b') {
             this.onBoard.push(cardKey)
             if (this.full()) {
-                this.deck.handtype.isFlush(this.onBoard)
+                // FIX: Just being used to test hands, should test entire board
+                // this.deck.handtype.isFullHouse(this.onBoard)
             }
         }
         //  <img src="./images/cardback.png" id="p1-1">
@@ -82,6 +97,12 @@ Board.prototype.removeFromBoard = function (boardKey) {
     const changeCard = document.getElementById(cardKey);
     changePos.src = changeCard.src;
     changeCard.src = tempSrc;
+}
+
+Board.prototype.clearBoard = function () {
+    for (let i = 1; i < 6; i++) {
+        if (this.boardPos[`board${i}`] === 'taken') this.removeFromBoard(`board${i}`)
+    }
 }
 
 Board.prototype.boardCards = function () {

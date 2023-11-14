@@ -41,3 +41,4 @@ NB:
 * add No Limit Holdem support
 * add dead cards
 * add message to add players
+* add button to clear all

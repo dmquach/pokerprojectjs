@@ -20,4 +20,5 @@ Game.prototype.addDeckToPlayer = function (deck) {
     this.p5.setDeck(deck)
     this.p6.setDeck(deck)
 }
+
 export { Game }
