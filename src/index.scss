@@ -240,6 +240,9 @@ main{
   width: 90%;
   height: 50%;
 }
+.blur {
+  filter: brightness(0.5);
+}
 .board1 img, .board2 img, .board3 img, .board4 img, .board5 img {
   width: 100%;
   height: 50%;

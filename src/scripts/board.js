@@ -141,6 +141,8 @@ Board.prototype._addPlayers = function (playerNum) {
     //p1 boardPos[0-3], p2 [4-7]
     for (let key in this.boardPos) {
         if (key[1] === playerNum[1]) {
+            const pos = document.querySelector(`.${key}`)
+            pos.classList.remove('blur')
             this.boardPos[key] = 'open'
         }
     }
@@ -150,8 +152,11 @@ Board.prototype._removePlayers = function (playerNum) {
     //p1 boardPos[0-3], p2 [4-7]
     for (let key in this.boardPos) {
         if (key[1] === playerNum[1]) {
+            const pos = document.querySelector(`.${key}`)
+            pos.classList.add('blur')
             if (this.boardPos[key] !== 'open') this.removeFromBoard(key)
             this.boardPos[key] = ''
+
         this._createNextBorder()
     }
 }
