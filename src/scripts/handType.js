@@ -3,13 +3,12 @@ function Handtype() {
 }
 
 Handtype.prototype.isFlush = function (fiveCards) {
-    // console.log(fiveCards)
     const suit = fiveCards[0].slice(-1)
-    // for (let i = 0; i < cards.length; i++) {
-    //     if (cards[i].slice(-1) !== suit) {
-    //         return false
-    //     }
-    // }
+    for (let i = 0; i < 5; i++) {
+        if (fiveCards[i].slice(-1) !== suit) {
+            return false
+        }
+    }
     return true
 }
 
