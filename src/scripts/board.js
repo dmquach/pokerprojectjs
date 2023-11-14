@@ -44,9 +44,9 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
         this.deck.cardDeck[cardKey] = 'board'
         if (this.boardPos.highlight[0] === 'b') {
             this.onBoard.push(cardKey)
-            // if (this.full) {
-            //     this.deck.handtype.isFlush(this.onBoard)
-            // }
+            if (this.full()) {
+                this.deck.handtype.isFlush(this.onBoard)
+            }
         }
         //  <img src="./images/cardback.png" id="p1-1">
         const changePos = document.getElementById(this.boardPos['highlight']);
@@ -60,12 +60,17 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
 }
 
 Board.prototype.full = function () {
-    // console.log(this.onBoard.length === 5)
     return this.onBoard.length === 5
 }
 
 Board.prototype.removeFromBoard = function (boardKey) {
     // boardKey = p1-1
+    const itemToRemove = document.getElementById(boardKey) // Item to remove from the array
+    const item = this.changeSrcToId(itemToRemove.src)
+    let index = this.onBoard.indexOf(item); // Find the index of the item
+    if (index !== -1) {
+        this.onBoard.splice(index, 1); // Remove one element at the found index
+    }
     const changePos = document.getElementById(boardKey);
     const tempSrc = changePos.src;
 
