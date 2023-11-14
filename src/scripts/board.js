@@ -52,15 +52,22 @@ Board.prototype.createReset = function () {
 Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
     // add card to board Qh
     if (this.boardPos['highlight'] === '') {
-
+        console.log('everything full')
     } else {
         this.boardPos[this.boardPos['highlight']] = 'taken'
         this.deck.cardDeck[cardKey] = 'board'
         if (this.boardPos.highlight[0] === 'b') {
             this.onBoard.push(cardKey)
+            // FIX, update odds not just when board gets full but when a hand gets full and the board is full
             if (this.full()) {
                 // FIX: Just being used to test hands, should test entire board
-                // this.deck.handtype.isFullHouse(this.onBoard)
+                const bestHands = {}
+                for (let i = 1; i < 7; i++) {
+                    if (this.deck[`p${i}`].handFull()) {
+                        bestHands[`p${i}`] = (this.deck.handtype.bestHand(this.deck[`p${i}`].playerHand, this.onBoard))
+                    }
+                }
+                // this.deck.handtype.winner(bestHands)
             }
         }
         //  <img src="./images/cardback.png" id="p1-1">

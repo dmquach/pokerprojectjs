@@ -55,18 +55,15 @@ Handtype.prototype.isFourOfAKind = function (fiveCards) {
 Handtype.prototype.isFullHouse = function (fiveCards) {
     fiveCards.sort()
     if (fiveCards[0][0] === fiveCards[1][0] && fiveCards[1][0] === fiveCards[2][0] && fiveCards[3][0] === fiveCards[4][0]) {
-        console.log("returning true")
         return true
     }
-    if (fiveCards[0][0] === fiveCards[1][0] && fiveCards[2][0] === cards[3][0] && fiveCards[3][0] === fiveCards[4][0]) {
-        console.log("returning false")
+    if (fiveCards[0][0] === fiveCards[1][0] && fiveCards[2][0] === fiveCards[3][0] && fiveCards[3][0] === fiveCards[4][0]) {
         return true
     }
     return false
 }
 
 Handtype.prototype.isThreeOfAKind = function (fiveCards) {
-    let pair = fiveCards[0][0]
     fiveCards.sort()
     if (fiveCards[0][0] === fiveCards[1][0] && fiveCards[1][0] == fiveCards[2][0]) {
         return true
@@ -122,97 +119,102 @@ Handtype.prototype.isNoPair = function (fiveCards) {
     }
 }
 
+Handtype.prototype.broadway = function (fiveCards) {
+    fiveCards.sort()
+    if (fiveCards[0].slice(0, 2) !== '10') return false
+    if (fiveCards[1].slice(0, 1) !== 'A') return false
+    if (fiveCards[2].slice(0, 1) !== 'J') return false
+    if (fiveCards[3].slice(0, 1) !== 'K') return false
+    if (fiveCards[4].slice(0, 1) !== 'Q') return false
+    return true
+}
+
+const KEY = {
+    1: "No Pair",
+    2: "One Pair",
+    3: "Two Pair",
+    4: "Three of a Kind",
+    5: "Straight",
+    6: "Flush",
+    7: "Full House!",
+    8: "Four of a Kind!!",
+    9: "Straight Flush!!!",
+    10: "ROYAL FLUSH!!!"
+}
+
 Handtype.prototype.getPokerHand = function (fiveCards) {
-    if (isFlush(fiveCards) && isStraight(fiveCards)) {
-        return "8";
-    }
-    if (isStraight(fiveCards)) {
-        return "4";
-    }
-    if (isFlush(fiveCards)) {
-        return "5"
-    }
-
-    if (isFourOfAKind(fiveCards)) {
-        return "7"
-    }
-
-    if (isFullHouse(fiveCards)) {
-        return "6"
-    }
-
-    if (isThreeOfAKind(fiveCards)){
-        return "3"
-    }
-
-    if (isTwoPair(fiveCards)) {
-        return "2"
-    }
-
-    if (isOnePair(fiveCards)) {
-        return "1"
-    }
-
-    if (isNoPair(fiveCards)) {
-        return "0"
+    if (this.isFlush(fiveCards) && this.isStraight(fiveCards)) {
+        if (this.broadway(fiveCards)) {
+            return 10
+        } else {
+            return 9;
+        }
+    } else if (this.isFourOfAKind(fiveCards)) {
+        return 8
+    } else if (this.isFullHouse(fiveCards)) {
+        return 7
+    } else if (this.isFlush(fiveCards)) {
+        return 6
+    } else if (this.isStraight(fiveCards)) {
+        return 5;
+    } else if (this.isThreeOfAKind(fiveCards)){
+        return 4
+    } else if (this.isTwoPair(fiveCards)) {
+        return 3
+    } else if (this.isOnePair(fiveCards)) {
+        return 2
+    } else if (this.isNoPair(fiveCards)) {
+        return 1
     }
 }
 
 Handtype.prototype.bestHand = function (hand, board) {
-    let handCombos = []
-    let boardCombos = []
-    let nhand = hand
+    const twoCardCombos = []
+    const threeCardCombos = []
 
-    for (let i = 1; i < 4; i++) {
-        for (let j = i+1; j < 5; j++) {
-            handCombos.push([i, j])
+    for (let i = 0; i < 3; i++) {
+        for (let j = i+1; j < 4; j++) {
+            twoCardCombos.push([hand[i], hand[j]])
         }
     }
-    for (let k = 0; k < board.length - 2; k++) {
-        for (let l = k + 1; l < board.length - 1; l++) {
-          for (let m = l + 1; m < board.length; m++) {
-            const combination = [board[k], board[l], board[m]];
-            boardCombos.push(combination);
+    for (let i = 0; i < 3; i++) {
+        for (let j = i + 1; j < 4; j++) {
+          for (let k = j + 1; k < 5; k++) {
+            const combination = [board[i], board[j], board[k]];
+            threeCardCombos.push(combination);
           }
         }
     }
     let top = 0;
-    for (let i = 0; i < boardCombos.length; i++) {
-        for (let j = 0; j < handCombos.length - 1; j++) {
-            const hand2 = getPokerHand([nhand[handCombos[j][0]], nhand[handCombos[j][0]], boardCombos[i][0], boardCombos[i][1], boardCombos[i][2]])
-            if (hand2 > top) {
-                top = hand2
+    for (let i = 0; i < threeCardCombos.length; i++) {
+        for (let j = 0; j < twoCardCombos.length; j++) {
+            const newRank = this.getPokerHand([
+                twoCardCombos[j][0],
+                twoCardCombos[j][1],
+                threeCardCombos[i][0],
+                threeCardCombos[i][1],
+                threeCardCombos[i][2]
+            ])
+            if (newRank > top) {
+                top = newRank
             }
         }
     }
+    console.log(top)
     return top
 }
 
-// export function winner(p1, p2, board) {
-//     const p1type = bestHand(p1, board)
-//     const p2type = bestHand(p2, board)
+Handtype.prototype.winner = function (bestHandsHash) {
+    // check if empty first
+    console.log(bestHandsHash)
+    // const p1type = bestHand(p1, board)
+    // const p2type = bestHand(p2, board)
 
-//     if (p1type < p2type) {
-//         return "p2"
-//     } else {
-//         return "p1"
-//     }
-// }
-
-// export function remainingDeck(hand1, hand2) {
-//     const deck = [
-//         "2c", "3c", "4c", "5c", "6c", "7c", "8c", "9c", "10c", "Jc", "Qc", "Kc", "Ac",
-//         "2d", "3d", "4d", "5d", "6d", "7d", "8d", "9d", "10d", "Jd", "Qd", "Kd", "Ad",
-//         "2h", "3h", "4h", "5h", "6h", "7h", "8h", "9h", "10h", "Jh", "Qh", "Kh", "Ah",
-//         "2s", "3s", "4s", "5s", "6s", "7s", "8s", "9s", "10s", "Js", "Qs", "Ks", "As"
-//     ];
-//     const newDeck = []
-//     for (let i = 0; i < 44; i++) {
-//         if (!hand1.includes(deck[i]) && !hand2.includes(deck[i])) {
-//             newDeck.push(deck[i])
-//         }
-//     }
-//     return newDeck
-// }
+    // if (p1type < p2type) {
+    //     return "p2"
+    // } else {
+    //     return "p1"
+    // }
+}
 
 export { Handtype }
