@@ -132,6 +132,13 @@ Board.prototype._createNextBorder = function(playerNum = 0) {
                 return this._addBorder(nextBorder)
             }
         }
+    } else {
+        for (let pos in this.boardPos) {
+            if (this.boardPos[pos] === 'open') {
+                const nextBorder = document.getElementById(pos)
+                return this._addBorder(nextBorder)
+            }
+        }
     }
     // if no open spaces
     this._removeBorder()

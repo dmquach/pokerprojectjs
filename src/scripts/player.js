@@ -39,6 +39,7 @@ Player.prototype.addPlayerButton = function () {
             text.nodeValue = `P${this.playerNum[1]}`
             this.activate()
             this.deck.board._removePlayers(this.playerNum)
+            this.deck.board._createNextBorder()
         }
     })
 }
