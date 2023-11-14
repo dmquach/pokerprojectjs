@@ -58,7 +58,6 @@ Board.prototype.removeFromBoard = function (boardKey) {
     const tempSrc = changePos.src;
 
     this.boardPos[changePos.id] = 'open'
-    // cardKey "2h"
     const cardKey = this.changeSrcToId(tempSrc)
     this.deck.cardDeck[cardKey] = 'deck'
 
@@ -79,7 +78,6 @@ Board.prototype._removeBorder = function() {
     const prevBorder = document.getElementById(this.boardPos['highlight'])
     if (prevBorder) prevBorder.removeAttribute('style')
     this.boardPos.highlight = ''
-// this._createNextBorder()
 }
 
 Board.prototype._createNextBorder = function(playerNum = 0) {
@@ -156,8 +154,7 @@ Board.prototype._removePlayers = function (playerNum) {
             pos.classList.add('blur')
             if (this.boardPos[key] !== 'open') this.removeFromBoard(key)
             this.boardPos[key] = ''
-
-        this._createNextBorder()
+            this._createNextBorder()
     }
 }
 }

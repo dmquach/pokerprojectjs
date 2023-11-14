@@ -23,11 +23,21 @@ Player.prototype.addPlayerButton = function () {
     player.addEventListener("click", () => {
         if (!this.active) {
             this.activate()
+            const player = document.getElementById(this.playerNum)
+            const text = player.childNodes[2]
+            const img = player.querySelector('img');
+            img.src = "./images/icons8-minus-50.png"
+            text.nodeValue += ' equity: '
             this.deck.board._addPlayers(this.playerNum)
             this.deck.board._createNewPlayerBorder(this.playerNum)
         } else {
             // FIX: Add different icon buttons when changed
             // FIX: remove border when player removed
+            const player = document.getElementById(this.playerNum)
+            const text = player.childNodes[2]
+            const img = player.querySelector('img');
+            img.src = "./images/icons8-minus-50.png"
+            text.nodeValue = `P${this.playerNum[1]}`
             this.activate()
             this.deck.board._removePlayers(this.playerNum)
         }
