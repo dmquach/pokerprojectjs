@@ -1,134 +1,3 @@
-function Handtype() {
-
-}
-
-Handtype.prototype.isFlush = function (fiveCards) {
-    const suit = fiveCards[0].slice(-1)
-    for (let i = 0; i < 5; i++) {
-        if (fiveCards[i].slice(-1) !== suit) {
-            return false
-        }
-    }
-    return true
-}
-
-
-Handtype.prototype.isStraight = function (fiveCards) {
-    let sortedRanks = []
-    fiveCards.sort()
-    for (let i = 0; i < 5; i++) {
-        sortedRanks.push(fiveCards[i][0])
-    }
-
-    if (JSON.stringify(sortedRanks) == JSON.stringify(["2", "3", "4", "5", "A"]) ||
-    JSON.stringify(sortedRanks) == JSON.stringify(["2", "3", "4", "5", "6"]) ||
-    JSON.stringify(sortedRanks) == JSON.stringify(["3","4","5","6","7"]) ||
-    JSON.stringify(sortedRanks) == JSON.stringify(["4","5","6","7","8"]) ||
-    JSON.stringify(sortedRanks) == JSON.stringify(["5","6","7","8","9"]) ||
-    // 1 is equivalent to 10
-    JSON.stringify(sortedRanks) == JSON.stringify(["1","6","7","8","9"]) ||
-    JSON.stringify(sortedRanks) == JSON.stringify(["1","7","8","9","J"]) ||
-    JSON.stringify(sortedRanks) == JSON.stringify(["1","8","9","J","Q"]) ||
-    JSON.stringify(sortedRanks) == JSON.stringify(["1","9","J","K","Q"]) ||
-    JSON.stringify(sortedRanks) == JSON.stringify(["1","A", "J","K","Q",])) {
-        return true
-    } else {
-        return false
-    }
-}
-
-Handtype.prototype.isFourOfAKind = function (fiveCards) {
-    let count = 0;
-    let pair = fiveCards[0][0]
-    fiveCards.sort()
-    if (fiveCards[0][0] !== fiveCards[1][0]) {
-        pair = fiveCards[1][0]
-    }
-    for (let i = 0; i < fiveCards.length; i++) {
-        if (fiveCards[i][0] == pair) {
-            count += 1;
-        }
-    }
-    return count === 4
-}
-
-Handtype.prototype.isFullHouse = function (fiveCards) {
-    fiveCards.sort()
-    if (fiveCards[0][0] === fiveCards[1][0] && fiveCards[1][0] === fiveCards[2][0] && fiveCards[3][0] === fiveCards[4][0]) {
-        return true
-    }
-    if (fiveCards[0][0] === fiveCards[1][0] && fiveCards[2][0] === fiveCards[3][0] && fiveCards[3][0] === fiveCards[4][0]) {
-        return true
-    }
-    return false
-}
-
-Handtype.prototype.isThreeOfAKind = function (fiveCards) {
-    fiveCards.sort()
-    if (fiveCards[0][0] === fiveCards[1][0] && fiveCards[1][0] == fiveCards[2][0]) {
-        return true
-    } else if (fiveCards[1][0] === fiveCards[2][0] && fiveCards[2][0] == fiveCards[3][0]) {
-        return true
-    } else if (fiveCards[2][0] === fiveCards[3][0] && fiveCards[3][0] == fiveCards[4][0]) {
-        return true
-    } else {
-        return false
-    }
-}
-
-Handtype.prototype.isTwoPair = function (fiveCards) {
-    fiveCards.sort()
-    if (fiveCards[0][0] === fiveCards[1][0] && fiveCards[2][0] === fiveCards[3][0]) {
-        return true
-    } else if (fiveCards[0][0] === fiveCards[1][0] && fiveCards[3][0] === fiveCards[4][0]) {
-        return true
-    } else if (fiveCards[1][0] === fiveCards[2][0] && fiveCards[3][0] === fiveCards[4][0]) {
-        return true
-    } else {
-        return false
-    }
-}
-
-Handtype.prototype.isOnePair = function (fiveCards) {
-    fiveCards.sort()
-    if (fiveCards[0][0] === fiveCards[1][0]) {
-        return true
-    } else if (fiveCards[1][0] === fiveCards[2][0]) {
-        return true
-    } else if (fiveCards[2][0] === fiveCards[3][0]) {
-        return true
-    } else if (fiveCards[3][0] === fiveCards[4][0]) {
-        return true
-    } else {
-        return false
-    }
-}
-
-Handtype.prototype.isNoPair = function (fiveCards) {
-    fiveCards.sort()
-    if (fiveCards[0][0] === fiveCards[1][0]) {
-        return false
-    } else if (fiveCards[1][0] === fiveCards[2][0]) {
-        return false
-    } else if (fiveCards[2][0] === fiveCards[3][0]) {
-        return false
-    } else if (fiveCards[3][0] === fiveCards[4][0]) {
-        return false
-    } else {
-        return true
-    }
-}
-
-Handtype.prototype.broadway = function (fiveCards) {
-    fiveCards.sort()
-    if (fiveCards[0].slice(0, 2) !== '10') return false
-    if (fiveCards[1].slice(0, 1) !== 'A') return false
-    if (fiveCards[2].slice(0, 1) !== 'J') return false
-    if (fiveCards[3].slice(0, 1) !== 'K') return false
-    if (fiveCards[4].slice(0, 1) !== 'Q') return false
-    return true
-}
-
 const KEY = {
     1: "No Pair",
     2: "One Pair",
@@ -142,29 +11,236 @@ const KEY = {
     10: "ROYAL FLUSH!!!"
 }
 
-Handtype.prototype.getPokerHand = function (fiveCards) {
-    if (this.isFlush(fiveCards) && this.isStraight(fiveCards)) {
-        if (this.broadway(fiveCards)) {
-            return 10
-        } else {
-            return 9;
+const NUM_VAL = {
+    'A': 14,
+    'K': 13,
+    'Q': 12,
+    'J': 11,
+    '10': 10,
+    '9': 9,
+    '8': 8,
+    '7': 7,
+    '6': 6,
+    '5': 5,
+    '4': 4,
+    '3': 3,
+    '2': 2
+}
+
+
+function Handtype() {
+
+}
+
+ Handtype.prototype.sortHand = function (hand) {
+    hand.sort((cardA, cardB) => {
+         const valueA = NUM_VAL[cardA.slice(0, -1)];
+         const valueB = NUM_VAL[cardB.slice(0, -1)];
+
+         return valueB - valueA; // Sort in descending order based on card values
+     });
+    const cards = {}
+    const newHand = []
+    hand.forEach(item => {
+        cards[item[0]] = (cards[item[0]] || 0) + 1
+    })
+
+    hand.forEach(item => {
+        if (cards[item[0]] >= 3) {
+            newHand.push(item)
         }
-    } else if (this.isFourOfAKind(fiveCards)) {
-        return 8
-    } else if (this.isFullHouse(fiveCards)) {
-        return 7
-    } else if (this.isFlush(fiveCards)) {
-        return 6
-    } else if (this.isStraight(fiveCards)) {
-        return 5;
-    } else if (this.isThreeOfAKind(fiveCards)){
-        return 4
-    } else if (this.isTwoPair(fiveCards)) {
-        return 3
-    } else if (this.isOnePair(fiveCards)) {
-        return 2
-    } else if (this.isNoPair(fiveCards)) {
-        return 1
+    })
+    hand.forEach(item => {
+        if (cards[item[0]] === 2) {
+            newHand.push(item)
+        }
+    })
+    hand.forEach(item => {
+        if (!(newHand.includes(item))) newHand.push(item)
+    })
+
+    return newHand
+}
+
+Handtype.prototype.isFlush = function (fiveCards) {
+    const suit = fiveCards[0].slice(-1)
+    for (let i = 0; i < 5; i++) {
+        if (fiveCards[i].slice(-1) !== suit) {
+            return false
+        }
+    }
+    const sortedHand = this.sortHand(fiveCards)
+    return [true, sortedHand]
+}
+
+
+Handtype.prototype.isStraight = function (fiveCards) {
+    let sortedRanks = []
+    const sortedHand = this.sortHand(fiveCards)
+    for (let i = 0; i < 5; i++) {
+        sortedRanks.push(sortedHand[i][0])
+    }
+
+    if (JSON.stringify(sortedRanks) == JSON.stringify(["A", "5", "4", "3", "2"])) {
+        return [true, sortedHand]
+    }
+
+    if (
+    JSON.stringify(sortedRanks) == JSON.stringify(["6", "5", "4", "3", "2"]) ||
+    JSON.stringify(sortedRanks) == JSON.stringify(["7","6","5","4","3"]) ||
+    JSON.stringify(sortedRanks) == JSON.stringify(["8","7","6","5","4"]) ||
+    JSON.stringify(sortedRanks) == JSON.stringify(["9","8","7","6","5"]) ||
+    // 1 is equivalent to 10
+    JSON.stringify(sortedRanks) == JSON.stringify(["1","9","8","7","6"]) ||
+    JSON.stringify(sortedRanks) == JSON.stringify(["J","1","9","8","7"]) ||
+    JSON.stringify(sortedRanks) == JSON.stringify(["Q","J","1","9","8"]) ||
+    JSON.stringify(sortedRanks) == JSON.stringify(["K","Q","J","1","9"]) ||
+    JSON.stringify(sortedRanks) == JSON.stringify(["A","K", "Q","J","1",])
+    ) {
+        return [true, sortedHand]
+    } else {
+        return false
+    }
+}
+
+Handtype.prototype.isFourOfAKind = function (fiveCards) {
+    let count = 0;
+    const sortedHand = this.sortHand(fiveCards)
+    let pair = sortedHand[0][0]
+
+    if (sortedHand[0][0] !== sortedHand[1][0]) {
+        pair = sortedHand[1][0]
+    }
+    for (let i = 0; i < sortedHand.length; i++) {
+        if (sortedHand[i][0] == pair) {
+            count += 1;
+        }
+    }
+    if (count === 4) {
+        return [true, sortedHand]
+    }
+    return false
+}
+
+Handtype.prototype.isFullHouse = function (fiveCards) {
+    const sortedHand = this.sortHand(fiveCards)
+    if (sortedHand[0][0] === sortedHand[1][0] && sortedHand[1][0] === sortedHand[2][0] && sortedHand[3][0] === sortedHand[4][0]) {
+        return [true, sortedHand]
+    }
+    if (sortedHand[0][0] === sortedHand[1][0] && sortedHand[2][0] === sortedHand[3][0] && sortedHand[3][0] === sortedHand[4][0]) {
+        return [true, sortedHand]
+    }
+    return false
+}
+
+Handtype.prototype.isThreeOfAKind = function (fiveCards) {
+    const sortedHand = this.sortHand(fiveCards)
+    if (sortedHand[0][0] === sortedHand[1][0] && sortedHand[1][0] == sortedHand[2][0]) {
+        return [true, sortedHand]
+    } else if (sortedHand[1][0] === sortedHand[2][0] && sortedHand[2][0] == sortedHand[3][0]) {
+        return [true, sortedHand]
+    } else if (sortedHand[2][0] === sortedHand[3][0] && sortedHand[3][0] == sortedHand[4][0]) {
+        return [true, sortedHand]
+    } else {
+        return false
+    }
+}
+
+Handtype.prototype.isTwoPair = function (fiveCards) {
+    const sortedHand = this.sortHand(fiveCards)
+    if (sortedHand[0][0] === sortedHand[1][0] && sortedHand[2][0] === sortedHand[3][0]) {
+        return [true, sortedHand]
+    } else if (sortedHand[0][0] === sortedHand[1][0] && sortedHand[3][0] === sortedHand[4][0]) {
+        return [true, sortedHand]
+    } else if (sortedHand[1][0] === sortedHand[2][0] && sortedHand[3][0] === sortedHand[4][0]) {
+        return [true, sortedHand]
+    } else {
+        return false
+    }
+}
+
+Handtype.prototype.isOnePair = function (fiveCards) {
+    const sortedHand = this.sortHand(fiveCards)
+    if (sortedHand[0][0] === sortedHand[1][0]) {
+        return [true, sortedHand]
+    } else if (sortedHand[1][0] === sortedHand[2][0]) {
+        return [true, sortedHand]
+    } else if (sortedHand[2][0] === sortedHand[3][0]) {
+        return [true, sortedHand]
+    } else if (sortedHand[3][0] === sortedHand[4][0]) {
+        return [true, sortedHand]
+    } else {
+        return false
+    }
+}
+
+Handtype.prototype.isNoPair = function (fiveCards) {
+    const sortedHand = this.sortHand(fiveCards)
+    if (sortedHand[0][0] === sortedHand[1][0]) {
+        return false
+    } else if (sortedHand[1][0] === sortedHand[2][0]) {
+        return false
+    } else if (sortedHand[2][0] === sortedHand[3][0]) {
+        return false
+    } else if (sortedHand[3][0] === sortedHand[4][0]) {
+        return false
+    } else {
+        return [true, sortedHand]
+    }
+}
+
+Handtype.prototype.broadway = function (fiveCards) {
+    fiveCards.sort()
+    if (fiveCards[0].slice(0, 2) !== '10') return false
+    if (fiveCards[1].slice(0, 1) !== 'A') return false
+    if (fiveCards[2].slice(0, 1) !== 'J') return false
+    if (fiveCards[3].slice(0, 1) !== 'K') return false
+    if (fiveCards[4].slice(0, 1) !== 'Q') return false
+    return true
+}
+
+Handtype.prototype.getPokerHand = function (fiveCards) {
+    const flush = this.isFlush(fiveCards)
+    const straight = this.isStraight(fiveCards)
+    if (flush[0] && straight[0]) {
+        if (this.broadway(fiveCards)) {
+            return [10, this.sortHand(fiveCards)];
+        } else {
+            return [9, this.sortHand(fiveCards)];
+        }
+    }
+    const isFourOfAKind = this.isFourOfAKind(fiveCards)
+    if (isFourOfAKind[0]) {
+        return [8, isFourOfAKind[1]]
+    }
+    const isFullHouse = this.isFullHouse(fiveCards)
+    if (isFullHouse[0]) {
+        return [7, isFullHouse[1]]
+    }
+    const isFlush = this.isFlush(fiveCards);
+    if (isFlush[0]) {
+        return [6, isFlush[1]];
+    }
+    const isStraight = this.isStraight(fiveCards);
+    if (isStraight[0]) {
+        return [5, isStraight[1]];
+    }
+    const isThreeOfAKind = this.isThreeOfAKind(fiveCards);
+    if (isThreeOfAKind[0]) {
+        return [4, isThreeOfAKind[1]];
+    }
+    const isTwoPair = this.isTwoPair(fiveCards);
+    if (isTwoPair[0]) {
+        return [3, isTwoPair[1]];
+    }
+    const isOnePair = this.isOnePair(fiveCards);
+    if (isOnePair[0]) {
+        return [2, isOnePair[1]];
+    }
+
+    const isNoPair = this.isNoPair(fiveCards);
+    if (isNoPair[0]) {
+        return [1, isNoPair[1]];
     }
 }
 
@@ -185,7 +261,7 @@ Handtype.prototype.bestHand = function (hand, board) {
           }
         }
     }
-    let top = 0;
+    let top = [0];
     for (let i = 0; i < threeCardCombos.length; i++) {
         for (let j = 0; j < twoCardCombos.length; j++) {
             const newRank = this.getPokerHand([
@@ -195,26 +271,41 @@ Handtype.prototype.bestHand = function (hand, board) {
                 threeCardCombos[i][1],
                 threeCardCombos[i][2]
             ])
-            if (newRank > top) {
+            console.log(newRank, top)
+            if (newRank[0] > top[0]) {
                 top = newRank
+            } else if (newRank[0] === top[0]) {
+                top = this.comparingKickers(newRank, top)
             }
         }
     }
-    console.log(top)
     return top
 }
 
-Handtype.prototype.winner = function (bestHandsHash) {
-    // check if empty first
-    console.log(bestHandsHash)
-    // const p1type = bestHand(p1, board)
-    // const p2type = bestHand(p2, board)
+Handtype.prototype.comparingKickers = function (hand1, hand2) {
+    for (let i = 0; i < 5; i++) {
+        // if (hand1[1])
+    }
+}
 
-    // if (p1type < p2type) {
-    //     return "p2"
-    // } else {
-    //     return "p1"
-    // }
+Handtype.prototype.compareVals = function (val1, val2) {
+    if (NUM_VAL[val1] < NUM_VAL[val2]) return false
+    return true
+}
+
+Handtype.prototype.winner = function (bestHandsHash) {
+    let winner = {}
+    let winningHand = 0
+    for (let player in bestHandsHash) {
+        if (bestHandsHash[player] > winningHand) {
+            winner = player
+            winningHand = bestHandsHash[player]
+        } else if (bestHandsHash[player] === winningHand) {
+            winner += ` and ${player}`
+        }
+    }
+    console.log(winner, winningHand)
+    return winner
 }
 
 export { Handtype }

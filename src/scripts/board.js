@@ -67,7 +67,8 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
                         bestHands[`p${i}`] = (this.deck.handtype.bestHand(this.deck[`p${i}`].playerHand, this.onBoard))
                     }
                 }
-                // this.deck.handtype.winner(bestHands)
+                console.log(bestHands)
+                this.deck.handtype.winner(bestHands)
             }
         }
         //  <img src="./images/cardback.png" id="p1-1">
@@ -214,6 +215,7 @@ Board.prototype._addPlayers = function (playerNum) {
 
 Board.prototype._removePlayers = function (playerNum) {
     //p1 boardPos[0-3], p2 [4-7]
+    //  FIX: when player removed fix text from equity to just p5
     for (let key in this.boardPos) {
         if (key[1] === playerNum[1]) {
             const pos = document.querySelector(`.${key}`)
