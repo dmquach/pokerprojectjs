@@ -271,11 +271,11 @@ Handtype.prototype.bestHand = function (hand, board) {
                 threeCardCombos[i][1],
                 threeCardCombos[i][2]
             ])
-            console.log(newRank, top)
             if (newRank[0] > top[0]) {
                 top = newRank
             } else if (newRank[0] === top[0]) {
                 top = [newRank[0], this.comparingKickers(newRank[1], top[1])]
+                if (top[1] === 0) top[1] = newRank[1]
             }
         }
     }
@@ -290,26 +290,19 @@ Handtype.prototype.comparingKickers = function (hand1, hand2) {
             return hand2
         }
     }
-    return hand1
-}
-
-Handtype.prototype.compareVals = function (val1, val2) {
-    if (NUM_VAL[val1] < NUM_VAL[val2]) return false
-    return true
+    return 0
 }
 
 Handtype.prototype.winner = function (bestHandsHash) {
-    let winner = {}
-    let winningHand = 0
+    let winner = {'empty': [0, []]}
+
     for (let player in bestHandsHash) {
-        if (bestHandsHash[player] > winningHand) {
-            winner = player
-            winningHand = bestHandsHash[player]
-        } else if (bestHandsHash[player] === winningHand) {
-            winner += ` and ${player}`
+        if (bestHandsHash[player][0] > winner[Object.keys(winner)[0]][0]) {
+            winner = {}
+            winner[player] = bestHandsHash[player]
         }
+        // FIX: Multi player winners and checking kickers
     }
-    console.log("hi", winner, winningHand)
     return winner
 }
 

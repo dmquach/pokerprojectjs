@@ -67,8 +67,7 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
                         bestHands[`p${i}`] = (this.deck.handtype.bestHand(this.deck[`p${i}`].playerHand, this.onBoard))
                     }
                 }
-                console.log("b", bestHands)
-                this.deck.handtype.winner(bestHands)
+                this.highlightWinner(this.deck.handtype.winner(bestHands))
             }
         }
         //  <img src="./images/cardback.png" id="p1-1">
@@ -88,6 +87,7 @@ Board.prototype.full = function () {
 
 Board.prototype.removeFromBoard = function (boardKey) {
     // boardKey = p1-1
+    // FIX: Update player hands
     const itemToRemove = document.getElementById(boardKey) // Item to remove from the array
     const item = this.changeSrcToId(itemToRemove.src)
     let index = this.onBoard.indexOf(item); // Find the index of the item
@@ -297,6 +297,11 @@ Board.prototype.changeIdToSrc = function (id) {
         suit = "hearts"
     }
     return `./images/${v}_of_${suit}.png`
+}
+
+Board.prototype.highlightWinner = function (winner) {
+    console.log(winner)
+    
 }
 
 export { Board }
