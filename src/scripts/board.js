@@ -67,7 +67,7 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
                         bestHands[`p${i}`] = (this.deck.handtype.bestHand(this.deck[`p${i}`].playerHand, this.onBoard))
                     }
                 }
-                console.log(bestHands)
+                console.log("b", bestHands)
                 this.deck.handtype.winner(bestHands)
             }
         }

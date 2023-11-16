@@ -275,7 +275,7 @@ Handtype.prototype.bestHand = function (hand, board) {
             if (newRank[0] > top[0]) {
                 top = newRank
             } else if (newRank[0] === top[0]) {
-                top = this.comparingKickers(newRank, top)
+                top = [newRank[0], this.comparingKickers(newRank[1], top[1])]
             }
         }
     }
@@ -284,8 +284,13 @@ Handtype.prototype.bestHand = function (hand, board) {
 
 Handtype.prototype.comparingKickers = function (hand1, hand2) {
     for (let i = 0; i < 5; i++) {
-        // if (hand1[1])
+        if (NUM_VAL[hand1[i][0]] > NUM_VAL[hand2[i][0]]) {
+            return hand1
+        } else if (NUM_VAL[hand1[i][0]] < NUM_VAL[hand2[i][0]]) {
+            return hand2
+        }
     }
+    return hand1
 }
 
 Handtype.prototype.compareVals = function (val1, val2) {
@@ -304,7 +309,7 @@ Handtype.prototype.winner = function (bestHandsHash) {
             winner += ` and ${player}`
         }
     }
-    console.log(winner, winningHand)
+    console.log("hi", winner, winningHand)
     return winner
 }
 
