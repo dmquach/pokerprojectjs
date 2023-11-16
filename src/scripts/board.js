@@ -1,3 +1,16 @@
+const KEY = {
+    1: "No Pair",
+    2: "One Pair",
+    3: "Two Pair",
+    4: "Three of a Kind",
+    5: "Straight",
+    6: "Flush",
+    7: "Full House!",
+    8: "Four of a Kind!!",
+    9: "Straight Flush!!!",
+    10: "ROYAL FLUSH!!!"
+}
+
 function Board (deck) {
     this.boardPos = {
         'p1-1': 'open', 'p1-2': 'open', 'p1-3': 'open', 'p1-4': 'open',
@@ -17,6 +30,7 @@ function Board (deck) {
 }
 
 Board.prototype.addClickBoard = function () {
+    //FIX: remove from hand
     for (let pos in this.boardPos) {
         if (pos !== 'highlight') {
             const newPos = document.getElementById(pos);
@@ -67,9 +81,24 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
                         bestHands[`p${i}`] = (this.deck.handtype.bestHand(this.deck[`p${i}`].playerHand, this.onBoard))
                     }
                 }
+                // FIX: Should only do this if there is a player with full hand
                 this.highlightWinner(this.deck.handtype.winner(bestHands))
             }
         }
+        // if (this.boardPos.highlight[0] === 'p') {
+        //     this.deck[this.boardPos['highlight'].slice(0, 2)]
+        //     // FIX, update odds not just when board gets full but when a hand gets full and the board is full
+        //     if (this.full()) {
+        //         // FIX: Just being used to test hands, should test entire board
+        //         const bestHands = {}
+        //         for (let i = 1; i < 7; i++) {
+        //             if (this.deck[`p${i}`].handFull()) {
+        //                 bestHands[`p${i}`] = (this.deck.handtype.bestHand(this.deck[`p${i}`].playerHand, this.onBoard))
+        //             }
+        //         }
+        //         this.highlightWinner(this.deck.handtype.winner(bestHands))
+        //     }
+        // }
         //  <img src="./images/cardback.png" id="p1-1">
         const changePos = document.getElementById(this.boardPos['highlight']);
         const tempSrc = changePos.src;
@@ -111,6 +140,11 @@ Board.prototype.clearBoard = function () {
     for (let i = 1; i < 6; i++) {
         if (this.boardPos[`board${i}`] === 'taken') this.removeFromBoard(`board${i}`)
     }
+    const allImages = document.querySelectorAll('img');
+    // FIX: only search board
+    allImages.forEach(img => {
+        img.style.border = '';
+    });
 }
 
 Board.prototype.boardCards = function () {
@@ -211,6 +245,11 @@ Board.prototype._addPlayers = function (playerNum) {
             this.boardPos[key] = 'open'
         }
     }
+    const player = document.getElementById(playerNum)
+    const text = player.childNodes[2]
+    const img = player.querySelector('img');
+    img.src = "./images/icons8-minus-50.png"
+    text.nodeValue += ' equity: '
 }
 
 Board.prototype._removePlayers = function (playerNum) {
@@ -223,8 +262,13 @@ Board.prototype._removePlayers = function (playerNum) {
             if (this.boardPos[key] !== 'open') this.removeFromBoard(key)
             this.boardPos[key] = ''
             this._createNextBorder()
+        }
     }
-}
+    const player = document.getElementById(playerNum)
+    const text = player.childNodes[2]
+    const img = player.querySelector('img');
+    img.src = "./images/icons8-plus-button-50.png"
+    text.nodeValue = `P${playerNum[1]}`
 }
 Board.prototype.changeSrcToId = function (src) {
     let val;
@@ -243,33 +287,36 @@ Board.prototype.changeSrcToId = function (src) {
         suit = "c"
         word = src.slice(-15)
     }
-
-    if (word.includes('2')) {
-        val = "2"
-    } else if (word.includes('3')) {
-        val = "3"
-    } else if (word.includes('4')) {
-        val = "4"
-    } else if (word.includes('5')) {
-        val = "5"
-    } else if (word.includes('6')) {
-        val = "6"
-    } else if (word.includes('7')) {
-        val = "7"
-    } else if (word.includes('8')) {
-        val = "8"
-    } else if (word.includes('9')) {
-        val = "9"
-    } else if (word.includes('10')) {
-        val = "10"
-    } else if (word.includes('J')) {
-        val = "J"
-    } else if (word.includes('Q')) {
-        val = "Q"
-    } else if (word.includes('K')) {
-        val = "K"
-    } else if (word.includes('A')) {
-        val = "A"
+    if (word) {
+        if (word.includes('2')) {
+            val = "2"
+        } else if (word.includes('3')) {
+            val = "3"
+        } else if (word.includes('4')) {
+            val = "4"
+        } else if (word.includes('5')) {
+            val = "5"
+        } else if (word.includes('6')) {
+            val = "6"
+        } else if (word.includes('7')) {
+            val = "7"
+        } else if (word.includes('8')) {
+            val = "8"
+        } else if (word.includes('9')) {
+            val = "9"
+        } else if (word.includes('10')) {
+            val = "10"
+        } else if (word.includes('J')) {
+            val = "J"
+        } else if (word.includes('Q')) {
+            val = "Q"
+        } else if (word.includes('K')) {
+            val = "K"
+        } else if (word.includes('A')) {
+            val = "A"
+        }
+    } else {
+        return false
     }
     return `${val}${suit}`
 }
@@ -300,8 +347,29 @@ Board.prototype.changeIdToSrc = function (id) {
 }
 
 Board.prototype.highlightWinner = function (winner) {
-    console.log(winner)
-    
+    // FIX: Split pot winners
+    const player = Object.keys(winner)[0]
+    const handVal = winner[player][0]
+    const handString = KEY[handVal]
+    const hand = winner[player][1]
+    // console.log(player, handVal, handString, hand, winner)
+
+    const p = document.getElementById(player)
+    const text = p.childNodes[2]
+    text.nodeValue = `WINNER: ${handString}`
+
+    hand.forEach(card => {
+        const allImages = document.querySelectorAll('img');
+        allImages.forEach(img => {
+            const id = this.changeSrcToId(img.src)
+            if (card === id) {
+                img.style.border = '4px solid blue';
+            }
+        });
+
+        // const imgElement = document.querySelector(`img[${src}]`);
+    })
+
 }
 
 export { Board }

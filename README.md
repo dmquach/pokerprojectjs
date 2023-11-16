@@ -39,6 +39,9 @@ NB:
 # Bonus features
 * add No Limit Holdem support
 * add dead cards
-* add message to add players
+* add message popups to add players
 * add fill hand message
 * add kickers
+* add functions like add player text,
+* add practice mode
+* add backend for practice mode
