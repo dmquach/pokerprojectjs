@@ -294,6 +294,7 @@ Handtype.prototype.comparingKickers = function (hand1, hand2) {
 }
 
 Handtype.prototype.winner = function (bestHandsHash) {
+    if (Object.keys(bestHandsHash).length === 0) return false
     let winner = {'empty': [0, []]}
 
     for (let player in bestHandsHash) {

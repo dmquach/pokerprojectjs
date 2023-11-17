@@ -70,8 +70,9 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
     } else {
         this.boardPos[this.boardPos['highlight']] = 'taken'
         this.deck.cardDeck[cardKey] = 'board'
+        this.swapImg(this.boardPos['highlight'], cardKey)
         if (this.boardPos.highlight[0] === 'b') {
-            this.onBoard.push(cardKey)
+            this.pushOnBoard(cardKey)
             // FIX, update odds not just when board gets full but when a hand gets full and the board is full
             if (this.full()) {
                 // FIX: Just being used to test hands, should test entire board
@@ -82,7 +83,8 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
                     }
                 }
                 // FIX: Should only do this if there is a player with full hand
-                this.highlightWinner(this.deck.handtype.winner(bestHands))
+                const winner = this.deck.handtype.winner(bestHands)
+                if (winner) return this.highlightWinner(winner)
             }
         }
         // if (this.boardPos.highlight[0] === 'p') {
@@ -100,14 +102,29 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
         //     }
         // }
         //  <img src="./images/cardback.png" id="p1-1">
-        const changePos = document.getElementById(this.boardPos['highlight']);
-        const tempSrc = changePos.src;
-        //  <img src="./images/2_of_hearts.png" id="2h">
-        const changeCard = document.getElementById(cardKey);
-        changePos.src = changeCard.src;
-        changeCard.src = tempSrc;
         this._createNextBorder(playerNum)
     }
+    console.log(this.boardPos, this.onBoard, this.deck.p1.playerHand)
+}
+
+Board.prototype.swapImg = function (pos1, pos2) {
+    const changePos = document.getElementById(pos1)
+    const tempSrc = changePos.src
+    const changeNextPos = document.getElementById(pos2)
+    changePos.src = changeNextPos.src
+    changeNextPos.src = tempSrc
+}
+
+Board.prototype.pushOnBoard = function (cardKey) {
+    this.onBoard.push(cardKey)
+}
+
+Board.prototype.pushPlayerHand = function () {
+
+}
+
+Board.prototype.removePlayerHand = function () {
+
 }
 
 Board.prototype.full = function () {
@@ -119,21 +136,19 @@ Board.prototype.removeFromBoard = function (boardKey) {
     // FIX: Update player hands
     const itemToRemove = document.getElementById(boardKey) // Item to remove from the array
     const item = this.changeSrcToId(itemToRemove.src)
-    let index = this.onBoard.indexOf(item); // Find the index of the item
+    this.swapImg(boardKey, item)
+    this.boardPos[boardKey] = 'open'
+    const index = this.onBoard.indexOf(item)
     if (index !== -1) {
-        this.onBoard.splice(index, 1); // Remove one element at the found index
+        this.onBoard.splice(index, 1);
     }
-    const changePos = document.getElementById(boardKey);
-    const tempSrc = changePos.src;
-
-    this.boardPos[changePos.id] = 'open'
-    // cardKey "2h"
-    const cardKey = this.changeSrcToId(tempSrc)
-    this.deck.cardDeck[cardKey] = 'deck'
-
-    const changeCard = document.getElementById(cardKey);
-    changePos.src = changeCard.src;
-    changeCard.src = tempSrc;
+    for (let i = 1; i < 7; i++) {
+        let player = this.deck[`p${i}`].playerHand
+        let index = player.indexOf(item)
+        if (index !== -1) {
+            player.splice(index, 1);
+        }
+    }
 }
 
 Board.prototype.clearBoard = function () {
@@ -352,23 +367,24 @@ Board.prototype.highlightWinner = function (winner) {
     const handVal = winner[player][0]
     const handString = KEY[handVal]
     const hand = winner[player][1]
-    // console.log(player, handVal, handString, hand, winner)
+    console.log(player, handVal, handString, hand, winner)
 
     const p = document.getElementById(player)
     const text = p.childNodes[2]
     text.nodeValue = `WINNER: ${handString}`
 
-    hand.forEach(card => {
-        const allImages = document.querySelectorAll('img');
-        allImages.forEach(img => {
-            const id = this.changeSrcToId(img.src)
-            if (card === id) {
-                img.style.border = '4px solid blue';
-            }
-        });
+    const allImages = document.querySelectorAll('img');
+    allImages.forEach(img => {
+        const id = this.changeSrcToId(img.src)
+        if (hand.indexOf(id) !== -1) {
+            console.log(img)
+            img.style.border = '4px solid blue';
+            console.log(img)
+        }
+    });
 
         // const imgElement = document.querySelector(`img[${src}]`);
-    })
+
 
 }
 
