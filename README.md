@@ -15,33 +15,12 @@ In Trainiing mode a user can:
 * Be able to select which hand has more equity based on intuitiong
 * View guessing stats for a session
 
-# Wireframes
-https://wireframe.cc/uTyGW4
 
-# Technologies, Libraries, APIs
-This project is considering the implementation of the following technologies:
-
-* Webpack to transpile JavaScript code
-
-# Implementation Timeline
-NB:
-* Thursday Morning: Setup project, including getting webpack up and running. Create grid representing possible poker hands. Understand logic for visualizing hands.
-
-* Friday Afternoon & Weekend: Finish fixing the logic for card equities. Start adding buttons to add players
-
-* Monday: Create practice mode that can interact with selected hands. Add styling of board.
-
-* Tuesday: Finish implementing logic for practice mode. Add styling of project.
-
-* Wednesday: Finish implementing styling. Rewrite this proposal as a production README.
-
-
-# Bonus features
+# TODO / Future features
+* add practice mode
 * add No Limit Holdem support
 * add dead cards
+* add backend for practice mode
 * add message popups to add players
 * add fill hand message
-* add kickers
 * add functions like add player text,
-* add practice mode
-* add backend for practice mode
