@@ -51,6 +51,10 @@ Board.prototype.addClickBoard = function () {
     }
 }
 
+Board.prototype.full = function () {
+    return this.onBoard.length === 5
+}
+
 Board.prototype.createReset = function () {
     const res = document.getElementById('resetButton')
     res.addEventListener("click", () => {
@@ -86,7 +90,7 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
                 }
                 // FIX: Should only do this if there is a player with full hand
                 const winner = this.deck.handtype.winner(bestHands)
-                if (winner) return this.highlightWinner(winner)
+                if (winner) this.highlightWinner(winner)
             }
         }
         // if (this.boardPos.highlight[0] === 'p') {
@@ -128,14 +132,8 @@ Board.prototype.removePlayerHand = function () {
 
 }
 
-Board.prototype.full = function () {
-    return this.onBoard.length === 5
-}
-
 Board.prototype.removeFromBoard = function (boardKey) {
-    // boardKey = p1-1
-    // NOT BEING PUT BACK INTO Deck
-    const itemToRemove = document.getElementById(boardKey) // Item to remove from the array
+    const itemToRemove = document.getElementById(boardKey)
     const item = this.changeSrcToId(itemToRemove.src)
     this.swapImg(boardKey, item)
     this.boardPos[boardKey] = 'open'
@@ -187,17 +185,27 @@ Board.prototype._addBorder = function (pos) {
 
 Board.prototype._removeBorder = function() {
     const prevBorder = document.getElementById(this.boardPos['highlight'])
-    if (prevBorder) prevBorder.removeAttribute('style')
+    if (prevBorder && prevBorder.style.border !== '4px solid blue') {
+        prevBorder.removeAttribute('style')
+    }
     this.boardPos.highlight = ''
 }
 
 Board.prototype._createNextBorder = function(playerNum = 0) {
-
+    // FIX, adding last item to end of board creates next border
     // playerNum should tell what player to make next border for
     // 0 means add to next available space
     // -1 means add to board
     // num means add to that player
-    if((playerNum > 0 && this.deck['p' + playerNum].handLength() === 4) || (playerNum === -1 && this.full())) {
+    if((playerNum > 0 && this.deck['p' + playerNum].handLength() === 4)) {
+        for (let pos in this.boardPos) {
+            if (this.boardPos[pos] === 'open') {
+                const nextBorder = document.getElementById(pos)
+                return this._addBorder(nextBorder)
+            }
+        }
+    } else if (playerNum === -1 && this.full()) {
+        // FIX, CHECK IF PLAYERS HANDS ARE FULL THEN DONT GENERATE
         for (let pos in this.boardPos) {
             if (this.boardPos[pos] === 'open') {
                 const nextBorder = document.getElementById(pos)
@@ -227,6 +235,7 @@ Board.prototype._createNextBorder = function(playerNum = 0) {
         }
     }
     // if no open spaces
+
     this._removeBorder()
     this.boardPos.highlight = ''
     // -1 when no empty spaces

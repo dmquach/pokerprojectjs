@@ -43,7 +43,7 @@ Deck.prototype.addClickCards = function () {
                 }
                 // add this.playerH
             } else {
-                console.log("not in deck for some reason")
+                console.log("not in deck")
             }
         })
     }
