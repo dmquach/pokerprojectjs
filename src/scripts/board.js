@@ -31,6 +31,7 @@ function Board (deck) {
 
 Board.prototype.addClickBoard = function () {
     //FIX: remove from hand
+    //FIX: Create a winner border variable to check
     for (let pos in this.boardPos) {
         if (pos !== 'highlight') {
             const newPos = document.getElementById(pos);
@@ -60,6 +61,7 @@ Board.prototype.createReset = function () {
             }
         }
         this.clearBoard()
+        this._createNextBorder()
     })
 }
 
@@ -104,7 +106,6 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
         //  <img src="./images/cardback.png" id="p1-1">
         this._createNextBorder(playerNum)
     }
-    console.log(this.boardPos, this.onBoard, this.deck.p1.playerHand)
 }
 
 Board.prototype.swapImg = function (pos1, pos2) {
@@ -133,11 +134,12 @@ Board.prototype.full = function () {
 
 Board.prototype.removeFromBoard = function (boardKey) {
     // boardKey = p1-1
-    // FIX: Update player hands
+    // NOT BEING PUT BACK INTO Deck
     const itemToRemove = document.getElementById(boardKey) // Item to remove from the array
     const item = this.changeSrcToId(itemToRemove.src)
     this.swapImg(boardKey, item)
     this.boardPos[boardKey] = 'open'
+    this.deck.cardDeck[item] = 'deck'
     const index = this.onBoard.indexOf(item)
     if (index !== -1) {
         this.onBoard.splice(index, 1);
@@ -190,6 +192,7 @@ Board.prototype._removeBorder = function() {
 }
 
 Board.prototype._createNextBorder = function(playerNum = 0) {
+
     // playerNum should tell what player to make next border for
     // 0 means add to next available space
     // -1 means add to board
@@ -367,7 +370,6 @@ Board.prototype.highlightWinner = function (winner) {
     const handVal = winner[player][0]
     const handString = KEY[handVal]
     const hand = winner[player][1]
-    console.log(player, handVal, handString, hand, winner)
 
     const p = document.getElementById(player)
     const text = p.childNodes[2]
@@ -377,9 +379,7 @@ Board.prototype.highlightWinner = function (winner) {
     allImages.forEach(img => {
         const id = this.changeSrcToId(img.src)
         if (hand.indexOf(id) !== -1) {
-            console.log(img)
             img.style.border = '4px solid blue';
-            console.log(img)
         }
     });
 

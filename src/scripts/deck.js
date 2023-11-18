@@ -42,6 +42,8 @@ Deck.prototype.addClickCards = function () {
                     this.board.addToBoard(card.id, -1)
                 }
                 // add this.playerH
+            } else {
+                console.log("not in deck for some reason")
             }
         })
     }
