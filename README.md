@@ -25,3 +25,5 @@ In Trainiing mode a user can:
 * add fill hand message
 * add functions like add player text
 * add loser borders
+* different colors for different players
+* more styling for winners (moving cards forward)

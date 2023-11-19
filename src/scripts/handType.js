@@ -285,7 +285,6 @@ Handtype.prototype.bestHand = function (hand, board) {
 }
 
 Handtype.prototype.comparingKickers = function (hand1, hand2) {
-    console.log(hand1, hand2)
     for (let i = 0; i < 5; i++) {
         if (NUM_VAL[hand1[i][0]] > NUM_VAL[hand2[i][0]]) {
             return [1, hand1]
@@ -308,7 +307,7 @@ Handtype.prototype.winner = function (bestHandsHash) {
         } else if (bestHandsHash[player][0] === currWinner[0]) {
             const check = this.comparingKickers(bestHandsHash[player][1], currWinner[1])
             if (check === 0) {
-                winner[player] = [bestHandsHash[player][0], check[1]]
+                winner[player] = [bestHandsHash[player][0], bestHandsHash[player][1]]
             } else {
                 if (check[0] === 1) {
                     winner = {}
@@ -317,8 +316,6 @@ Handtype.prototype.winner = function (bestHandsHash) {
             }
         }
     }
-    // FIX, return losers to highlight losers hand as well maybe not
-    console.log(bestHandsHash, winner)
     return winner
 }
 
