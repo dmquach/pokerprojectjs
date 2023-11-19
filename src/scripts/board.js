@@ -81,14 +81,14 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
             this.pushOnBoard(cardKey)
             // FIX, update odds not just when board gets full but when a hand gets full and the board is full
             if (this.full()) {
-                // FIX: Just being used to test hands, should test entire board
+                this._clearWinnerBorders()
                 const bestHands = {}
                 for (let i = 1; i < 7; i++) {
                     if (this.deck[`p${i}`].handFull()) {
                         bestHands[`p${i}`] = (this.deck.handtype.bestHand(this.deck[`p${i}`].playerHand, this.onBoard))
                     }
                 }
-                // FIX: Should only do this if there is a player with full hand
+                // FIX: Should only do this if all players have full hand
                 const winner = this.deck.handtype.winner(bestHands)
                 if (winner) this.highlightWinner(winner)
             }
@@ -155,11 +155,7 @@ Board.prototype.clearBoard = function () {
     for (let i = 1; i < 6; i++) {
         if (this.boardPos[`board${i}`] === 'taken') this.removeFromBoard(`board${i}`)
     }
-    const allImages = document.querySelectorAll('img');
-    // FIX: only search board
-    allImages.forEach(img => {
-        img.style.border = '';
-    });
+    this._clearWinnerBorders()
 }
 
 Board.prototype.boardCards = function () {
@@ -184,6 +180,7 @@ Board.prototype._addBorder = function (pos) {
 }
 
 Board.prototype._removeBorder = function() {
+    //FIX, need remove red borders and remove blue borders
     const prevBorder = document.getElementById(this.boardPos['highlight'])
     if (prevBorder && prevBorder.style.border !== '4px solid blue') {
         prevBorder.removeAttribute('style')
@@ -191,6 +188,12 @@ Board.prototype._removeBorder = function() {
     this.boardPos.highlight = ''
 }
 
+Board.prototype._clearWinnerBorders = function () {
+    for (let pos in this.boardPos) {
+        const nextBorder = document.getElementById(pos)
+        if (nextBorder) nextBorder.removeAttribute('style')
+    }
+}
 Board.prototype._createNextBorder = function(playerNum = 0) {
     // FIX, adding last item to end of board creates next border
     // playerNum should tell what player to make next border for
