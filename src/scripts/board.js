@@ -39,7 +39,6 @@ Board.prototype.addClickBoard = function () {
                     this._removeBorder()
                     this._addBorder(e.target)
                 } else if (!(this.boardPos[e.target.id] === '')) {
-                    console.log("hi")
                     if (this.winner) this._clearWinnerBorders()
                     this.removeFromBoard(e.target.id)
                     this._addBorder(e.target)
@@ -368,6 +367,7 @@ Board.prototype.changeIdToSrc = function (id) {
 
 Board.prototype.highlightWinner = function (winner) {
     // FIX: Split pot winners
+    //NEXT
     this.winner = true
     const player = Object.keys(winner)[0]
     const handVal = winner[player][0]

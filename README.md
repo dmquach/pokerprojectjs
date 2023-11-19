@@ -23,4 +23,5 @@ In Trainiing mode a user can:
 * add backend for practice mode
 * add message popups to add players
 * add fill hand message
-* add functions like add player text,
+* add functions like add player text
+* add loser borders

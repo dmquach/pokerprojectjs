@@ -274,8 +274,10 @@ Handtype.prototype.bestHand = function (hand, board) {
             if (newRank[0] > top[0]) {
                 top = newRank
             } else if (newRank[0] === top[0]) {
-                top = [newRank[0], this.comparingKickers(newRank[1], top[1])]
-                if (top[1] === 0) top[1] = newRank[1]
+                const bestHand = this.comparingKickers(newRank[1], top[1])
+                if (bestHand !== 0) {
+                    top = [newRank[0], bestHand[1]]
+                }
             }
         }
     }
@@ -283,11 +285,12 @@ Handtype.prototype.bestHand = function (hand, board) {
 }
 
 Handtype.prototype.comparingKickers = function (hand1, hand2) {
+    console.log(hand1, hand2)
     for (let i = 0; i < 5; i++) {
         if (NUM_VAL[hand1[i][0]] > NUM_VAL[hand2[i][0]]) {
-            return hand1
+            return [1, hand1]
         } else if (NUM_VAL[hand1[i][0]] < NUM_VAL[hand2[i][0]]) {
-            return hand2
+            return [2, hand2]
         }
     }
     return 0
@@ -298,12 +301,24 @@ Handtype.prototype.winner = function (bestHandsHash) {
     let winner = {'empty': [0, []]}
 
     for (let player in bestHandsHash) {
-        if (bestHandsHash[player][0] > winner[Object.keys(winner)[0]][0]) {
+        const currWinner = winner[Object.keys(winner)[0]]
+        if (bestHandsHash[player][0] > currWinner[0]) {
             winner = {}
             winner[player] = bestHandsHash[player]
+        } else if (bestHandsHash[player][0] === currWinner[0]) {
+            const check = this.comparingKickers(bestHandsHash[player][1], currWinner[1])
+            if (check === 0) {
+                winner[player] = [bestHandsHash[player][0], check[1]]
+            } else {
+                if (check[0] === 1) {
+                    winner = {}
+                    winner[player] = bestHandsHash[player]
+                }
+            }
         }
-        // FIX: Multi player winners and checking kickers
     }
+    // FIX, return losers to highlight losers hand as well maybe not
+    console.log(bestHandsHash, winner)
     return winner
 }
 
