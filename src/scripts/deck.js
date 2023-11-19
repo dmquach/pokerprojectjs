@@ -15,7 +15,6 @@ function Deck (p1, p2, p3, p4, p5, p6) {
     this.p4 = p4
     this.p5 = p5
     this.p6 = p6
-    // this.lastPlayer = 0
 
     this.addClickCards()
     this.handtype = new Handtype()
@@ -30,18 +29,15 @@ Deck.prototype.addClickCards = function () {
     for (let key in this.cardDeck) {
         const card = document.getElementById(key);
         card.addEventListener("click", () => {
-            // if in deck and no next part highlighted
             if (this.cardDeck[card.id] === "deck") {
                 const player = this.board._getHighlightedPos()
                 if (player !== -1) {
-                    // added to board
                     this[player].addToHand(card.id)
                     this.lastPlayer = player
                     this.board.addToBoard(card.id, Number(player[1]))
                 } else {
                     this.board.addToBoard(card.id, -1)
                 }
-                // add this.playerH
             } else {
                 console.log("not in deck")
             }

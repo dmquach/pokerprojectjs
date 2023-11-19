@@ -24,14 +24,13 @@ function Board (deck) {
     }
     this.deck = deck
     this.onBoard = []
+    this.winner = false
     this.addClickBoard()
     this.createReset()
     this._initialBorder()
 }
 
 Board.prototype.addClickBoard = function () {
-    //FIX: remove from hand
-    //FIX: Create a winner border variable to check
     for (let pos in this.boardPos) {
         if (pos !== 'highlight') {
             const newPos = document.getElementById(pos);
@@ -40,6 +39,8 @@ Board.prototype.addClickBoard = function () {
                     this._removeBorder()
                     this._addBorder(e.target)
                 } else if (!(this.boardPos[e.target.id] === '')) {
+                    console.log("hi")
+                    if (this.winner) this._clearWinnerBorders()
                     this.removeFromBoard(e.target.id)
                     this._addBorder(e.target)
                 } else {
@@ -47,12 +48,19 @@ Board.prototype.addClickBoard = function () {
                 }
             })
         }
-        // newPos.id = p1-1
     }
 }
 
 Board.prototype.full = function () {
     return this.onBoard.length === 5
+}
+
+Board.prototype.playersReady = function () {
+    for (let i = 1; i < 7; i++) {
+        const player = this.deck[`p${i}`]
+        if (player.active && !player.handFull()) return false
+    }
+    return true
 }
 
 Board.prototype.createReset = function () {
@@ -70,7 +78,6 @@ Board.prototype.createReset = function () {
 }
 
 Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
-    // add card to board Qh
     if (this.boardPos['highlight'] === '') {
         console.log('everything full')
     } else {
@@ -79,19 +86,20 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
         this.swapImg(this.boardPos['highlight'], cardKey)
         if (this.boardPos.highlight[0] === 'b') {
             this.pushOnBoard(cardKey)
+        }
+
             // FIX, update odds not just when board gets full but when a hand gets full and the board is full
-            if (this.full()) {
-                this._clearWinnerBorders()
-                const bestHands = {}
-                for (let i = 1; i < 7; i++) {
-                    if (this.deck[`p${i}`].handFull()) {
-                        bestHands[`p${i}`] = (this.deck.handtype.bestHand(this.deck[`p${i}`].playerHand, this.onBoard))
-                    }
+        if (this.full() && this.playersReady()) {
+            this._clearWinnerBorders()
+            const bestHands = {}
+            for (let i = 1; i < 7; i++) {
+                if (this.deck[`p${i}`].handFull()) {
+                    bestHands[`p${i}`] = (this.deck.handtype.bestHand(this.deck[`p${i}`].playerHand, this.onBoard))
                 }
-                // FIX: Should only do this if all players have full hand
-                const winner = this.deck.handtype.winner(bestHands)
-                if (winner) this.highlightWinner(winner)
             }
+            // FIX: Should only do this if all players have full hand
+            const winner = this.deck.handtype.winner(bestHands)
+            if (winner) this.highlightWinner(winner)
         }
         // if (this.boardPos.highlight[0] === 'p') {
         //     this.deck[this.boardPos['highlight'].slice(0, 2)]
@@ -158,21 +166,6 @@ Board.prototype.clearBoard = function () {
     this._clearWinnerBorders()
 }
 
-Board.prototype.boardCards = function () {
-    const b1 = document.getElementById('board1');
-    const b2 = document.getElementById('board2');
-    const b3 = document.getElementById('board3');
-    const b4 = document.getElementById('board4');
-    const b5 = document.getElementById('board5');
-    if (b1 && b2 && b3 && b4 && b5) {
-        const pos1 = this.changeSrcToId(b1.src)
-        const pos2 = this.changeSrcToId(b2.src)
-        const pos3 = this.changeSrcToId(b3.src)
-        const pos4 = this.changeSrcToId(b4.src)
-        const pos5 = this.changeSrcToId(b5.src)
-    }
-}
-
 Board.prototype._addBorder = function (pos) {
     this._removeBorder()
     this.boardPos['highlight'] = pos.id
@@ -180,7 +173,6 @@ Board.prototype._addBorder = function (pos) {
 }
 
 Board.prototype._removeBorder = function() {
-    //FIX, need remove red borders and remove blue borders
     const prevBorder = document.getElementById(this.boardPos['highlight'])
     if (prevBorder && prevBorder.style.border !== '4px solid blue') {
         prevBorder.removeAttribute('style')
@@ -283,8 +275,6 @@ Board.prototype._addPlayers = function (playerNum) {
 }
 
 Board.prototype._removePlayers = function (playerNum) {
-    //p1 boardPos[0-3], p2 [4-7]
-    //  FIX: when player removed fix text from equity to just p5
     for (let key in this.boardPos) {
         if (key[1] === playerNum[1]) {
             const pos = document.querySelector(`.${key}`)
@@ -378,6 +368,7 @@ Board.prototype.changeIdToSrc = function (id) {
 
 Board.prototype.highlightWinner = function (winner) {
     // FIX: Split pot winners
+    this.winner = true
     const player = Object.keys(winner)[0]
     const handVal = winner[player][0]
     const handString = KEY[handVal]
@@ -394,10 +385,6 @@ Board.prototype.highlightWinner = function (winner) {
             img.style.border = '4px solid blue';
         }
     });
-
-        // const imgElement = document.querySelector(`img[${src}]`);
-
-
 }
 
 export { Board }

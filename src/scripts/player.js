@@ -2,7 +2,6 @@ function Player(active, playerNum) {
     this.playerHand = []
     this.playerNum = playerNum
     this.active = active
-
 }
 
 Player.prototype.setDeck = function (deck) {
@@ -37,7 +36,7 @@ Player.prototype.addPlayerButton = function () {
 Player.prototype.addToHand = function (card) {
     this.playerHand.push(card)
 }
-// FIX
+
 Player.prototype.removeFromHand = function (card) {
     this.playerHand.push(card)
 }
