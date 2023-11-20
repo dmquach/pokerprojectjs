@@ -26,4 +26,4 @@ In Trainiing mode a user can:
 * add functions like add player text
 * add loser borders
 * different colors for different players
-* more styling for winners (moving cards forward)
+* more styling for winners (moving cards forward, animations)

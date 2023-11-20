@@ -112,6 +112,7 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
         if (this.full() && this.playersReady()) {
             this._clearWinnerBorders()
             // FIX: Clear winner text as well
+            // change this all to be in calculate equities
             const bestHands = {}
             for (let i = 1; i < 7; i++) {
                 if (this.deck[`p${i}`].handFull()) {
@@ -123,7 +124,7 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
         } else if (this.playersReady()) {
             console.log("update equities")
         } else {
-            console.log("Waiting for players")
+            this.createWaitingMessages()
         }
         this._createNextBorder(playerNum)
     }
@@ -361,20 +362,26 @@ Board.prototype.changeIdToSrc = function (id) {
 }
 
 Board.prototype.highlightWinner = function (winner) {
-    // FIX: Split pot winners
-    //NEXT
     this.winner = true
     const players = Object.keys(winner)
     let hand = []
-    players.forEach(playerKey => {
-        const handVal = winner[playerKey][0]
-        const handString = KEY[handVal]
-        hand = hand.concat(winner[playerKey][1].filter(card => !hand.includes(card)))
+    for (let i = 1; i < 7; i++) {
+        const player = `p${i}`
+        console.log(this.deck[player])
+        if (players.includes(player)) {
+            const handVal = winner[player][0]
+            const handString = KEY[handVal]
+            hand = hand.concat(winner[player][1].filter(card => !hand.includes(card)))
 
-        const p = document.getElementById(playerKey)
-        const text = p.childNodes[2]
-        text.nodeValue = `WINNER: ${handString}`
-    })
+            const p = document.getElementById(player)
+            const text = p.childNodes[2]
+            text.nodeValue = `WINNER: ${handString}`
+        } else if (this.deck[player].active) {
+            const p = document.getElementById(player)
+            const text = p.childNodes[2]
+            text.nodeValue = `${player} equity: 0%`
+        }
+    }
     const allImages = document.querySelectorAll('img');
     allImages.forEach(img => {
         const id = this.changeSrcToId(img.src)
@@ -382,9 +389,16 @@ Board.prototype.highlightWinner = function (winner) {
             img.style.border = '4px solid blue';
         }
     });
+}
 
-
-
+Board.prototype.createWaitingMessages = function () {
+    for (let i = 1; i < 7; i++) {
+        if (this.deck[`p${i}`].active) {
+            const player = document.getElementById(`p${i}`)
+            const text = player.childNodes[2]
+            text.nodeValue = "Waiting on unfilled hands"
+        }
+    }
 }
 
 export { Board }

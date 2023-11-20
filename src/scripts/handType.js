@@ -319,4 +319,6 @@ Handtype.prototype.winner = function (bestHandsHash) {
     return winner
 }
 
+
+
 export { Handtype }

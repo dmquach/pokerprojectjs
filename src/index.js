@@ -2,48 +2,6 @@ import { Game } from "./scripts/game.js";
 
 const game = new Game()
 
-// function playerHand() {
-//     // each player
-//     let handCount = 0;
-//     for (let i = 1; i < numPlayers + 1; i++) {
-//         for (let j = 1; j < 5; j++) {
-//             const replace = document.getElementById(`p${i}-${j}`)
-//             if (replace.src.endsWith("/images/cardback.png")) {
-//                 const player = document.getElementById(`p${i}`)
-//                 player.textContent = "incomplete hand"
-//                 break
-//             }
-//         }
-//         // if reaching here the hands are complete
-//     }
-//     let complete1 = true
-//     let complete2 = true
-//     for (let j = 1; j < 5; j++) {
-//         const replace = document.getElementById(`p1-${j}`)
-//         if (replace.src.endsWith("/images/cardback.png")) {
-//             complete1 = false
-//         }
-//     }
-//     for (let j = 1; j < 5; j++) {
-//         const replace = document.getElementById(`p2-${j}`)
-//         if (replace.src.endsWith("/images/cardback.png")) {
-//             complete2 = false
-//         }
-//     }
-//     if (complete1 && !complete2) {
-//         const player = document.getElementById(`p1`)
-//         player.textContent = "Waiting for p2"
-//     }
-//     if (complete2 && !complete1) {
-//         const player = document.getElementById(`p2`)
-//         player.textContent = "Waiting for p1"
-//     }
-
-//     if (complete2 && complete1) {
-//         equityCalc()
-//     }
-// }
-
 // function equityCalc() {
 
 //     let boardFull = true;
