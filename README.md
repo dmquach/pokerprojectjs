@@ -27,3 +27,4 @@ In Trainiing mode a user can:
 * add loser borders
 * different colors for different players
 * more styling for winners (moving cards forward, animations)
+* side button to view chops

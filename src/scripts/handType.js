@@ -28,8 +28,14 @@ const NUM_VAL = {
 }
 
 
-function Handtype() {
-
+function Handtype(p1, p2, p3, p4, p5, p, deck) {
+    this.p1 = p1
+    this.p2 = p2
+    this.p3 = p3
+    this.p4 = p4
+    this.p5 = p5
+    this.p6 = p6
+    this.deck = deck
 }
 
  Handtype.prototype.sortHand = function (hand) {
@@ -245,17 +251,18 @@ Handtype.prototype.getPokerHand = function (fiveCards) {
 }
 
 Handtype.prototype.bestHand = function (hand, board) {
+    // console.log("bestHand board", board)
     const twoCardCombos = []
     const threeCardCombos = []
 
-    for (let i = 0; i < 3; i++) {
-        for (let j = i+1; j < 4; j++) {
+    for (let i = 0; i < hand.length - 1; i++) {
+        for (let j = i+1; j < hand.length; j++) {
             twoCardCombos.push([hand[i], hand[j]])
         }
     }
-    for (let i = 0; i < 3; i++) {
-        for (let j = i + 1; j < 4; j++) {
-          for (let k = j + 1; k < 5; k++) {
+    for (let i = 0; i < board.length - 2; i++) {
+        for (let j = i + 1; j < board.length - 1; j++) {
+          for (let k = j + 1; k < board.length; k++) {
             const combination = [board[i], board[j], board[k]];
             threeCardCombos.push(combination);
           }
@@ -296,6 +303,7 @@ Handtype.prototype.comparingKickers = function (hand1, hand2) {
 }
 
 Handtype.prototype.winner = function (bestHandsHash) {
+    // assumes best hand on board is known
     if (Object.keys(bestHandsHash).length === 0) return false
     let winner = {'empty': [0, []]}
 
@@ -319,6 +327,64 @@ Handtype.prototype.winner = function (bestHandsHash) {
     return winner
 }
 
+Handtype.prototype.activeHands = function () {
+    const active = {}
+    for (let i = 1; i < 6; i++) {
+        if (this[`p${i}`].active) {
+            active[`p${i}`] = [0, [this[`p${i}`].playerHand]]
+        }
+    }
+    return active
+}
 
+Handtype.prototype.equities = function (board) {
+    // p1: [0, [hand]]
+    const hands = this.activeHands()
+    const deck = this.deck.inDeck()
+    let totalOutcomes = 0
+    let chops = 0
+    if (board.length === 0) {
+        // for (let i = 0; i < deck.length - 4; i++) {
+        //     for (let j = i + 1; j < deck.length - 3; j++) {
+        //         for (let k = j + 1; k < deck.length - 2; k++) {
+        //             for (let l = k + 1; l < deck.length - 1; l++) {
+        //                 for (let m = l + 1; m < deck.length; m++) {
+
+        //                     totalOutcomes++
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        console.log("no cards on board")
+    } else if (board.length === 1) {
+        console.log("one cards on board")
+    } else if (board.length === 2) {
+        console.log("two cards on board")
+    } else if (board.length === 3) {
+        console.log("three cards on board")
+    } else if (board.length === 4) {
+        console.log("four cards on board")
+        for (let m = 0; m < deck.length; m++) {
+            const bestHands = {}
+            //FIX: Can probably check for active players and pass in as argument
+            for (let i = 1; i < 7; i++) {
+                if (this.deck[`p${i}`].handFull()) {
+                    bestHands[`p${i}`] = (this.bestHand(this.deck[`p${i}`].playerHand, board.concat(deck[m])))
+                }
+            }
+            const winner = this.winner(bestHands)
+            const players = Object.keys(winner)
+            if (players.length > 1) {
+                chops++
+            } else {
+                hands[players[0]][0] += 1
+            }
+            // if (winner) this.highlightWinner(winner)
+            totalOutcomes++
+        }
+    }
+    return [hands, totalOutcomes]
+}
 
 export { Handtype }

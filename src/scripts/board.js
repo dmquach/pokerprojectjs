@@ -112,17 +112,18 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
         if (this.full() && this.playersReady()) {
             this._clearWinnerBorders()
             // FIX: Clear winner text as well
-            // change this all to be in calculate equities
+            // FIX: change following to be in calculate equities
             const bestHands = {}
             for (let i = 1; i < 7; i++) {
                 if (this.deck[`p${i}`].handFull()) {
                     bestHands[`p${i}`] = (this.deck.handtype.bestHand(this.deck[`p${i}`].playerHand, this.onBoard))
                 }
             }
+            //
             const winner = this.deck.handtype.winner(bestHands)
             if (winner) this.highlightWinner(winner)
         } else if (this.playersReady()) {
-            console.log("update equities")
+            this.displayEquities(this.onBoard)
         } else {
             this.createWaitingMessages()
         }
@@ -148,9 +149,9 @@ Board.prototype.removeFromBoard = function (boardKey) {
         }
     }
     if (this.playersReady()) {
-        console.log("update equities")
+        this.displayEquities(this.onBoard)
     } else {
-        console.log("Waiting for players")
+        this.createWaitingMessages()
     }
 }
 
@@ -367,7 +368,6 @@ Board.prototype.highlightWinner = function (winner) {
     let hand = []
     for (let i = 1; i < 7; i++) {
         const player = `p${i}`
-        console.log(this.deck[player])
         if (players.includes(player)) {
             const handVal = winner[player][0]
             const handString = KEY[handVal]
@@ -399,6 +399,20 @@ Board.prototype.createWaitingMessages = function () {
             text.nodeValue = "Waiting on unfilled hands"
         }
     }
+}
+
+Board.prototype.displayEquities = function (board) {
+    //[{p1: [wins, hand], p2: [wins, hand]}, totalOutcomes]
+    const players = this.deck.handtype.equities(board)
+    if (this.onBoard.length === 4) {
+        for (const p in players[0]) {
+            const player = document.getElementById(p)
+            console.log(player, p)
+            const text = player.childNodes[2]
+            text.nodeValue = `${p} equity: ${(players[0][p][0] / players[1]).toFixed(2)}%`
+        }
+    }
+    // console.log("players", players)
 }
 
 export { Board }

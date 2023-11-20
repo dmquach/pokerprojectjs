@@ -17,7 +17,7 @@ function Deck (p1, p2, p3, p4, p5, p6) {
     this.p6 = p6
 
     this.addClickCards()
-    this.handtype = new Handtype()
+    this.handtype = new Handtype(this.p1, this.p2, this.p3, this.p4, this.p5, this.p6, this)
 }
 
 Deck.prototype.lastPlayerAdded = function (lastPlayer) {
@@ -43,6 +43,14 @@ Deck.prototype.addClickCards = function () {
             }
         })
     }
+}
+
+Deck.prototype.inDeck = function () {
+    const deck = []
+    for (const key in this.cardDeck) {
+        if (this.cardDeck[key] === 'deck') deck.push(key)
+    }
+    return deck
 }
 
 export { Deck }
