@@ -409,7 +409,7 @@ Board.prototype.displayEquities = function (board) {
             const player = document.getElementById(p)
             console.log(player, p)
             const text = player.childNodes[2]
-            text.nodeValue = `${p} equity: ${(players[0][p][0] / players[1]).toFixed(2)}%`
+            text.nodeValue = `${p} equity: ${(players[0][p][0] / players[1]).toFixed(4) * 100}%`
         }
     }
     // console.log("players", players)

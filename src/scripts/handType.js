@@ -292,6 +292,7 @@ Handtype.prototype.bestHand = function (hand, board) {
 }
 
 Handtype.prototype.comparingKickers = function (hand1, hand2) {
+    // FIX TWO PAIR,
     for (let i = 0; i < 5; i++) {
         if (NUM_VAL[hand1[i][0]] > NUM_VAL[hand2[i][0]]) {
             return [1, hand1]
@@ -363,28 +364,53 @@ Handtype.prototype.equities = function (board) {
         console.log("two cards on board")
     } else if (board.length === 3) {
         console.log("three cards on board")
+        return this.equitiesTwoMoreCards(board, hands, deck, totalOutcomes, chops, 0)
     } else if (board.length === 4) {
         console.log("four cards on board")
-        for (let m = 0; m < deck.length; m++) {
-            const bestHands = {}
-            //FIX: Can probably check for active players and pass in as argument
-            for (let i = 1; i < 7; i++) {
-                if (this.deck[`p${i}`].handFull()) {
-                    bestHands[`p${i}`] = (this.bestHand(this.deck[`p${i}`].playerHand, board.concat(deck[m])))
-                }
+        return this.equitiesOneMoreCard(board, hands, deck, totalOutcomes, chops, 0)
+    }
+}
+
+Handtype.prototype.equitiesOneMoreCard = function (board, hands, deck, totalOutcomes, chops, initial) {
+    // console.log("1", totalOutcomes)
+    // totalOutcomes++
+    // h++
+    for (let m = initial; m < deck.length; m++) {
+        // count += 1
+        const bestHands = {}
+        //FIX: Can probably check for active players and pass in as argument
+        for (let i = 1; i < 7; i++) {
+            if (this.deck[`p${i}`].handFull()) {
+                bestHands[`p${i}`] = (this.bestHand(this.deck[`p${i}`].playerHand, board.concat(deck[m])))
             }
-            const winner = this.winner(bestHands)
-            const players = Object.keys(winner)
-            if (players.length > 1) {
-                chops++
-            } else {
-                hands[players[0]][0] += 1
-            }
-            // if (winner) this.highlightWinner(winner)
-            totalOutcomes++
         }
+        const winner = this.winner(bestHands)
+        const players = Object.keys(winner)
+        if (players.length > 1) {
+            chops++
+        } else {
+            hands[players[0]][0] += 1
+        }
+        // if (winner) this.highlightWinner(winner)
+        totalOutcomes++
+    }
+    // console.log("2", totalOutcomes, h)
+    console.log([hands, totalOutcomes])
+    return [hands, totalOutcomes]
+}
+
+Handtype.prototype.equitiesTwoMoreCards = function (board, hands, deck, totalOutcomes, chops, initial) {
+    console.log("board", board)
+    console.log("hands", hands)
+    for (let m = initial; m < deck.length - 1; m++) {
+        const res = this.equitiesOneMoreCard(board.concat(deck[m]), hands, deck, totalOutcomes, chops, m+1)
+        // console.log("res", res)
+        // Object.keys(res[0]).forEach(player => {
+        //     hands[player][0] += res[0][player][0]
+        // })
     }
     return [hands, totalOutcomes]
 }
+
 
 export { Handtype }
