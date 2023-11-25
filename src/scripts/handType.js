@@ -364,6 +364,8 @@ Handtype.prototype.equities = function (board) {
         console.log("two cards on board")
     } else if (board.length === 3) {
         console.log("three cards on board")
+        const str = JSON.stringify(hands);
+        console.log(str);
         return this.equitiesTwoMoreCards(board, hands, deck, totalOutcomes, chops, 0)
     } else if (board.length === 4) {
         console.log("four cards on board")
@@ -375,6 +377,7 @@ Handtype.prototype.equitiesOneMoreCard = function (board, hands, deck, totalOutc
     // console.log("1", totalOutcomes)
     // totalOutcomes++
     // h++
+    //FIX: maybe add a player 7 for chops
     for (let m = initial; m < deck.length; m++) {
         // count += 1
         const bestHands = {}
@@ -392,16 +395,16 @@ Handtype.prototype.equitiesOneMoreCard = function (board, hands, deck, totalOutc
             hands[players[0]][0] += 1
         }
         // if (winner) this.highlightWinner(winner)
-        totalOutcomes++
+        totalOutcomes += 1
     }
     // console.log("2", totalOutcomes, h)
-    console.log([hands, totalOutcomes])
+    // console.log([hands, totalOutcomes])
     return [hands, totalOutcomes]
 }
 
 Handtype.prototype.equitiesTwoMoreCards = function (board, hands, deck, totalOutcomes, chops, initial) {
-    console.log("board", board)
-    console.log("hands", hands)
+    // console.log("board", board)
+    // console.log("hands", hands)
     for (let m = initial; m < deck.length - 1; m++) {
         const res = this.equitiesOneMoreCard(board.concat(deck[m]), hands, deck, totalOutcomes, chops, m+1)
         // console.log("res", res)
@@ -409,6 +412,7 @@ Handtype.prototype.equitiesTwoMoreCards = function (board, hands, deck, totalOut
         //     hands[player][0] += res[0][player][0]
         // })
     }
+    // console.log("end", [hands, totalOutcomes])
     return [hands, totalOutcomes]
 }
 
