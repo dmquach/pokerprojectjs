@@ -54,3 +54,4 @@ Deck.prototype.inDeck = function () {
 }
 
 export { Deck }
+

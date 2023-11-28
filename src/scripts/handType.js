@@ -17,6 +17,7 @@ const NUM_VAL = {
     'Q': 12,
     'J': 11,
     '10': 10,
+    '1': 10,
     '9': 9,
     '8': 8,
     '7': 7,
@@ -293,6 +294,7 @@ Handtype.prototype.bestHand = function (hand, board) {
 
 Handtype.prototype.comparingKickers = function (hand1, hand2) {
     // FIX TWO PAIR,
+    // console.log("test", hand1, hand2)
     for (let i = 0; i < 5; i++) {
         if (NUM_VAL[hand1[i][0]] > NUM_VAL[hand2[i][0]]) {
             return [1, hand1]
@@ -314,6 +316,7 @@ Handtype.prototype.winner = function (bestHandsHash) {
             winner = {}
             winner[player] = bestHandsHash[player]
         } else if (bestHandsHash[player][0] === currWinner[0]) {
+            // console.log(bestHandsHash, currWinner)
             const check = this.comparingKickers(bestHandsHash[player][1], currWinner[1])
             if (check === 0) {
                 winner[player] = [bestHandsHash[player][0], bestHandsHash[player][1]]
@@ -325,6 +328,8 @@ Handtype.prototype.winner = function (bestHandsHash) {
             }
         }
     }
+    const str = JSON.stringify(winner); // (Optional) beautiful indented output.
+    // console.log(str);
     return winner
 }
 
@@ -404,16 +409,16 @@ Handtype.prototype.equitiesOneMoreCard = function (board, hands, deck, totalOutc
 
 Handtype.prototype.equitiesTwoMoreCards = function (board, hands, deck, totalOutcomes, chops, initial) {
     // console.log("board", board)
-    // console.log("hands", hands)
-    for (let m = initial; m < deck.length - 1; m++) {
-        const res = this.equitiesOneMoreCard(board.concat(deck[m]), hands, deck, totalOutcomes, chops, m+1)
-        // console.log("res", res)
-        // Object.keys(res[0]).forEach(player => {
-        //     hands[player][0] += res[0][player][0]
-        // })
-    }
-    // console.log("end", [hands, totalOutcomes])
-    return [hands, totalOutcomes]
+    // // console.log("hands", hands)
+    // for (let m = initial; m < deck.length - 1; m++) {
+    //     const res = this.equitiesOneMoreCard(board.concat(deck[m]), hands, deck, totalOutcomes, chops, m+1)
+    //     // console.log("res", res)
+    //     // Object.keys(res[0]).forEach(player => {
+    //     //     hands[player][0] += res[0][player][0]
+    //     // })
+    // }
+    // // console.log("end", [hands, totalOutcomes])
+    // return [hands, totalOutcomes]
 }
 
 
