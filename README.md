@@ -28,3 +28,4 @@ In Trainiing mode a user can:
 * different colors for different players
 * more styling for winners (moving cards forward, animations)
 * side button to view chops
+* removing equity text

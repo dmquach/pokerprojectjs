@@ -111,7 +111,6 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
             // FIX, update odds not just when board gets full but when a hand gets full and the board is full
         if (this.full() && this.playersReady()) {
             this._clearWinnerBorders()
-            // FIX: Clear winner text as well
             // FIX: change following to be in calculate equities
             const bestHands = {}
             for (let i = 1; i < 7; i++) {

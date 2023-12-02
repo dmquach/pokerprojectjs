@@ -328,7 +328,7 @@ Handtype.prototype.winner = function (bestHandsHash) {
             }
         }
     }
-    const str = JSON.stringify(winner); // (Optional) beautiful indented output.
+    // const str = JSON.stringify(winner); // (Optional) beautiful indented output.
     // console.log(str);
     return winner
 }
@@ -369,8 +369,6 @@ Handtype.prototype.equities = function (board) {
         console.log("two cards on board")
     } else if (board.length === 3) {
         console.log("three cards on board")
-        const str = JSON.stringify(hands);
-        console.log(str);
         return this.equitiesTwoMoreCards(board, hands, deck, totalOutcomes, chops, 0)
     } else if (board.length === 4) {
         console.log("four cards on board")
@@ -409,16 +407,20 @@ Handtype.prototype.equitiesOneMoreCard = function (board, hands, deck, totalOutc
 
 Handtype.prototype.equitiesTwoMoreCards = function (board, hands, deck, totalOutcomes, chops, initial) {
     // console.log("board", board)
-    // // console.log("hands", hands)
-    // for (let m = initial; m < deck.length - 1; m++) {
-    //     const res = this.equitiesOneMoreCard(board.concat(deck[m]), hands, deck, totalOutcomes, chops, m+1)
-    //     // console.log("res", res)
-    //     // Object.keys(res[0]).forEach(player => {
-    //     //     hands[player][0] += res[0][player][0]
-    //     // })
-    // }
-    // // console.log("end", [hands, totalOutcomes])
-    // return [hands, totalOutcomes]
+    // console.log("hands", hands)
+    for (let m = initial; m < deck.length - 1; m++) {
+        const str = JSON.stringify(totalOutcomes);
+        console.log("t", str);
+        const res = this.equitiesOneMoreCard(board.concat(deck[m]), hands, deck, totalOutcomes, chops, m+1)
+        const str2 = JSON.stringify(totalOutcomes);
+        console.log(str2);
+        // console.log("res", res)
+        // Object.keys(res[0]).forEach(player => {
+        //     hands[player][0] += res[0][player][0]
+        // })
+    }
+    // console.log("end", [hands, totalOutcomes])
+    return [hands, totalOutcomes]
 }
 
 
