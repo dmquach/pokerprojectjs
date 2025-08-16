@@ -29,3 +29,8 @@ In Trainiing mode a user can:
 * more styling for winners (moving cards forward, animations)
 * side button to view chops
 * removing equity text
+
+* When new player added reset hands
+* Fix equities showing
+* Add loading bar
+* Monte Carlo Simulation
