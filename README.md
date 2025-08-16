@@ -34,3 +34,4 @@ In Trainiing mode a user can:
 * Fix equities showing
 * Add loading bar
 * Monte Carlo Simulation
+* Equities after hand made with no flop

@@ -410,10 +410,10 @@ Handtype.prototype.equitiesTwoMoreCards = function (board, hands, deck, totalOut
     // console.log("hands", hands)
     for (let m = initial; m < deck.length - 1; m++) {
         const str = JSON.stringify(totalOutcomes);
-        console.log("t", str);
-        const res = this.equitiesOneMoreCard(board.concat(deck[m]), hands, deck, totalOutcomes, chops, m+1)
-        const str2 = JSON.stringify(totalOutcomes);
-        console.log(str2);
+        // console.log("t", str);
+        //const res = this.equitiesOneMoreCard(board.concat(deck[m]), hands, deck, totalOutcomes, chops, m+1)
+        //const str2 = JSON.stringify(totalOutcomes);
+        //console.log(str2);
         // console.log("res", res)
         // Object.keys(res[0]).forEach(player => {
         //     hands[player][0] += res[0][player][0]

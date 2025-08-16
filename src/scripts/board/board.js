@@ -367,6 +367,7 @@ Board.prototype.highlightWinner = function (winner) {
         } else if (this.deck[player].active) {
             const p = document.getElementById(player)
             const text = p.childNodes[2]
+            console.log('${handString}')
             text.nodeValue = `${player} equity: 0%`
         }
     }
