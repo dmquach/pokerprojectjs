@@ -1,4 +1,4 @@
-import { Board } from "./board/board.js"
+import { Board } from "./board.js"
 import { Handtype } from "./handType.js"
 
 function Deck (p1, p2, p3, p4, p5, p6) {
