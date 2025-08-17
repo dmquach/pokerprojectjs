@@ -108,9 +108,9 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
                     bestHands[`p${i}`] = (this.deck.handtype.bestHand(this.deck[`p${i}`].playerHand, this.onBoard))
                 }
             }
-            //console.log(players)
+            //console.log(bestHands)
             const winner = this.deck.handtype.winner(bestHands)
-            if (winner) this.highlightWinner(winner)
+            if (winner) this.highlightWinner(winner, bestHands)
         } else if (this.playersReady()) {
             this.displayEquities(this.onBoard)
         } else {
@@ -351,7 +351,7 @@ Board.prototype.changeIdToSrc = function (id) {
     return `./images/${v}_of_${suit}.png`
 }
 
-Board.prototype.highlightWinner = function (winner) {
+Board.prototype.highlightWinner = function (winner, bestHands) {
     this.winner = true
     const players = Object.keys(winner)
     let hand = []
@@ -370,8 +370,8 @@ Board.prototype.highlightWinner = function (winner) {
         } else if (this.deck[player].active) {
             const p = document.getElementById(player)
             const text = p.childNodes[2]
-            //console.log(handVal)
-            text.nodeValue = `${player} equity: 0%`
+            console.log(bestHands)
+            text.nodeValue = `${player} ${KEY[bestHands[player][0]]}`
         }
     }
     const allImages = document.querySelectorAll('img');
