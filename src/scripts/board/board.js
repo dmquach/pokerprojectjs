@@ -87,6 +87,7 @@ Board.prototype.createReset = function () {
 }
 
 Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
+    // NEXT
     if (this.boardPos['highlight'] === '') {
         console.log('everything full')
     } else {
@@ -107,7 +108,7 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
                     bestHands[`p${i}`] = (this.deck.handtype.bestHand(this.deck[`p${i}`].playerHand, this.onBoard))
                 }
             }
-            //
+            //console.log(players)
             const winner = this.deck.handtype.winner(bestHands)
             if (winner) this.highlightWinner(winner)
         } else if (this.playersReady()) {
@@ -356,7 +357,9 @@ Board.prototype.highlightWinner = function (winner) {
     let hand = []
     for (let i = 1; i < 7; i++) {
         const player = `p${i}`
+        console.log(players)
         if (players.includes(player)) {
+            //CHECK hERE TOMORROW
             const handVal = winner[player][0]
             const handString = KEY[handVal]
             hand = hand.concat(winner[player][1].filter(card => !hand.includes(card)))
@@ -367,7 +370,7 @@ Board.prototype.highlightWinner = function (winner) {
         } else if (this.deck[player].active) {
             const p = document.getElementById(player)
             const text = p.childNodes[2]
-            console.log('${handString}')
+            //console.log(handVal)
             text.nodeValue = `${player} equity: 0%`
         }
     }
