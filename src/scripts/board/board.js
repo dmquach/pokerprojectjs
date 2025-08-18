@@ -152,13 +152,16 @@ Board.prototype.clearBoard = function () {
 }
 
 Board.prototype._addBorder = function (pos) {
+    // FIX ADDING PLAYER AND REMOVING PLAYERS WHEN BOARD FULL
     this._removeBorder()
+    if (!pos || !pos.id) pos = document.getElementById(pos)
     this.boardPos['highlight'] = pos.id
     pos.style.border = '2px solid red';
 }
 
 Board.prototype._removeBorder = function() {
     const prevBorder = document.getElementById(this.boardPos['highlight'])
+    console.log(prevBorder)
     if (prevBorder && prevBorder.style.border !== '4px solid blue') {
         prevBorder.removeAttribute('style')
     }
