@@ -151,6 +151,7 @@ Board.prototype._calculateBestHands = function () {
             bestHands[`p${i}`] = (this.deck.handtype.bestHand(this.deck[`p${i}`].playerHand, this.onBoard))
         }
     }
+    return bestHands
 }
 
 Board.prototype._addBorder = function (pos) {
