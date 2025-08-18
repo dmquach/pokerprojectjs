@@ -128,13 +128,16 @@ Board.prototype.removeFromBoard = function (boardKey) {
             player.splice(index, 1);
         }
     }
-    
+
     if (this.full() && this.playersReady()) {
+        console.log("here")
         this.highlightWinner()
     } else if (this.playersReady()) {
         this.displayEquities(this.onBoard)
+                console.log("here2")
     } else {
         this.createWaitingMessages()
+                console.log("here3")
     }
 }
 
@@ -385,9 +388,13 @@ Board.prototype.highlightWinner = function () {
     }
 
     const allImages = document.querySelectorAll('img');
+    console.log(allImages)
     allImages.forEach(img => {
         const id = this.changeSrcToId(img.src)
         if (hand.indexOf(id) !== -1) {
+            console.log("here")
+            // TODO TOMORROW
+            // FIGURE OUT WHY REMOVING THE IMAGE IS NOT UPDATING the borders
             img.style.border = '4px solid blue';
         }
     });
