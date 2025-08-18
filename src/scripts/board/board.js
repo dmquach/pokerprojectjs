@@ -374,12 +374,11 @@ Board.prototype.highlightWinner = function (winner, bestHands) {
             const p = document.getElementById(player)
             const text = p.childNodes[2]
             // console.log(bestHands)
-            text.nodeValue = `${player} ${KEY[bestHands[player][0]]}`
+            text.nodeValue = `${KEY[bestHands[player][0]]}`
         }
     }
 
     const allImages = document.querySelectorAll('img');
-    console.log(allImages)
     allImages.forEach(img => {
         const id = this.changeSrcToId(img.src)
         if (hand.indexOf(id) !== -1) {
