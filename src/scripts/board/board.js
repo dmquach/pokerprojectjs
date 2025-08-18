@@ -132,8 +132,11 @@ Board.prototype.removeFromBoard = function (boardKey) {
     }
     if (this.playersReady()) {
         this.displayEquities(this.onBoard)
+        //HERE TOMORROW, find the winner and display it as soon as there is a winner
+            console.log("here1")
     } else {
         this.createWaitingMessages()
+            console.log("here2")
     }
 }
 
