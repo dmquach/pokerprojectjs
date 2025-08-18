@@ -37,4 +37,5 @@ In Trainiing mode a user can:
 * Equities after hand made with no flop
 * Waiting on unfilled board instead of hands
 * Show losing hand with smaller border on hover
-* Clear border with new player added
+* Make minimum two players
+* When new player is added add new red highlight for next card
