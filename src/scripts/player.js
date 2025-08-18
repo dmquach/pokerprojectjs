@@ -25,10 +25,12 @@ Player.prototype.addPlayerButton = function () {
             this.activate()
             this.deck.board._addPlayers(this.playerNum)
             this.deck.board._createNewPlayerBorder(this.playerNum)
+            this.deck.board._clearWinnerBorders()
         } else {
             this.activate()
             this.deck.board._removePlayers(this.playerNum)
             this.deck.board._createNextBorder()
+            this.deck.board._clearWinnerBorders()
         }
     })
 }
