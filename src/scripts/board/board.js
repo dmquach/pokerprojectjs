@@ -88,6 +88,7 @@ Board.prototype.createReset = function () {
 
 Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
     // NEXT
+    // FIX THIS TO SEPARATE WINNER
     if (this.boardPos['highlight'] === '') {
         console.log('everything full')
     } else {
@@ -100,15 +101,7 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
 
             // FIX, update odds not just when board gets full but when a hand gets full and the board is full
         if (this.full() && this.playersReady()) {
-            this._clearWinnerBorders()
-            // FIX: change following to be in calculate equities
-            const bestHands = {}
-            for (let i = 1; i < 7; i++) {
-                if (this.deck[`p${i}`].handFull()) {
-                    bestHands[`p${i}`] = (this.deck.handtype.bestHand(this.deck[`p${i}`].playerHand, this.onBoard))
-                }
-            }
-            //console.log(bestHands)
+            const bestHands = this._calculateBestHands()
             const winner = this.deck.handtype.winner(bestHands)
             if (winner) this.highlightWinner(winner, bestHands)
         } else if (this.playersReady()) {
@@ -149,6 +142,15 @@ Board.prototype.clearBoard = function () {
         if (this.boardPos[`board${i}`] === 'taken') this.removeFromBoard(`board${i}`)
     }
     this._clearWinnerBorders()
+}
+
+Board.prototype._calculateBestHands = function () {
+    const bestHands = {}
+    for (let i = 1; i < 7; i++) {
+        if (this.deck[`p${i}`].handFull()) {
+            bestHands[`p${i}`] = (this.deck.handtype.bestHand(this.deck[`p${i}`].playerHand, this.onBoard))
+        }
+    }
 }
 
 Board.prototype._addBorder = function (pos) {

@@ -28,6 +28,7 @@ Player.prototype.addAndRemovePlayerButton = function () {
             this.deck.board._createNewPlayerBorder(this.playerNum)
             this.deck.board._clearWinnerBorders()
             this.deck.board._addBorder(`${this.playerNum}-1`)
+            this.deck.board.createWaitingMessages()
         } else {
             // removing player
             this.activate()
@@ -35,6 +36,7 @@ Player.prototype.addAndRemovePlayerButton = function () {
             this.deck.board._createNextBorder()
             this.deck.board._clearWinnerBorders()
             this.deck.board._createNextBorder()
+            // if removing the winner crown a new winner
         }
     })
 }
