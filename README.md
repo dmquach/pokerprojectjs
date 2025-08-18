@@ -38,3 +38,4 @@ In Trainiing mode a user can:
 * Waiting on unfilled board instead of hands
 * Show losing hand with smaller border on hover
 * Make minimum two players
+* Adding and removing player should reset winner

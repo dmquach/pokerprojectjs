@@ -153,6 +153,7 @@ Board.prototype.clearBoard = function () {
 
 Board.prototype._addBorder = function (pos) {
     // FIX ADDING PLAYER AND REMOVING PLAYERS WHEN BOARD FULL
+    // When removing players a new border should update
     this._removeBorder()
     if (!pos || !pos.id) pos = document.getElementById(pos)
     this.boardPos['highlight'] = pos.id
@@ -161,7 +162,7 @@ Board.prototype._addBorder = function (pos) {
 
 Board.prototype._removeBorder = function() {
     const prevBorder = document.getElementById(this.boardPos['highlight'])
-    console.log(prevBorder)
+    // console.log(prevBorder)
     if (prevBorder && prevBorder.style.border !== '4px solid blue') {
         prevBorder.removeAttribute('style')
     }
@@ -372,7 +373,7 @@ Board.prototype.highlightWinner = function (winner, bestHands) {
         } else if (this.deck[player].active) {
             const p = document.getElementById(player)
             const text = p.childNodes[2]
-            console.log(bestHands)
+            // console.log(bestHands)
             text.nodeValue = `${player} ${KEY[bestHands[player][0]]}`
         }
     }
@@ -403,7 +404,7 @@ Board.prototype.displayEquities = function (board) {
     // hash of players and total outcomes
 
     const players = this.deck.handtype.equities(board)
-    console.log(players)
+    // console.log(players)
 
     if (this.onBoard.length === 4) {
         for (const p in players[0]) {

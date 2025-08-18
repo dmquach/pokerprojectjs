@@ -6,7 +6,7 @@ function Player(active, playerNum) {
 
 Player.prototype.setDeck = function (deck) {
     this.deck = deck
-    this.addPlayerButton()
+    this.addAndRemovePlayerButton()
 }
 
 Player.prototype.activate = function () {
@@ -18,22 +18,23 @@ Player.prototype.handLength = function () {
     return length
 }
 
-Player.prototype.addPlayerButton = function () {
+Player.prototype.addAndRemovePlayerButton = function () {
     const player = document.getElementById(this.playerNum)
     player.addEventListener("click", () => {
         if (!this.active) {
+            // adding player
             this.activate()
             this.deck.board._addPlayers(this.playerNum)
             this.deck.board._createNewPlayerBorder(this.playerNum)
             this.deck.board._clearWinnerBorders()
-            console.log(this.playerNum)
             this.deck.board._addBorder(`${this.playerNum}-1`)
         } else {
+            // removing player
             this.activate()
             this.deck.board._removePlayers(this.playerNum)
             this.deck.board._createNextBorder()
             this.deck.board._clearWinnerBorders()
-            this.deck.board._addBorder()
+            this.deck.board._createNextBorder()
         }
     })
 }
