@@ -35,3 +35,4 @@ In Trainiing mode a user can:
 * Add loading bar
 * Monte Carlo Simulation
 * Equities after hand made with no flop
+* Waiting on unfilled board instead of hands

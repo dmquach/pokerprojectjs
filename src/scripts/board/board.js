@@ -359,7 +359,7 @@ Board.prototype.highlightWinner = function (winner, bestHands) {
         const player = `p${i}`
         console.log(players)
         if (players.includes(player)) {
-            //CHECK hERE TOMORROW
+            //CHECK hERE TOMORROW, show losing hand with smaller border
             const handVal = winner[player][0]
             const handString = KEY[handVal]
             hand = hand.concat(winner[player][1].filter(card => !hand.includes(card)))
@@ -388,6 +388,7 @@ Board.prototype.createWaitingMessages = function () {
         if (this.deck[`p${i}`].active) {
             const player = document.getElementById(`p${i}`)
             const text = player.childNodes[2]
+
             text.nodeValue = "Waiting on unfilled hands"
         }
     }
