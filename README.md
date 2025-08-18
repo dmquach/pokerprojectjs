@@ -36,3 +36,5 @@ In Trainiing mode a user can:
 * Monte Carlo Simulation
 * Equities after hand made with no flop
 * Waiting on unfilled board instead of hands
+* Show losing hand with smaller border on hover
+* Clear border with new player added
