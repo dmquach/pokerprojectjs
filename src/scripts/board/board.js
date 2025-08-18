@@ -101,9 +101,7 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
 
             // FIX, update odds not just when board gets full but when a hand gets full and the board is full
         if (this.full() && this.playersReady()) {
-            const bestHands = this._calculateBestHands()
-            const winner = this.deck.handtype.winner(bestHands)
-            if (winner) this.highlightWinner(winner, bestHands)
+            this.highlightWinner()
         } else if (this.playersReady()) {
             this.displayEquities(this.onBoard)
         } else {
@@ -130,13 +128,13 @@ Board.prototype.removeFromBoard = function (boardKey) {
             player.splice(index, 1);
         }
     }
-    if (this.playersReady()) {
+    
+    if (this.full() && this.playersReady()) {
+        this.highlightWinner()
+    } else if (this.playersReady()) {
         this.displayEquities(this.onBoard)
-        //HERE TOMORROW, find the winner and display it as soon as there is a winner
-            console.log("here1")
     } else {
         this.createWaitingMessages()
-            console.log("here2")
     }
 }
 
@@ -361,14 +359,16 @@ Board.prototype.changeIdToSrc = function (id) {
     return `./images/${v}_of_${suit}.png`
 }
 
-Board.prototype.highlightWinner = function (winner, bestHands) {
+Board.prototype.highlightWinner = function () {
     this.winner = true
+    const bestHands = this._calculateBestHands()
+    const winner = this.deck.handtype.winner(bestHands)
     const players = Object.keys(winner)
     let hand = []
     for (let i = 1; i < 7; i++) {
         const player = `p${i}`
         if (players.includes(player)) {
-            //CHECK hERE TOMORROW, show losing hand with smaller border
+            //TODO, show losing hand with hover
             const handVal = winner[player][0]
             const handString = KEY[handVal]
             hand = hand.concat(winner[player][1].filter(card => !hand.includes(card)))
