@@ -52,6 +52,15 @@ Board.prototype.playersReady = function () {
     return true
 }
 
+Board.prototype._countPlayers = function () {
+    const i = 0
+    for (let i = 1; i < 7; i++) {
+        const player = this.deck[`p${i}`]
+        if (player.active) i++
+    }
+    return i
+}
+
 
 Board.prototype.swapImg = function (pos1, pos2) {
     const changePos = document.getElementById(pos1)
@@ -415,9 +424,8 @@ Board.prototype.displayEquities = function (board) {
     //[{p1: [wins, hand], p2: [wins, hand]}, totalOutcomes]
     // hash of players and total outcomes
 
-    //if players not ready break out
-    console.log("here?")
-    if (!this.playersReady() || ) ||  return -1
+    //if players not ready or no players break out
+    if (!this.playersReady() || this._countPlayers() === 0) return -1
 
     const players = this.deck.handtype.equities(board)
     // console.log(players)
