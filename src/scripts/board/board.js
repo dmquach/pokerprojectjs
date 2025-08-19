@@ -131,14 +131,11 @@ Board.prototype.removeFromBoard = function (boardKey) {
     }
 
     if (this.full() && this.playersReady()) {
-        console.log("here")
         this.highlightWinner()
     } else if (this.playersReady()) {
         this.displayEquities(this.onBoard)
-                console.log("here2")
     } else {
         this.createWaitingMessages()
-                console.log("here3")
     }
 }
 
@@ -163,18 +160,7 @@ Board.prototype._addBorder = function (pos = -2) {
     // FIX ADDING PLAYER AND REMOVING PLAYERS WHEN BOARD FULL
     // When removing players a new border should update
     this._removeBorder()
-    // nothing provided
-    if (pos == -2) {
-        const newPos = Object.keys(this.boardPos).find(
-            key => this.boardPos[key] === 'open'
-        )
-        console.log(newPos)
-        if (newPos) {
-            pos = this.getElementById(newPos)
-        }
-    } else if (!pos || !pos.id) {
-        pos = document.getElementById(pos)
-    }
+    if (!pos || !pos.id) pos = document.getElementById(pos)
 
     this.boardPos['highlight'] = pos.id
     pos.style.border = '2px solid red';
