@@ -197,6 +197,17 @@ Board.prototype._clearWinnerBorders = function () {
         if (nextBorder) nextBorder.removeAttribute('style')
     }
 }
+
+Board.prototype._findNextBorder = function() {
+    for (let pos in this.boardPos) {
+        if (this.boardPos[pos] === 'open') {
+            const nextBorder = document.getElementById(pos)
+            return this._addBorder(nextBorder)
+        }
+    }
+    return this.highlightWinner()
+}
+
 Board.prototype._createNextBorder = function(playerNum = 0) {
     // playerNum should tell what player to make next border for
     // 0 means add to next available space
@@ -204,20 +215,19 @@ Board.prototype._createNextBorder = function(playerNum = 0) {
     // num means add to that player
 
     // first case is if hand becomes full move to next spot
-    if((playerNum > 0 && this.deck['p' + playerNum].handLength() === 4)) {
-        console.log("here 1")
-        // FIX: make this code more dry
-        for (let pos in this.boardPos) {
-            if (this.boardPos[pos] === 'open') {
-                const nextBorder = document.getElementById(pos)
-                return this._addBorder(nextBorder)
-            }
-        }
+    // first case if board full highlight winner
+    // second case if player gets last slot filled, find next
+
+    if (playerNum === -1 && this.full()) {
+        return this.highlightWinner()
+    } else if((playerNum > 0 && this.deck['p' + playerNum].handLength() === 4)) {
+        return this._findNextBorder()
     } else if (playerNum === -1 && this.full()) {
-        // FIX, CHECK IF PLAYERS HANDS ARE FULL THEN DONT GENERATE
+        // second
                 console.log("here 2")
         for (let pos in this.boardPos) {
             if (this.boardPos[pos] === 'open') {
+                console.log("here 2 and?")
                 const nextBorder = document.getElementById(pos)
                 return this._addBorder(nextBorder)
             }
@@ -308,6 +318,7 @@ Board.prototype._removePlayers = function (playerNum) {
     img.src = "./images/icons8-plus-button-50.png"
     text.nodeValue = `P${playerNum[1]}`
 }
+
 Board.prototype.changeSrcToId = function (src) {
     let val;
     let word;
@@ -385,7 +396,10 @@ Board.prototype.changeIdToSrc = function (id) {
 }
 
 Board.prototype.highlightWinner = function () {
-    if (!this.full() || !this.playersReady) return -1
+    if (!this.full() || !this.playersReady()) return -1
+
+    this._removeBorder()
+    this.boardPos.highlight = ''
     this.winner = true
     const bestHands = this._calculateBestHands()
     const winner = this.deck.handtype.winner(bestHands)
@@ -416,10 +430,6 @@ Board.prototype.highlightWinner = function () {
         const id = this.changeSrcToId(img.src)
         console.log(id, img)
         if (hand.indexOf(id) !== -1) {
-            console.log("here")
-            // TODO TOMORROW
-            // FIGURE OUT WHY REMOVING THE IMAGE IS NOT UPDATING the borders
-
             img.style.border = '4px solid blue';
         }
     });
