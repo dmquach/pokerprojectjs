@@ -216,24 +216,15 @@ Board.prototype._createNextBorder = function(playerNum = 0) {
 
     // first case is if hand becomes full move to next spot
     // first case if board full highlight winner
-    // second case if player gets last slot filled, find next
+    // second case if player gets last slot filled, find next border
+    // third case if players full continue on board
+    // fourth case is filling a players hand
 
     if (playerNum === -1 && this.full()) {
         return this.highlightWinner()
     } else if((playerNum > 0 && this.deck['p' + playerNum].handLength() === 4)) {
         return this._findNextBorder()
-    } else if (playerNum === -1 && this.full()) {
-        // second
-                console.log("here 2")
-        for (let pos in this.boardPos) {
-            if (this.boardPos[pos] === 'open') {
-                console.log("here 2 and?")
-                const nextBorder = document.getElementById(pos)
-                return this._addBorder(nextBorder)
-            }
-        }
     } else if (playerNum === -1) {
-                console.log("here 3")
         for (let pos in this.boardPos) {
             if (pos[0] === 'b' && this.boardPos[pos] === 'open') {
                 const nextBorder = document.getElementById(pos)
@@ -241,7 +232,6 @@ Board.prototype._createNextBorder = function(playerNum = 0) {
             }
         }
     } else if (playerNum !== 0) {
-                console.log("here 4")
         for (let pos in this.boardPos) {
             if (Number(pos[1]) === playerNum && this.boardPos[pos] === 'open') {
                 const nextBorder = document.getElementById(pos)
