@@ -65,13 +65,13 @@ Board.prototype.pushOnBoard = function (cardKey) {
     this.onBoard.push(cardKey)
 }
 
-Board.prototype.pushPlayerHand = function () {
+// Board.prototype.pushPlayerHand = function () {
 
-}
+// }
 
-Board.prototype.removePlayerHand = function () {
+// Board.prototype.removePlayerHand = function () {
 
-}
+// }
 
 Board.prototype.createReset = function () {
     const res = document.getElementById('resetButton')
@@ -160,7 +160,9 @@ Board.prototype._addBorder = function (pos = -2) {
     // FIX ADDING PLAYER AND REMOVING PLAYERS WHEN BOARD FULL
     // When removing players a new border should update
     this._removeBorder()
-    if (!pos || !pos.id) pos = document.getElementById(pos)
+    if (!pos || !pos.id) {
+        pos = document.getElementById(pos)
+    }
 
     this.boardPos['highlight'] = pos.id
     pos.style.border = '2px solid red';
@@ -388,10 +390,10 @@ Board.prototype.highlightWinner = function () {
     }
 
     const allImages = document.querySelectorAll('img');
-    console.log(allImages)
+    // console.log(allImages)
     allImages.forEach(img => {
         const id = this.changeSrcToId(img.src)
-        console.log(id, img)
+        // console.log(id, img)
         if (hand.indexOf(id) !== -1) {
             img.style.border = '4px solid blue';
         }
@@ -413,8 +415,14 @@ Board.prototype.displayEquities = function (board) {
     //[{p1: [wins, hand], p2: [wins, hand]}, totalOutcomes]
     // hash of players and total outcomes
 
+    //if players not ready break out
+    console.log("here?")
+    if (!this.playersReady() || ) ||  return -1
+
     const players = this.deck.handtype.equities(board)
     // console.log(players)
+
+
 
     if (this.onBoard.length === 4) {
         for (const p in players[0]) {
