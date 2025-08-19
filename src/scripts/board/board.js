@@ -1,6 +1,7 @@
 import { KEY } from "./constants.js";
 
 function Board (deck) {
+    // Element ID
     this.boardPos = {
         'p1-1': 'open', 'p1-2': 'open', 'p1-3': 'open', 'p1-4': 'open',
         'p2-1': 'open', 'p2-2': 'open', 'p2-3': 'open', 'p2-4': 'open',
@@ -158,13 +159,27 @@ Board.prototype._calculateBestHands = function () {
     return bestHands
 }
 
-Board.prototype._addBorder = function (pos) {
+Board.prototype._addBorder = function (pos = -2) {
     // FIX ADDING PLAYER AND REMOVING PLAYERS WHEN BOARD FULL
     // When removing players a new border should update
     this._removeBorder()
-    if (!pos || !pos.id) pos = document.getElementById(pos)
+    // nothing provided
+    if (pos == -2) {
+        const newPos = Object.keys(this.boardPos).find(
+            key => this.boardPos[key] === 'open'
+        )
+        console.log(newPos)
+        if (newPos) {
+            pos = this.getElementById(newPos)
+        }
+    } else if (!pos || !pos.id) {
+        pos = document.getElementById(pos)
+    }
+
     this.boardPos['highlight'] = pos.id
     pos.style.border = '2px solid red';
+
+
 }
 
 Board.prototype._removeBorder = function() {
@@ -187,7 +202,10 @@ Board.prototype._createNextBorder = function(playerNum = 0) {
     // 0 means add to next available space
     // -1 means add to board
     // num means add to that player
+
+    // first case is if hand becomes full move to next spot
     if((playerNum > 0 && this.deck['p' + playerNum].handLength() === 4)) {
+        console.log("here 1")
         // FIX: make this code more dry
         for (let pos in this.boardPos) {
             if (this.boardPos[pos] === 'open') {
@@ -197,6 +215,7 @@ Board.prototype._createNextBorder = function(playerNum = 0) {
         }
     } else if (playerNum === -1 && this.full()) {
         // FIX, CHECK IF PLAYERS HANDS ARE FULL THEN DONT GENERATE
+                console.log("here 2")
         for (let pos in this.boardPos) {
             if (this.boardPos[pos] === 'open') {
                 const nextBorder = document.getElementById(pos)
@@ -204,6 +223,7 @@ Board.prototype._createNextBorder = function(playerNum = 0) {
             }
         }
     } else if (playerNum === -1) {
+                console.log("here 3")
         for (let pos in this.boardPos) {
             if (pos[0] === 'b' && this.boardPos[pos] === 'open') {
                 const nextBorder = document.getElementById(pos)
@@ -211,6 +231,7 @@ Board.prototype._createNextBorder = function(playerNum = 0) {
             }
         }
     } else if (playerNum !== 0) {
+                console.log("here 4")
         for (let pos in this.boardPos) {
             if (Number(pos[1]) === playerNum && this.boardPos[pos] === 'open') {
                 const nextBorder = document.getElementById(pos)
@@ -218,6 +239,7 @@ Board.prototype._createNextBorder = function(playerNum = 0) {
             }
         }
     } else {
+                console.log("here 5")
         for (let pos in this.boardPos) {
             if (this.boardPos[pos] === 'open') {
                 const nextBorder = document.getElementById(pos)
@@ -363,6 +385,7 @@ Board.prototype.changeIdToSrc = function (id) {
 }
 
 Board.prototype.highlightWinner = function () {
+    if (!this.full() || !this.playersReady) return -1
     this.winner = true
     const bestHands = this._calculateBestHands()
     const winner = this.deck.handtype.winner(bestHands)
@@ -391,10 +414,12 @@ Board.prototype.highlightWinner = function () {
     console.log(allImages)
     allImages.forEach(img => {
         const id = this.changeSrcToId(img.src)
+        console.log(id, img)
         if (hand.indexOf(id) !== -1) {
             console.log("here")
             // TODO TOMORROW
             // FIGURE OUT WHY REMOVING THE IMAGE IS NOT UPDATING the borders
+
             img.style.border = '4px solid blue';
         }
     });

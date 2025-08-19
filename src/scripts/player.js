@@ -35,6 +35,7 @@ Player.prototype.addAndRemovePlayerButton = function () {
             this.deck.board._removePlayers(this.playerNum)
             this.deck.board._createNextBorder()
             this.deck.board._clearWinnerBorders()
+            this.deck.board.highlightWinner()
             this.deck.board._createNextBorder()
             // if removing the winner crown a new winner
         }
