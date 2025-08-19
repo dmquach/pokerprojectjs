@@ -214,14 +214,13 @@ Board.prototype._createNextBorder = function(playerNum = 0) {
     // -1 means add to board
     // num means add to that player
 
-    // first case is if hand becomes full move to next spot
-    // first case if board full highlight winner
+    // first case if board full find next spot/highlight winner if hands full
     // second case if player gets last slot filled, find next border
     // third case if players full continue on board or where clicked
     // fourth case is filling a players hand
 
     if (playerNum === -1 && this.full()) {
-        return this.highlightWinner()
+        return this._findNextBorder()
     } else if((playerNum > 0 && this.deck['p' + playerNum].handLength() === 4)) {
         return this._findNextBorder()
     } else if (playerNum === -1) {
@@ -238,14 +237,9 @@ Board.prototype._createNextBorder = function(playerNum = 0) {
                 return this._addBorder(nextBorder)
             }
         }
+    } else {
+        return this._findNextBorder()
     }
-
-
-    this._removeBorder()
-    this.boardPos.highlight = ''
-    // -1 when no empty spaces
-    console.log("here?")
-    return -1
 }
 
 
