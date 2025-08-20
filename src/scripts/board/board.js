@@ -64,6 +64,8 @@ Board.prototype._countPlayers = function () {
 
 Board.prototype.swapImg = function (pos1, pos2) {
     const changePos = document.getElementById(pos1)
+    console.log(pos1, pos2)
+
     const tempSrc = changePos.src
     const changeNextPos = document.getElementById(pos2)
     changePos.src = changeNextPos.src
@@ -175,13 +177,12 @@ Board.prototype._addBorder = function (pos = -2) {
         pos = document.getElementById(pos)
     }
 
-    console.log(pos)
     // highlight entire flop
     if (['board1', 'board2', 'board3'].includes(pos.id)) {
         document.getElementById('board1').style.border = '2px solid red';
         document.getElementById('board2').style.border = '2px solid red';
         document.getElementById('board3').style.border = '2px solid red';
-        return this.boardPos['highlight'] = 'flop'
+        return this.boardPos['highlight'] = pos.id
     }
 
     this.boardPos['highlight'] = pos.id
