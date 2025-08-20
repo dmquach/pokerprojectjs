@@ -168,9 +168,20 @@ Board.prototype._calculateBestHands = function () {
 Board.prototype._addBorder = function (pos = -2) {
     // FIX ADDING PLAYER AND REMOVING PLAYERS WHEN BOARD FULL
     // When removing players a new border should update
+
+    // TODO add all flop highlighted
     this._removeBorder()
     if (!pos || !pos.id) {
         pos = document.getElementById(pos)
+    }
+
+    console.log(pos)
+    // highlight entire flop
+    if (['board1', 'board2', 'board3'].includes(pos.id)) {
+        document.getElementById('board1').style.border = '2px solid red';
+        document.getElementById('board2').style.border = '2px solid red';
+        document.getElementById('board3').style.border = '2px solid red';
+        return this.boardPos['highlight'] = 'flop'
     }
 
     this.boardPos['highlight'] = pos.id
@@ -185,6 +196,8 @@ Board.prototype._removeBorder = function() {
     if (prevBorder && prevBorder.style.border !== '4px solid blue') {
         prevBorder.removeAttribute('style')
     }
+
+
     this.boardPos.highlight = ''
 }
 

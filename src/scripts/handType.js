@@ -345,10 +345,13 @@ Handtype.prototype.activeHands = function () {
 
 Handtype.prototype.equities = function (board) {
     // p1: [0, [hand]]
+
+    //TODO: Fix equities to be called after flop and if players are ready
     const hands = this.activeHands()
     const deck = this.deck.inDeck()
     let totalOutcomes = 0
     let chops = 0
+    console.log(board.length)
     if (board.length === 0) {
         // for (let i = 0; i < deck.length - 4; i++) {
         //     for (let j = i + 1; j < deck.length - 3; j++) {
