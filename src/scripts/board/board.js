@@ -171,6 +171,9 @@ Board.prototype._addBorder = function (pos = -2) {
 
     // TODO add all flop highlighted
     // check issues with add border
+
+    console.log(pos)
+    console.log("here 1")
     this._removeBorder()
     if (!pos || !pos.id) {
         pos = document.getElementById(pos)
@@ -178,28 +181,29 @@ Board.prototype._addBorder = function (pos = -2) {
 
     // highlight entire flop
     if (['board1', 'board2', 'board3'].includes(pos.id)) {
-        document.getElementById('board1').style.border = '2px solid red';
-        document.getElementById('board2').style.border = '2px solid red';
-        document.getElementById('board3').style.border = '2px solid red';
+        this._addBorder( document.getElementById('board1'))
+        // document.getElementById('board1').style.border = '2px solid red';
+        // document.getElementById('board2').style.border = '2px solid red';
+        // document.getElementById('board3').style.border = '2px solid red';
         return this.boardPos['highlight'] = pos.id
     }
 
     this.boardPos['highlight'] = pos.id
-    pos.style.border = '2px solid red';
-
-
+    return pos.style.border = '2px solid red';
 }
 
 Board.prototype._removeBorder = function() {
     const prevBorder = document.getElementById(this.boardPos['highlight'])
 
+    console.log("here 2")
     console.log(this.boardPos['highlight'])
-    if (['board1', 'board2', 'board3'].includes(prevBorder.id)) {
-        console.log("hereree")
-        document.getElementById('board1').removeAttribute('style')
-        document.getElementById('board2').removeAttribute('style')
-        document.getElementById('board3').removeAttribute('style')
-    }
+    console.log(prevBorder)
+    // if (['board1', 'board2', 'board3'].includes(prevBorder.id)) {
+    //     console.log("hereree")
+    //     document.getElementById('board1').removeAttribute('style')
+    //     document.getElementById('board2').removeAttribute('style')
+    //     document.getElementById('board3').removeAttribute('style')
+    // }
 
     // remove the previous border only if it was red
     if (prevBorder && prevBorder.style.border !== '4px solid blue') {
