@@ -64,8 +64,6 @@ Board.prototype._countPlayers = function () {
 
 Board.prototype.swapImg = function (pos1, pos2) {
     const changePos = document.getElementById(pos1)
-    console.log(pos1, pos2)
-
     const tempSrc = changePos.src
     const changeNextPos = document.getElementById(pos2)
     changePos.src = changeNextPos.src
@@ -172,6 +170,7 @@ Board.prototype._addBorder = function (pos = -2) {
     // When removing players a new border should update
 
     // TODO add all flop highlighted
+    // check issues with add border
     this._removeBorder()
     if (!pos || !pos.id) {
         pos = document.getElementById(pos)
@@ -193,11 +192,19 @@ Board.prototype._addBorder = function (pos = -2) {
 
 Board.prototype._removeBorder = function() {
     const prevBorder = document.getElementById(this.boardPos['highlight'])
-    // console.log(prevBorder)
+
+    console.log(this.boardPos['highlight'])
+    if (['board1', 'board2', 'board3'].includes(prevBorder.id)) {
+        console.log("hereree")
+        document.getElementById('board1').removeAttribute('style')
+        document.getElementById('board2').removeAttribute('style')
+        document.getElementById('board3').removeAttribute('style')
+    }
+
+    // remove the previous border only if it was red
     if (prevBorder && prevBorder.style.border !== '4px solid blue') {
         prevBorder.removeAttribute('style')
     }
-
 
     this.boardPos.highlight = ''
 }
