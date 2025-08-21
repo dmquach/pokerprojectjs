@@ -174,7 +174,7 @@ Board.prototype._addBorder = function (pos = -2) {
 
     console.log(pos)
     console.log("here 1")
-    this._removeBorder()
+
     if (!pos || !pos.id) {
         pos = document.getElementById(pos)
     }
@@ -186,9 +186,13 @@ Board.prototype._addBorder = function (pos = -2) {
         // document.getElementById('board2').style.border = '2px solid red';
         // document.getElementById('board3').style.border = '2px solid red';
         return this.boardPos['highlight'] = pos.id
+    } else {
+        this._removeBorder()
+        this.boardPos['highlight'] = pos.id
     }
 
-    this.boardPos['highlight'] = pos.id
+
+    // console.log(`highlight = ${this.boardPos['highlight']}`)
     return pos.style.border = '2px solid red';
 }
 
