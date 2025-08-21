@@ -182,10 +182,11 @@ Board.prototype._addBorder = function (pos = -2) {
     // highlight entire flop
     if (['board1', 'board2', 'board3'].includes(pos.id)) {
         //this._addBorder(document.getElementById('board1'))
+        this._removeBorder()
+        this.boardPos['highlight'] = pos.id
         document.getElementById('board1').style.border = '2px solid red';
         document.getElementById('board2').style.border = '2px solid red';
-        document.getElementById('board3').style.border = '2px solid red';
-        return this.boardPos['highlight'] = pos.id
+        return document.getElementById('board3').style.border = '2px solid red';
     } else {
         this._removeBorder()
         this.boardPos['highlight'] = pos.id
@@ -197,11 +198,11 @@ Board.prototype._addBorder = function (pos = -2) {
 
 Board.prototype._removeBorder = function() {
     const prevBorder = document.getElementById(this.boardPos['highlight'])
-
+    console.log(prevBorder)
     // // console.log("here 2")
     // // console.log(this.boardPos['highlight'])
     // console.log(prevBorder)
-    if (['board1', 'board2', 'board3'].includes(prevBorder.id)) {
+    if (prevBorder && ['board1', 'board2', 'board3'].includes(prevBorder.id)) {
         console.log("hereree")
         document.getElementById('board1').removeAttribute('style')
         document.getElementById('board2').removeAttribute('style')
