@@ -187,10 +187,7 @@ Board.prototype._addBorder = function (pos = -2) {
         document.getElementById('board3').style.border = '2px solid red';
         return this.boardPos['highlight'] = pos.id
     } else {
-        console.log(this.boardPos['highlight'])
         this._removeBorder()
-        console.log(this.boardPos['highlight'])
-        // console.log(pos)
         this.boardPos['highlight'] = pos.id
         return pos.style.border = '2px solid red';
     }
@@ -201,9 +198,9 @@ Board.prototype._addBorder = function (pos = -2) {
 Board.prototype._removeBorder = function() {
     const prevBorder = document.getElementById(this.boardPos['highlight'])
 
-    // console.log("here 2")
-    // console.log(this.boardPos['highlight'])
-    console.log(prevBorder)
+    // // console.log("here 2")
+    // // console.log(this.boardPos['highlight'])
+    // console.log(prevBorder)
     if (['board1', 'board2', 'board3'].includes(prevBorder.id)) {
         console.log("hereree")
         document.getElementById('board1').removeAttribute('style')
@@ -216,8 +213,8 @@ Board.prototype._removeBorder = function() {
         prevBorder.removeAttribute('style')
     }
 
- 
-    // this.boardPos.highlight = ''
+    // TODO ADDING CARD TO FIFTH SLOT DOES NOT REMOVE THE BORDER
+    this.boardPos.highlight = ''
 }
 
 Board.prototype._clearWinnerBorders = function () {
