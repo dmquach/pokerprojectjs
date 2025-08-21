@@ -35,8 +35,6 @@ In Trainiing mode a user can:
 * Add loading bar
 * Monte Carlo Simulation
 * Equities after hand made with no flop
-* Waiting on unfilled board instead of hands
 * Show losing hand with smaller border on hover
 * Make minimum two players
-* Adding and removing player should reset winner
 * Add a player message for no playes
