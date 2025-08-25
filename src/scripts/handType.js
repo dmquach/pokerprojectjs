@@ -372,7 +372,7 @@ Handtype.prototype.equities = function (board) {
         console.log("two cards on board")
     } else if (board.length === 3) {
         console.log("three cards on board")
-        return this.equitiesTwoMoreCards(board, hands, deck, totalOutcomes, chops, 0)
+        // return this.equitiesTwoMoreCards(board, hands, deck, totalOutcomes, chops, 0)
     } else if (board.length === 4) {
         console.log("four cards on board")
         return this.equitiesOneMoreCard(board, hands, deck, totalOutcomes, chops, 0)
@@ -425,6 +425,25 @@ Handtype.prototype.equitiesTwoMoreCards = function (board, hands, deck, totalOut
     // console.log("end", [hands, totalOutcomes])
     return [hands, totalOutcomes]
 }
+
+Handtype.prototype.postFlop = function (board, hands, deck, totalOutcomes, chops, initial) {
+    // console.log("board", board)
+    // console.log("hands", hands)
+    for (let m = initial; m < deck.length - 1; m++) {
+        const str = JSON.stringify(totalOutcomes);
+        // console.log("t", str);
+        //const res = this.equitiesOneMoreCard(board.concat(deck[m]), hands, deck, totalOutcomes, chops, m+1)
+        //const str2 = JSON.stringify(totalOutcomes);
+        //console.log(str2);
+        // console.log("res", res)
+        // Object.keys(res[0]).forEach(player => {
+        //     hands[player][0] += res[0][player][0]
+        // })
+    }
+    // console.log("end", [hands, totalOutcomes])
+    return [hands, totalOutcomes]
+}
+
 
 
 export { Handtype }

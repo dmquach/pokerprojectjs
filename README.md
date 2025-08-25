@@ -38,3 +38,4 @@ In Trainiing mode a user can:
 * Show losing hand with smaller border on hover
 * Make minimum two players
 * Add a player message for no playes
+* Add tutorials

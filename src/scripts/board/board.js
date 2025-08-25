@@ -166,7 +166,7 @@ Board.prototype._calculateBestHands = function () {
 }
 
 Board.prototype._addBorder = function (pos = -2) {
-    
+
     if (!pos || !pos.id) {
         pos = document.getElementById(pos)
     }
@@ -186,11 +186,9 @@ Board.prototype._addBorder = function (pos = -2) {
 }
 
 // removing the first border clears the highlight
-
 Board.prototype._removeBorder = function() {
     const prevBorder = document.getElementById(this.boardPos['highlight'])
     if (prevBorder && ['board1', 'board2', 'board3'].includes(prevBorder.id)) {
-        console.log("hereree")
         document.getElementById('board1').removeAttribute('style')
         document.getElementById('board2').removeAttribute('style')
         document.getElementById('board3').removeAttribute('style')
@@ -410,16 +408,13 @@ Board.prototype.highlightWinner = function () {
         } else if (this.deck[player].active) {
             const p = document.getElementById(player)
             const text = p.childNodes[2]
-            // console.log(bestHands)
             text.nodeValue = `${KEY[bestHands[player][0]]}`
         }
     }
 
     const allImages = document.querySelectorAll('img');
-    // console.log(allImages)
     allImages.forEach(img => {
         const id = this.changeSrcToId(img.src)
-        // console.log(id, img)
         if (hand.indexOf(id) !== -1) {
             img.style.border = '4px solid blue';
         }
