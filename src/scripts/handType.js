@@ -344,6 +344,7 @@ Handtype.prototype.activeHands = function () {
 }
 
 Handtype.prototype.equities = function (board) {
+    console.log("here")
     // p1: [0, [hand]]
 
     //TODO: Fix equities to be called after flop and if players are ready
@@ -368,6 +369,7 @@ Handtype.prototype.equities = function (board) {
         console.log("no cards on board")
     } else if (board.length === 1) {
         console.log("one cards on board")
+        console.log(this.deck.cardDeck)
     } else if (board.length === 2) {
         console.log("two cards on board")
     } else if (board.length === 3) {
