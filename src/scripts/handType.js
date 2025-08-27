@@ -330,6 +330,7 @@ Handtype.prototype.winner = function (bestHandsHash) {
     }
     // const str = JSON.stringify(winner); // (Optional) beautiful indented output.
     // console.log(str);
+    // console.log(winner)
     return winner
 }
 
@@ -395,24 +396,43 @@ Handtype.prototype.equitiesOneMoreCard = function (board, hands, deck, totalOutc
         totalOutcomes += 1
     }
     // console.log("2", totalOutcomes, h)
-    // console.log([hands, totalOutcomes])
+    console.log([hands, totalOutcomes])
     return [hands, totalOutcomes]
 }
 
 Handtype.prototype.equitiesTwoMoreCards = function (board, hands, deck, totalOutcomes, chops, initial) {
-    // console.log("board", board)
-    // console.log("hands", hands)
-    for (let m = initial; m < deck.length - 1; m++) {
-        const str = JSON.stringify(totalOutcomes);
-        // console.log("t", str);
-        //const res = this.equitiesOneMoreCard(board.concat(deck[m]), hands, deck, totalOutcomes, chops, m+1)
-        //const str2 = JSON.stringify(totalOutcomes);
-        //console.log(str2);
-        // console.log("res", res)
-        // Object.keys(res[0]).forEach(player => {
-        //     hands[player][0] += res[0][player][0]
-        // })
+    //
+    for (let m = initial; m < deck.length; m++) {
+        for (let n = m + 1; n < deck.length; n++) {
+
+
+            const bestHands = {}
+
+            // evaluate each player’s best hand with the board + 2 new cards
+            for (let i = 1; i < 7; i++) {
+                if (this.deck[`p${i}`].handFull()) {
+                    bestHands[`p${i}`] = this.bestHand(
+                        this.deck[`p${i}`].playerHand,
+                        board.concat([deck[m], deck[n]])
+                    )
+                }
+            }
+
+            // figure out winner(s)
+            const winner = this.winner(bestHands)
+            const players = Object.keys(winner)
+
+            if (players.length > 1) {
+                chops++
+            } else {
+                hands[players[0]][0] += 1
+            }
+
+            totalOutcomes += 1
+        }
     }
+
+    return [hands, totalOutcomes]
     // console.log("end", [hands, totalOutcomes])
     return [hands, totalOutcomes]
 }
