@@ -350,6 +350,7 @@ Handtype.prototype.equities = function (board) {
     //TODO: Fix equities to be called after flop and if players are ready
     const hands = this.activeHands()
     const deck = this.deck.inDeck()
+    console.log(deck)
     let totalOutcomes = 0
     let chops = 0
     console.log(board.length)

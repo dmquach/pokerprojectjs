@@ -54,7 +54,8 @@ Deck.prototype.inDeck = function () {
 }
 
 Deck.prototype.dealFiveCards = function () {
-    
+    const availableCards = Object.keys(cardDeck).filter(card => cardDeck[card] === "deck");
+    console.log(availableCards)
 }
 
 export { Deck }
