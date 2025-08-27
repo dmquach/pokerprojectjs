@@ -40,3 +40,4 @@ In Trainiing mode a user can:
 * Add a player message for no playes
 * Add tutorials
 * Change waiting on unfilled hands to be unfilled board/flop
+* Add a tie equity

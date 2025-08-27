@@ -445,18 +445,14 @@ Board.prototype.displayEquities = function (board) {
     // console.log(players)
 
 
-
-    if (this.onBoard.length === 4) {
-        for (const p in players[0]) {
-            const player = document.getElementById(p)
-            // console.log(player, p)
-            const text = player.childNodes[2]
-            // console.log(players)
-            // console.log(players[1])
-            text.nodeValue = `${p} equity: ${((players[0][p][0] / players[1]) * 100).toFixed(2)}%`
-        }
+    for (const p in players[0]) {
+        const player = document.getElementById(p)
+        // console.log(player, p)
+        const text = player.childNodes[2]
+        // console.log(players)
+        // console.log(players[1])
+        text.nodeValue = `${p} equity: ${((players[0][p][0] / players[1]) * 100).toFixed(2)}%`
     }
-    // console.log("players", players)
 }
 
 export { Board }
