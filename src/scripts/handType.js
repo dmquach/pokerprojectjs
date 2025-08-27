@@ -355,18 +355,6 @@ Handtype.prototype.equities = function (board) {
     let chops = 0
     console.log(board.length)
     if (board.length === 0) {
-        // for (let i = 0; i < deck.length - 4; i++) {
-        //     for (let j = i + 1; j < deck.length - 3; j++) {
-        //         for (let k = j + 1; k < deck.length - 2; k++) {
-        //             for (let l = k + 1; l < deck.length - 1; l++) {
-        //                 for (let m = l + 1; m < deck.length; m++) {
-
-        //                     totalOutcomes++
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
         console.log("no cards on board")
         console.log(this.deck.dealCards(this.deck.inDeck(), 5))
     } else if (board.length === 1) {
