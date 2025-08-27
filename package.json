@@ -31,7 +31,8 @@
     "poker-evaluator": "^2.0.5",
     "regenerator-runtime": "^0.14.0",
     "sass": "^1.67.0",
-    "sass-loader": "^13.3.2"
+    "sass-loader": "^13.3.2",
+    "seedrandom": "^3.0.5"
   },
   "devDependencies": {
     "webpack": "^5.88.2",

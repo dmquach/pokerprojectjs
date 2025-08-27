@@ -350,13 +350,12 @@ Handtype.prototype.equities = function (board) {
 
     const hands = this.activeHands()
     const deck = this.deck.inDeck()
-    console.log(deck)
     let totalOutcomes = 0
     let chops = 0
-    console.log(board.length)
+    console.log(board)
     if (board.length === 0) {
         console.log("no cards on board")
-        console.log(this.deck.dealCards(this.deck.inDeck(), 5))
+        console.log(this.deck.dealCards(this.deck.inDeck(), 5, 100))
     } else if (board.length === 1) {
         console.log("finish flop")
     } else if (board.length === 2) {
@@ -375,6 +374,7 @@ Handtype.prototype.equitiesOneMoreCard = function (board, hands, deck, totalOutc
     // totalOutcomes++
     // h++
     //FIX: maybe add a player 7 for chops
+    //Fix chops, make it not add up to 100%
     for (let m = initial; m < deck.length; m++) {
         // count += 1
         const bestHands = {}
