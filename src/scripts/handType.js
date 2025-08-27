@@ -29,7 +29,7 @@ const NUM_VAL = {
 }
 
 
-function Handtype(p1, p2, p3, p4, p5, p, deck) {
+function Handtype(p1, p2, p3, p4, p5, p6, deck) {
     this.p1 = p1
     this.p2 = p2
     this.p3 = p3

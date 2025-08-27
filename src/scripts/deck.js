@@ -53,4 +53,8 @@ Deck.prototype.inDeck = function () {
     return deck
 }
 
+Deck.prototype.dealFiveCards = function () {
+    
+}
+
 export { Deck }
