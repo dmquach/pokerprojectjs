@@ -344,7 +344,6 @@ Handtype.prototype.activeHands = function () {
 }
 
 Handtype.prototype.equities = function (board) {
-    console.log("here")
     // p1: [0, [hand]]
 
     //TODO: Fix equities to be called after flop and if players are ready

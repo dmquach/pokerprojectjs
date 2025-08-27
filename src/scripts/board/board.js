@@ -101,8 +101,6 @@ Board.prototype.createReset = function () {
 Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
     // NEXT
     // FIX THIS TO SEPARATE WINNER
-    console.log(cardKey)
-    console.log(playerNum)
     if (this.boardPos['highlight'] === '') {
         console.log('everything full')
     } else {
@@ -437,8 +435,6 @@ Board.prototype.createWaitingMessages = function () {
 }
 
 Board.prototype.displayEquities = function (board) {
-    console.log(this.playersReady())
-    console.log(this._countPlayers())
     //[{p1: [wins, hand], p2: [wins, hand]}, totalOutcomes]
     // hash of players and total outcomes
 
