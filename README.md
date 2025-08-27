@@ -39,3 +39,4 @@ In Trainiing mode a user can:
 * Make minimum two players
 * Add a player message for no playes
 * Add tutorials
+* Change waiting on unfilled hands to be unfilled board/flop

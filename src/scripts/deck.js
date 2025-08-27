@@ -53,9 +53,16 @@ Deck.prototype.inDeck = function () {
     return deck
 }
 
-Deck.prototype.dealFiveCards = function () {
-    const availableCards = Object.keys(cardDeck).filter(card => cardDeck[card] === "deck");
-    console.log(availableCards)
+Deck.prototype.dealCards = function (cardsInDeck, cardsNeeded) {
+    // Fisher-Yates shuffle algorithm
+    for (let i = cardsInDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cardsInDeck[i], cardsInDeck[j]] = [cardsInDeck[j], cardsInDeck[i]];
+    }
+
+    const chosen = cardsInDeck.slice(0, cardsNeeded);
+
+    return chosen;
 }
 
 export { Deck }
