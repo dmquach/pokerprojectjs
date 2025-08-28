@@ -441,14 +441,8 @@ Board.prototype.displayEquities = function (board) {
     //if players not ready or no players break out
     if (!this.playersReady() || this._countPlayers() === 0) return -1
 
-    //if (this.onBoard.length = )
-
-    const players = this.deck.handtype.equities(board)
-    // console.log(players)
-
-
-
-    if (this.onBoard.length === 4 ||this.onBoard.length === 3) {
+    if (this.onBoard.length === 4 ||this.onBoard.length === 3 || this.onBoard.length === 0) {
+        const players = this.deck.handtype.equities(board)
         for (const p in players[0]) {
             const player = document.getElementById(p)
             // console.log(player, p)

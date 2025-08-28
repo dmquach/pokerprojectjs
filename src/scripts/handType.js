@@ -356,12 +356,11 @@ Handtype.prototype.equities = function (board) {
     console.log(board)
     if (board.length === 0) {
         console.log("no cards on board")
-        console.log(this.deck.dealCards(this.deck.inDeck(), 5, 100))
+        return this.equitiesPreFlop(board, hands, deck, totalOutcomes, chops)
     } else if (board.length === 1) {
         console.log("finish flop")
     } else if (board.length === 2) {
         console.log("finish flop")
-
     } else if (board.length === 3) {
         console.log("three cards on board")
         return this.equitiesTwoMoreCards(board, hands, deck, totalOutcomes, chops, 0)
@@ -369,6 +368,7 @@ Handtype.prototype.equities = function (board) {
         console.log("four cards on board")
         return this.equitiesOneMoreCard(board, hands, deck, totalOutcomes, chops, 0)
     }
+    return -1
 }
 
 Handtype.prototype.equitiesOneMoreCard = function (board, hands, deck, totalOutcomes, chops, initial) {
@@ -436,11 +436,11 @@ Handtype.prototype.equitiesTwoMoreCards = function (board, hands, deck, totalOut
 
 }
 
-Handtype.prototype.preFlop = function (board, hands, deck, totalOutcomes, chops, initial) {
-    const trials = 1000
+Handtype.prototype.equitiesPreFlop = function (board, hands, deck, totalOutcomes, chops) {
+    const trials = 2500
 
     for (let t = 0; t < trials; t++) {
-        const boardCards = this.dealCards(deck, 5);
+        const boardCards = this.deck.dealCards(deck, 5);
         const bestHands = {};
 
         for (let i = 1; i < 7; i++) {
