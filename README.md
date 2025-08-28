@@ -41,3 +41,4 @@ In Trainiing mode a user can:
 * Add tutorials
 * Change waiting on unfilled hands to be unfilled board/flop
 * Add a tie equity
+* When clicking on any position in the board it should go to the flop first

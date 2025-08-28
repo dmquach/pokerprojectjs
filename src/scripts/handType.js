@@ -361,6 +361,7 @@ Handtype.prototype.equities = function (board) {
         console.log("finish flop")
     } else if (board.length === 2) {
         console.log("finish flop")
+
     } else if (board.length === 3) {
         console.log("three cards on board")
         return this.equitiesTwoMoreCards(board, hands, deck, totalOutcomes, chops, 0)
@@ -430,15 +431,34 @@ Handtype.prototype.equitiesTwoMoreCards = function (board, hands, deck, totalOut
             totalOutcomes += 1
         }
     }
-    console.log([hands, totalOutcomes])
+    console.log([hands, totalOutcomes, chops])
     return [hands, totalOutcomes]
 
 }
 
-Handtype.prototype.postFlop = function (board, hands, deck, totalOutcomes, chops, initial) {
+Handtype.prototype.preFlop = function (board, hands, deck, totalOutcomes, chops, initial) {
+    const trials = 1000
 
-    for (let m = initial; m < deck.length - 1; m++) {
-        const str = JSON.stringify(totalOutcomes);
+    for (let t = 0; t < trials; t++) {
+        const boardCards = this.dealCards(deck, 5);
+        const bestHands = {};
+
+        for (let i = 1; i < 7; i++) {
+            if (this.deck[`p${i}`].handFull()) {
+                bestHands[`p${i}`] = this.bestHand(this.deck[`p${i}`].playerHand, boardCards);
+            }
+        }
+
+        const winner = this.winner(bestHands);
+        const players = Object.keys(winner);
+
+        if (players.length > 1) {
+            chops++;
+        } else {
+            hands[players[0]][0] += 1;
+        }
+
+        totalOutcomes++;
     }
 
     return [hands, totalOutcomes]

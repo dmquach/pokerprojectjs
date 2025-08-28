@@ -53,7 +53,7 @@ Deck.prototype.inDeck = function () {
     return deck
 }
 
-Deck.prototype.dealCards = function (cardsInDeck, cardsNeeded, seed) {
+Deck.prototype.dealCards = function (cardsInDeck, cardsNeeded) {
 
     // Fisher-Yates shuffle algorithm
     for (let i = cardsInDeck.length - 1; i > 0; i--) {

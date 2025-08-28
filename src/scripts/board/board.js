@@ -441,17 +441,22 @@ Board.prototype.displayEquities = function (board) {
     //if players not ready or no players break out
     if (!this.playersReady() || this._countPlayers() === 0) return -1
 
+    //if (this.onBoard.length = )
+
     const players = this.deck.handtype.equities(board)
     // console.log(players)
 
 
-    for (const p in players[0]) {
-        const player = document.getElementById(p)
-        // console.log(player, p)
-        const text = player.childNodes[2]
-        // console.log(players)
-        // console.log(players[1])
-        text.nodeValue = `${p} equity: ${((players[0][p][0] / players[1]) * 100).toFixed(2)}%`
+
+    if (this.onBoard.length === 4 ||this.onBoard.length === 3) {
+        for (const p in players[0]) {
+            const player = document.getElementById(p)
+            // console.log(player, p)
+            const text = player.childNodes[2]
+            // console.log(players)
+            // console.log(players[1])
+            text.nodeValue = `${p} equity: ${((players[0][p][0] / players[1]) * 100).toFixed(2)}%`
+        }
     }
 }
 
