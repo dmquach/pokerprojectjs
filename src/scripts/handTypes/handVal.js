@@ -1,3 +1,5 @@
+// Finding type of value of hand
+
 export function isFlush(fiveCards) {
     const suit = fiveCards[0].slice(-1)
     for (let i = 0; i < 5; i++) {
@@ -56,4 +58,81 @@ export function isFourOfAKind(fiveCards) {
         return [true, sortedHand]
     }
     return false
+}
+
+export function isFullHouse(fiveCards) {
+    const sortedHand = this.sortHand(fiveCards)
+    if (sortedHand[0][0] === sortedHand[1][0] && sortedHand[1][0] === sortedHand[2][0] && sortedHand[3][0] === sortedHand[4][0]) {
+        return [true, sortedHand]
+    }
+    if (sortedHand[0][0] === sortedHand[1][0] && sortedHand[2][0] === sortedHand[3][0] && sortedHand[3][0] === sortedHand[4][0]) {
+        return [true, sortedHand]
+    }
+    return false
+}
+
+export function isThreeOfAKind(fiveCards) {
+    const sortedHand = this.sortHand(fiveCards)
+    if (sortedHand[0][0] === sortedHand[1][0] && sortedHand[1][0] == sortedHand[2][0]) {
+        return [true, sortedHand]
+    } else if (sortedHand[1][0] === sortedHand[2][0] && sortedHand[2][0] == sortedHand[3][0]) {
+        return [true, sortedHand]
+    } else if (sortedHand[2][0] === sortedHand[3][0] && sortedHand[3][0] == sortedHand[4][0]) {
+        return [true, sortedHand]
+    } else {
+        return false
+    }
+}
+
+export function isTwoPair(fiveCards) {
+    const sortedHand = this.sortHand(fiveCards)
+    if (sortedHand[0][0] === sortedHand[1][0] && sortedHand[2][0] === sortedHand[3][0]) {
+        return [true, sortedHand]
+    } else if (sortedHand[0][0] === sortedHand[1][0] && sortedHand[3][0] === sortedHand[4][0]) {
+        return [true, sortedHand]
+    } else if (sortedHand[1][0] === sortedHand[2][0] && sortedHand[3][0] === sortedHand[4][0]) {
+        return [true, sortedHand]
+    } else {
+        return false
+    }
+}
+
+export function isOnePair(fiveCards) {
+    const sortedHand = this.sortHand(fiveCards)
+    if (sortedHand[0][0] === sortedHand[1][0]) {
+        return [true, sortedHand]
+    } else if (sortedHand[1][0] === sortedHand[2][0]) {
+        return [true, sortedHand]
+    } else if (sortedHand[2][0] === sortedHand[3][0]) {
+        return [true, sortedHand]
+    } else if (sortedHand[3][0] === sortedHand[4][0]) {
+        return [true, sortedHand]
+    } else {
+        return false
+    }
+}
+
+export function isNoPair(fiveCards) {
+    const sortedHand = this.sortHand(fiveCards)
+    if (sortedHand[0][0] === sortedHand[1][0]) {
+        return false
+    } else if (sortedHand[1][0] === sortedHand[2][0]) {
+        return false
+    } else if (sortedHand[2][0] === sortedHand[3][0]) {
+        return false
+    } else if (sortedHand[3][0] === sortedHand[4][0]) {
+        return false
+    } else {
+        return [true, sortedHand]
+    }
+}
+
+export function broadway(fiveCards) {
+    fiveCards.sort()
+    if (fiveCards[0].slice(0, 2) !== '10') return false
+    if (fiveCards[1].slice(0, 1) !== 'A') return false
+    if (fiveCards[2].slice(0, 1) !== 'J') return false
+    if (fiveCards[3].slice(0, 1) !== 'K') return false
+    if (fiveCards[4].slice(0, 1) !== 'Q') return false
+    return true
 }
