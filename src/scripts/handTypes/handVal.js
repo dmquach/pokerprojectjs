@@ -12,7 +12,7 @@ export function isFlush(fiveCards) {
 }
 
 export function isStraight(fiveCards) {
-        let sortedRanks = []
+    let sortedRanks = []
     const sortedHand = this.sortHand(fiveCards)
     for (let i = 0; i < 5; i++) {
         sortedRanks.push(sortedHand[i][0])

@@ -42,3 +42,5 @@ In Trainiing mode a user can:
 * Change waiting on unfilled hands to be unfilled board/flop
 * Add a tie equity
 * When clicking on any position in the board it should go to the flop first
+* Test Highlighting when different cards are needed for split pots so six cards not highlighted (different players slightly different colors)
+* Ace high straights sometimes winning?

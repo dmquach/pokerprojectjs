@@ -138,8 +138,18 @@ Handtype.prototype.bestHand = function (hand, board) {
 }
 
 Handtype.prototype.comparingKickers = function (hand1, hand2) {
-    // FIX TWO PAIR,
-    // console.log("test", hand1, hand2)
+    // separate case for straight A-5
+    // when comparing 5 high vs 6 high kicker, 5 high starts with A and 6 high starts with 6
+    if (hand1[0][0] === 'A' || hand2[0][0] === 'A') {
+        for (let i = 1; i < 5; i++) {
+            if (NUM_VAL[hand1[i][0]] > NUM_VAL[hand2[i][0]]) {
+                return [1, hand1]
+            } else if (NUM_VAL[hand1[i][0]] < NUM_VAL[hand2[i][0]]) {
+                return [2, hand2]
+            }
+        }
+    }
+
     for (let i = 0; i < 5; i++) {
         if (NUM_VAL[hand1[i][0]] > NUM_VAL[hand2[i][0]]) {
             return [1, hand1]
@@ -217,7 +227,6 @@ Handtype.prototype.equities = function (board) {
 }
 
 Handtype.prototype.equitiesOneMoreCard = function (board, hands, deck, totalOutcomes, chops, initial) {
-    // console.log("1", totalOutcomes)
     // totalOutcomes++
     // h++
     //FIX: maybe add a player 7 for chops
@@ -241,8 +250,6 @@ Handtype.prototype.equitiesOneMoreCard = function (board, hands, deck, totalOutc
         // if (winner) this.highlightWinner(winner)
         totalOutcomes += 1
     }
-    // console.log("2", totalOutcomes, h)
-    console.log([hands, totalOutcomes])
     return [hands, totalOutcomes]
 }
 
@@ -276,7 +283,7 @@ Handtype.prototype.equitiesTwoMoreCards = function (board, hands, deck, totalOut
             totalOutcomes += 1
         }
     }
-    
+
     return [hands, totalOutcomes]
 
 }
