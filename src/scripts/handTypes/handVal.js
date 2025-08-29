@@ -1,5 +1,4 @@
 // Finding type of value of hand
-
 export function isFlush(fiveCards) {
     const suit = fiveCards[0].slice(-1)
     for (let i = 0; i < 5; i++) {
