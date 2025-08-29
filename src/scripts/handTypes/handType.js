@@ -172,7 +172,6 @@ Handtype.prototype.winner = function (bestHandsHash) {
             winner = {}
             winner[player] = bestHandsHash[player]
         } else if (bestHandsHash[player][0] === currWinner[0]) {
-            // console.log(bestHandsHash, currWinner)
             const check = this.comparingKickers(bestHandsHash[player][1], currWinner[1])
             if (check === 0) {
                 winner[player] = [bestHandsHash[player][0], bestHandsHash[player][1]]
@@ -184,9 +183,7 @@ Handtype.prototype.winner = function (bestHandsHash) {
             }
         }
     }
-    // const str = JSON.stringify(winner); // (Optional) beautiful indented output.
-    // console.log(str);
-    // console.log(winner)
+
     return winner
 }
 
@@ -209,7 +206,6 @@ Handtype.prototype.equities = function (board) {
     const deck = this.deck.inDeck()
     let totalOutcomes = 0
     let chops = 0
-    console.log(board)
     if (board.length === 0) {
         console.log("no cards on board")
         return this.equitiesPreFlop(board, hands, deck, totalOutcomes, chops)
