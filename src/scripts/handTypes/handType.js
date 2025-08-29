@@ -1,8 +1,5 @@
 import { NUM_VAL } from "./handConsts.js"
-import { isFlush } from "./handVal.js"
-import { isStraight } from "./handVal.js"
-import { isFourOfAKind } from "./handVal.js"
-
+import { isFlush, isStraight, isFourOfAKind, isFullHouse, isThreeOfAKind, isTwoPair, isOnePair, isNoPair, broadway } from "./handVal.js"
 
 function Handtype(p1, p2, p3, p4, p5, p6, deck) {
     this.p1 = p1
@@ -48,13 +45,11 @@ Handtype.prototype.isFlush = isFlush
 Handtype.prototype.isStraight = isStraight
 Handtype.prototype.isFourOfAKind = isFourOfAKind
 Handtype.prototype.isFullHouse = isFullHouse
-
-
-
-
-
-
-
+Handtype.prototype.isThreeOfAKind = isThreeOfAKind
+Handtype.prototype.isTwoPair = isTwoPair
+Handtype.prototype.isOnePair = isOnePair
+Handtype.prototype.isNoPair = isNoPair
+Handtype.prototype.broadway = broadway
 
 
 Handtype.prototype.getPokerHand = function (fiveCards) {
@@ -103,7 +98,6 @@ Handtype.prototype.getPokerHand = function (fiveCards) {
 }
 
 Handtype.prototype.bestHand = function (hand, board) {
-    // console.log("bestHand board", board)
     const twoCardCombos = []
     const threeCardCombos = []
 
@@ -282,7 +276,7 @@ Handtype.prototype.equitiesTwoMoreCards = function (board, hands, deck, totalOut
             totalOutcomes += 1
         }
     }
-    console.log([hands, totalOutcomes, chops])
+    
     return [hands, totalOutcomes]
 
 }
