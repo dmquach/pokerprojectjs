@@ -1,6 +1,7 @@
 import { NUM_VAL } from "./handConsts.js"
 import { isFlush, isStraight, isFourOfAKind, isFullHouse, isThreeOfAKind, isTwoPair, isOnePair, isNoPair, broadway } from "./handVal.js"
 import { sortHand, getPokerHand, bestHand, comparingKicker } from "./evalHand.js"
+import { activeHands } from "./handUtils.js"
 
 function Handtype(p1, p2, p3, p4, p5, p6, deck) {
     this.p1 = p1
@@ -28,6 +29,8 @@ Handtype.prototype.sortHand = sortHand
 Handtype.prototype.getPokerHand = getPokerHand
 Handtype.prototype.bestHand = bestHand
 Handtype.prototype.comparingKicker = comparingKicker
+
+Handtype.prototype.activeHands = activeHands
 
 
 Handtype.prototype.winner = function (bestHandsHash) {
@@ -68,7 +71,6 @@ Handtype.prototype.activeHands = function () {
 
 Handtype.prototype.equities = function (board) {
     // p1: [0, [hand]]
-    
     const hands = this.activeHands()
     const deck = this.deck.inDeck()
     let totalOutcomes = 0
