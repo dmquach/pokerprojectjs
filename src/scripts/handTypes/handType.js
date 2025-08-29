@@ -1,33 +1,4 @@
-const KEY = {
-    1: "No Pair",
-    2: "One Pair",
-    3: "Two Pair",
-    4: "Three of a Kind",
-    5: "Straight",
-    6: "Flush",
-    7: "Full House!",
-    8: "Four of a Kind!!",
-    9: "Straight Flush!!!",
-    10: "ROYAL FLUSH!!!"
-}
-
-const NUM_VAL = {
-    'A': 14,
-    'K': 13,
-    'Q': 12,
-    'J': 11,
-    '10': 10,
-    '1': 10,
-    '9': 9,
-    '8': 8,
-    '7': 7,
-    '6': 6,
-    '5': 5,
-    '4': 4,
-    '3': 3,
-    '2': 2
-}
-
+import { NUM_VAL } from "./handConsts.js"
 
 function Handtype(p1, p2, p3, p4, p5, p6, deck) {
     this.p1 = p1
@@ -39,7 +10,7 @@ function Handtype(p1, p2, p3, p4, p5, p6, deck) {
     this.deck = deck
 }
 
- Handtype.prototype.sortHand = function (hand) {
+Handtype.prototype.sortHand = function (hand) {
     hand.sort((cardA, cardB) => {
          const valueA = NUM_VAL[cardA.slice(0, -1)];
          const valueB = NUM_VAL[cardB.slice(0, -1)];
