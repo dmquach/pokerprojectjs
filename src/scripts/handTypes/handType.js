@@ -1,4 +1,5 @@
 import { NUM_VAL } from "./handConsts.js"
+import { isFlush } from "./handVal.js"
 
 function Handtype(p1, p2, p3, p4, p5, p6, deck) {
     this.p1 = p1
@@ -40,16 +41,19 @@ Handtype.prototype.sortHand = function (hand) {
     return newHand
 }
 
-Handtype.prototype.isFlush = function (fiveCards) {
-    const suit = fiveCards[0].slice(-1)
-    for (let i = 0; i < 5; i++) {
-        if (fiveCards[i].slice(-1) !== suit) {
-            return false
-        }
-    }
-    const sortedHand = this.sortHand(fiveCards)
-    return [true, sortedHand]
-}
+Handtype.prototype.isFlush = isFlush
+
+
+// Handtype.prototype.isFlush = function (fiveCards) {
+//     const suit = fiveCards[0].slice(-1)
+//     for (let i = 0; i < 5; i++) {
+//         if (fiveCards[i].slice(-1) !== suit) {
+//             return false
+//         }
+//     }
+//     const sortedHand = this.sortHand(fiveCards)
+//     return [true, sortedHand]
+// }
 
 
 Handtype.prototype.isStraight = function (fiveCards) {
