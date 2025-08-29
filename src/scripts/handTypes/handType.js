@@ -141,12 +141,13 @@ Handtype.prototype.comparingKickers = function (hand1, hand2) {
     // separate case for straight A-5
     // when comparing 5 high vs 6 high kicker, 5 high starts with A and 6 high starts with 6
     if (hand1[0][0] === 'A' || hand2[0][0] === 'A') {
-        for (let i = 1; i < 5; i++) {
-            if (NUM_VAL[hand1[i][0]] > NUM_VAL[hand2[i][0]]) {
-                return [1, hand1]
-            } else if (NUM_VAL[hand1[i][0]] < NUM_VAL[hand2[i][0]]) {
-                return [2, hand2]
-            }
+        if (hand1[0][0] === 'A' && hand2[0][0] === 'A') {
+            return 0
+        } else if (hand1[0][0] === 'A') {
+            // hand1 is 5 high straight so hand2 must be higher
+            return [2, hand2]
+        } else {
+            return [1, hand1]
         }
     }
 
