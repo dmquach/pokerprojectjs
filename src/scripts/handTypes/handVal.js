@@ -37,3 +37,23 @@ export function isStraight(fiveCards) {
         return false
     }
 }
+
+
+export function isFourOfAKind(fiveCards) {
+    let count = 0;
+    const sortedHand = this.sortHand(fiveCards)
+    let pair = sortedHand[0][0]
+
+    if (sortedHand[0][0] !== sortedHand[1][0]) {
+        pair = sortedHand[1][0]
+    }
+    for (let i = 0; i < sortedHand.length; i++) {
+        if (sortedHand[i][0] == pair) {
+            count += 1;
+        }
+    }
+    if (count === 4) {
+        return [true, sortedHand]
+    }
+    return false
+}

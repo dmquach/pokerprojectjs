@@ -1,6 +1,8 @@
 import { NUM_VAL } from "./handConsts.js"
 import { isFlush } from "./handVal.js"
 import { isStraight } from "./handVal.js"
+import { isFourOfAKind } from "./handVal.js"
+
 
 function Handtype(p1, p2, p3, p4, p5, p6, deck) {
     this.p1 = p1
@@ -44,27 +46,9 @@ Handtype.prototype.sortHand = function (hand) {
 
 Handtype.prototype.isFlush = isFlush
 Handtype.prototype.isStraight = isStraight
+Handtype.prototype.isFourOfAKind = isFourOfAKind
 
 
-
-Handtype.prototype.isFourOfAKind = function (fiveCards) {
-    let count = 0;
-    const sortedHand = this.sortHand(fiveCards)
-    let pair = sortedHand[0][0]
-
-    if (sortedHand[0][0] !== sortedHand[1][0]) {
-        pair = sortedHand[1][0]
-    }
-    for (let i = 0; i < sortedHand.length; i++) {
-        if (sortedHand[i][0] == pair) {
-            count += 1;
-        }
-    }
-    if (count === 4) {
-        return [true, sortedHand]
-    }
-    return false
-}
 
 Handtype.prototype.isFullHouse = function (fiveCards) {
     const sortedHand = this.sortHand(fiveCards)
