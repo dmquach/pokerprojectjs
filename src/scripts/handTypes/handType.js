@@ -1,5 +1,6 @@
 import { NUM_VAL } from "./handConsts.js"
 import { isFlush } from "./handVal.js"
+import { isStraight } from "./handVal.js"
 
 function Handtype(p1, p2, p3, p4, p5, p6, deck) {
     this.p1 = p1
@@ -42,48 +43,9 @@ Handtype.prototype.sortHand = function (hand) {
 }
 
 Handtype.prototype.isFlush = isFlush
+Handtype.prototype.isStraight = isStraight
 
 
-// Handtype.prototype.isFlush = function (fiveCards) {
-//     const suit = fiveCards[0].slice(-1)
-//     for (let i = 0; i < 5; i++) {
-//         if (fiveCards[i].slice(-1) !== suit) {
-//             return false
-//         }
-//     }
-//     const sortedHand = this.sortHand(fiveCards)
-//     return [true, sortedHand]
-// }
-
-
-Handtype.prototype.isStraight = function (fiveCards) {
-    let sortedRanks = []
-    const sortedHand = this.sortHand(fiveCards)
-    for (let i = 0; i < 5; i++) {
-        sortedRanks.push(sortedHand[i][0])
-    }
-
-    if (JSON.stringify(sortedRanks) == JSON.stringify(["A", "5", "4", "3", "2"])) {
-        return [true, sortedHand]
-    }
-
-    if (
-    JSON.stringify(sortedRanks) == JSON.stringify(["6", "5", "4", "3", "2"]) ||
-    JSON.stringify(sortedRanks) == JSON.stringify(["7","6","5","4","3"]) ||
-    JSON.stringify(sortedRanks) == JSON.stringify(["8","7","6","5","4"]) ||
-    JSON.stringify(sortedRanks) == JSON.stringify(["9","8","7","6","5"]) ||
-    // 1 is equivalent to 10
-    JSON.stringify(sortedRanks) == JSON.stringify(["1","9","8","7","6"]) ||
-    JSON.stringify(sortedRanks) == JSON.stringify(["J","1","9","8","7"]) ||
-    JSON.stringify(sortedRanks) == JSON.stringify(["Q","J","1","9","8"]) ||
-    JSON.stringify(sortedRanks) == JSON.stringify(["K","Q","J","1","9"]) ||
-    JSON.stringify(sortedRanks) == JSON.stringify(["A","K", "Q","J","1",])
-    ) {
-        return [true, sortedHand]
-    } else {
-        return false
-    }
-}
 
 Handtype.prototype.isFourOfAKind = function (fiveCards) {
     let count = 0;
