@@ -33,7 +33,6 @@ In Trainiing mode a user can:
 * When new player added reset hands
 * Fix equities showing
 * Add loading bar
-* Monte Carlo Simulation
 * Equities after hand made with no flop
 * Show losing hand with smaller border on hover
 * Make minimum two players
@@ -43,4 +42,4 @@ In Trainiing mode a user can:
 * Add a tie equity
 * When clicking on any position in the board it should go to the flop first
 * Test Highlighting when different cards are needed for split pots so six cards not highlighted (different players slightly different colors)
-* Ace high straights sometimes winning?
+* Incorporate statistics knowledge for accuracy and efficiency
