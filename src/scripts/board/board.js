@@ -98,7 +98,7 @@ Board.prototype.createReset = function () {
     })
 }
 
-Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
+Board.prototype.addToBoard = async function (cardKey, playerNum = 0) {
     // NEXT
     // FIX THIS TO SEPARATE WINNER
     if (this.boardPos['highlight'] === '') {
@@ -115,7 +115,7 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
         if (this.full() && this.playersReady()) {
             this.highlightWinner()
         } else if (this.playersReady()) {
-            this.displayEquities(this.onBoard)
+            await this.displayEquities(this.onBoard)
         } else {
             this.createWaitingMessages()
         }
@@ -123,7 +123,7 @@ Board.prototype.addToBoard = function (cardKey, playerNum = 0) {
     }
 }
 
-Board.prototype.removeFromBoard = function (boardKey) {
+Board.prototype.removeFromBoard = async function (boardKey) {
     const itemToRemove = document.getElementById(boardKey)
     const item = this.changeSrcToId(itemToRemove.src)
     this.swapImg(boardKey, item)
@@ -144,7 +144,7 @@ Board.prototype.removeFromBoard = function (boardKey) {
     if (this.full() && this.playersReady()) {
         this.highlightWinner()
     } else if (this.playersReady()) {
-        this.displayEquities(this.onBoard)
+        await this.displayEquities(this.onBoard)
     } else {
         this.createWaitingMessages()
     }
@@ -434,20 +434,29 @@ Board.prototype.createWaitingMessages = function () {
     }
 }
 
-Board.prototype.displayEquities = function (board) {
+Board.prototype.displayEquities = async function (board) {
     //[{p1: [wins, hand], p2: [wins, hand]}, totalOutcomes]
     // hash of players and total outcomes
     //if players not ready or no players break out
 
-    if (!this.playersReady() || this._countPlayers() === 0) return -1
 
-    if (this.onBoard.length === 4 ||this.onBoard.length === 3 || this.onBoard.length === 0) {
-        const players = this.deck.handtype.equities(board)
-        for (const p in players[0]) {
-            const player = document.getElementById(p)
-            const text = player.childNodes[2]
-            text.nodeValue = `${p} equity: ${((players[0][p][0] / players[1]) * 100).toFixed(2)}%`
-        }
+    if (!this.playersReady() || this._countPlayers() === 0) return -1;
+
+    if (this.onBoard.length === 4 || this.onBoard.length === 3 || this.onBoard.length === 0) {
+        // Show loading screen
+        const loadingScreen = document.getElementById("loading-screen");
+        if (loadingScreen) loadingScreen.style.display = "flex";
+
+        // Let browser repaint, then run calculation
+        setTimeout(async () => {
+            const players = await this.deck.handtype.equities(board);
+            for (const p in players[0]) {
+                const player = document.getElementById(p);
+                const text = player.childNodes[2];
+                text.nodeValue = `${p} equity: ${((players[0][p][0] / players[1]) * 100).toFixed(2)}%`;
+            }
+            if (loadingScreen) loadingScreen.style.display = "none";
+        }, 0);
     }
 }
 

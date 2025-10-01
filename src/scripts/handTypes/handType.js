@@ -1,6 +1,5 @@
-import { NUM_VAL } from "./handConsts.js"
 import { isFlush, isStraight, isFourOfAKind, isFullHouse, isThreeOfAKind, isTwoPair, isOnePair, isNoPair, broadway } from "./handVal.js"
-import { sortHand, getPokerHand, bestHand, comparingKicker } from "./evalHand.js"
+import { sortHand, getPokerHand, bestHand, comparingKickers } from "./evalHand.js"
 import { activeHands } from "./handUtils.js"
 import { equitiesPreFlop, equitiesTwoMoreCards, equitiesOneMoreCard } from "./equityCalcs.js"
 
@@ -30,7 +29,7 @@ Handtype.prototype.broadway = broadway
 Handtype.prototype.sortHand = sortHand
 Handtype.prototype.getPokerHand = getPokerHand
 Handtype.prototype.bestHand = bestHand
-Handtype.prototype.comparingKicker = comparingKicker
+Handtype.prototype.comparingKickers = comparingKickers
 
 // hand utils
 Handtype.prototype.activeHands = activeHands
@@ -67,27 +66,46 @@ Handtype.prototype.winner = function (bestHandsHash) {
     return winner
 }
 
-Handtype.prototype.equities = function (board) {
-    // p1: [0, [hand]]
-    const hands = this.activeHands()
-    const deck = this.deck.inDeck()
-    let totalOutcomes = 0
-    let chops = 0
+// function showLoading() {
+//   document.getElementById("loading-screen").style.display = "flex";
+// }
+
+// function hideLoading() {
+//   document.getElementById("loading-screen").style.display = "none";
+// }
+//not async
+Handtype.prototype.equities = async function (board) {
+    // Show the loading spinner
+    const loadingScreen = document.getElementById("loading-screen");
+    if (loadingScreen) loadingScreen.style.display = "flex";
+
+    // Let the browser repaint so the spinner actually shows before heavy calc
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    const hands = this.activeHands();
+    const deck = this.deck.inDeck();
+    let totalOutcomes = 0;
+    let chops = 0;
+    let result = -1;
     if (board.length === 0) {
-        console.log("no cards on board")
-        return this.equitiesPreFlop(hands, deck, totalOutcomes, chops)
+        console.log("no cards on board");
+        result = this.equitiesPreFlop(hands, deck, totalOutcomes, chops);
     } else if (board.length === 1) {
-        console.log("finish flop")
+        console.log("finish flop");
     } else if (board.length === 2) {
-        console.log("finish flop")
+        console.log("finish flop");
     } else if (board.length === 3) {
-        console.log("three cards on board")
-        return this.equitiesTwoMoreCards(board, hands, deck, totalOutcomes, chops, 0)
+        console.log("three cards on board");
+        result = this.equitiesTwoMoreCards(board, hands, deck, totalOutcomes, chops, 0);
     } else if (board.length === 4) {
-        console.log("four cards on board")
-        return this.equitiesOneMoreCard(board, hands, deck, totalOutcomes, chops, 0)
+        console.log("four cards on board");
+        result = this.equitiesOneMoreCard(board, hands, deck, totalOutcomes, chops, 0);
     }
-    return -1
+
+    // Hide the spinner
+    if (loadingScreen) loadingScreen.style.display = "none";
+
+    return result;
 }
 
 export { Handtype }

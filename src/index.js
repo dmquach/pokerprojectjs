@@ -1,3 +1,12 @@
+window.addEventListener('DOMContentLoaded', () => {
+	const loadingScreen = document.getElementById('loading-screen');
+	if (loadingScreen) loadingScreen.style.display = 'none';
+});
+// // Hide loading screen when page is fully loaded
+// window.addEventListener('load', () => {
+// 	const loadingScreen = document.getElementById('loading-screen');
+// 	if (loadingScreen) loadingScreen.style.display = 'none';
+// });
 import { Game } from "./scripts/game.js";
 
 const game = new Game()

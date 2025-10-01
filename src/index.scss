@@ -1,3 +1,67 @@
+/* Loading screen styles */
+#loading-screen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#loading-screen > div, #loading-screen > span {
+
+}
+
+#loading-screen .loader, #loading-screen span {
+
+}
+
+#loading-screen-box {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  padding: 48px 32px;
+  min-width: 320px;
+  min-height: 180px;
+  max-width: 90vw;
+  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#loading-screen-box .loader {
+  border: 48px solid #e0e0e0;
+  border-top: 48px solid #333;
+  border-radius: 50%;
+  width: 480px;
+  height: 480px;
+  margin-bottom: 80px;
+  animation: spin 1s linear infinite;
+}
+
+#loading-screen-box span {
+  font-size: 8rem;
+  font-weight: bold;
+  color: #222;
+  margin-top: 48px;
+}
+
+.loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #333;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
 // @import url("")
 // @import url("./styles.css");
 // @import url("./styles/home-page.scss");

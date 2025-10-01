@@ -1,3 +1,5 @@
+import { NUM_VAL } from "./handConsts.js"
+
 export function sortHand(hand) {
     hand.sort((cardA, cardB) => {
          const valueA = NUM_VAL[cardA.slice(0, -1)];
@@ -114,7 +116,7 @@ export function bestHand(hand, board) {
     return top
 }
 
-export function comparingKicker(hand1, hand2) {
+export function comparingKickers(hand1, hand2) {
     // separate case for straight A-5
     // when comparing 5 high vs 6 high kicker, 5 high starts with A and 6 high starts with 6
     if (hand1[0][0] === 'A' || hand2[0][0] === 'A') {
