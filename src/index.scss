@@ -1,3 +1,22 @@
+/* Stylish Reset Button */
+#resetButton {
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 18px 48px;
+  background: linear-gradient(90deg, #4f8cff 0%, #38c6ff 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  margin: 32px auto;
+  display: block;
+}
+#resetButton:hover {
+  background: linear-gradient(90deg, #38c6ff 0%, #4f8cff 100%);
+  transform: scale(1.05);
+}
 /* Loading screen styles */
 #loading-screen {
   position: absolute;
@@ -305,10 +324,10 @@ main{
   height: 50%;
 }
 .blur {
-  filter: brightness(0.5);
+  filter: blur(3px) brightness(0.7);
 }
 .slight-blur {
-  filter: brightness(0.7)
+  filter: blur(1px) brightness(0.85);
 }
 .board1 img, .board2 img, .board3 img, .board4 img, .board5 img {
   width: 100%;
