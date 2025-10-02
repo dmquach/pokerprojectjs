@@ -497,11 +497,23 @@ a img {
 }
 
 h1 {
-  display: inline-block;
+  font-family: var(--primary-font);
+  font-size: 3rem;
+  font-weight: 700;
   text-align: center;
-  margin-left: 500px;
-  margin-right: 500px;
+  margin: 32px auto 16px auto;
+  width: 100%;
 }
+
+.centered-title {
+  font-family: var(--primary-font);
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 32px auto 16px auto;
+  width: 100%;
+}
+
 
 h4 {
   width: 100%;
