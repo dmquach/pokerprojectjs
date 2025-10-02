@@ -1,3 +1,101 @@
+/* Header flex row for title, github, and info button */
+.header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 auto 24px auto;
+  gap: 16px;
+}
+#github-link {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+}
+#github-link img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  transition: transform 0.2s;
+}
+#github-link img:hover {
+  transform: scale(1.12);
+}
+#infoButton {
+  margin-right: 80px;
+}
+/* Info Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 70vw;
+  height: 70vh;
+  overflow: auto;
+  background: rgba(0,0,0,0.4);
+}
+.modal-content {
+  background: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 40px 32px;
+  border-radius: 16px;
+  width: 90vw;
+  max-width: 500px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  font-family: var(--primary-font);
+  font-size: 1.3rem;
+  text-align: center;
+  color: #222;
+}
+
+.modal-content p {
+  margin: 0;
+  padding: 0;
+  font-size: 1.25rem;
+  color: #222;
+  text-align: center;
+}
+.modal-content p strong {
+  font-weight: 700;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 2.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: -16px;
+  margin-right: -8px;
+  transition: color 0.2s;
+}
+.close:hover {
+  color: #333;
+}
+/* Info button styling */
+#infoButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px auto;
+}
+#infoIcon {
+  width: 160px;
+  height: 160px;
+  transition: transform 0.2s;
+}
+#infoButton:hover #infoIcon {
+  transform: scale(1.15);
+}
+
 /* Consistent and small size for table icons */
 #p1-img[src*="icons8-minus-50.png"],
 #p1-img[src*="icons8-plus-button-50.png"] {
@@ -525,6 +623,7 @@ h1 {
 h4 {
   width: 100%;
   text-align: center;
+  font-size:3rem;
 }
 
 * {

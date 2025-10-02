@@ -1,3 +1,22 @@
+// Info button opens modal with info text
+document.addEventListener('DOMContentLoaded', () => {
+	const infoBtn = document.getElementById('infoButton');
+	const infoModal = document.getElementById('infoModal');
+	const closeModal = document.getElementById('closeModal');
+	if (infoBtn && infoModal && closeModal) {
+		infoBtn.addEventListener('click', () => {
+			infoModal.style.display = 'block';
+		});
+		closeModal.addEventListener('click', () => {
+			infoModal.style.display = 'none';
+		});
+		window.addEventListener('click', (event) => {
+			if (event.target === infoModal) {
+				infoModal.style.display = 'none';
+			}
+		});
+	}
+});
 window.addEventListener('DOMContentLoaded', () => {
 	const loadingScreen = document.getElementById('loading-screen');
 	if (loadingScreen) loadingScreen.style.display = 'none';

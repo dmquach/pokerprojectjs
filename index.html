@@ -12,14 +12,25 @@
   </head>
 
 <body>
+  <!-- Info Modal -->
+  <div id="infoModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <p>Select cards to first go in your hand. Then select opponents card. See real time information about hand equity as you add to the board. You must use two cards from hand. Click card to remove it from board. Hand rankings below</p>
+    </div>
+  </div>
   <div id="loading-screen">
     <div class="loader"></div>
   <span>Calculating Odds...</span>
   </div>
-  <a href="https://github.com/dmquach" target="_blank"><img src="./images/github-mark.png"></a>
-  <h1>Poker Equity Solver</h1>
-
-  <h4>Select cards to first go in your hand. Then select opponents card. See real time information about hand equity as you add to the board. You must use two cards from hand. Click card to remove it from board. Hand rankings below</h4>
+  
+  <div class="header-flex">
+    <a href="https://github.com/dmquach" target="_blank" id="github-link"><img src="./images/github-mark.png" alt="GitHub"></a>
+    <h1 class="centered-title">Poker Equity Solver</h1>
+    <button id="infoButton" title="Information">
+      <img src="./images/question.png" alt="Info" id="infoIcon" />
+    </button>
+  </div>
 
   <div class="card-container">
     <img src="./images/2_of_clubs.png" id="2c">
