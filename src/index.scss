@@ -35,11 +35,11 @@
   width: 70vw;
   height: 70vh;
   overflow: auto;
-  background: rgba(0,0,0,0.4);
+  background: transparent;
 }
 .modal-content {
   background: #fff;
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -52,13 +52,28 @@
   font-size: 1.3rem;
   text-align: center;
   color: #222;
+.modal-content p {
+  margin: 0 0 18px 0;
+  padding: 0;
+  font-size: 1.25rem;
+  color: #222;
+  text-align: center;
+}
+.modal-img {
+  display: block;
+  margin: 18px auto 0 auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
 }
 
 .modal-content p {
   margin: 0;
   padding: 0;
-  font-size: 1.25rem;
-  color: #222;
+  font-size: 2rem;
+  color: #171717;
   text-align: center;
 }
 .modal-content p strong {
