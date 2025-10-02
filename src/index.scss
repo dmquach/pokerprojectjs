@@ -1,3 +1,10 @@
+/* Consistent and small size for table icons */
+#p1-img[src*="icons8-minus-50.png"],
+#p1-img[src*="icons8-plus-button-50.png"] {
+  width: 64px !important;
+  height: 64px !important;
+  object-fit: contain;
+}
 /* Stylish Reset Button */
 #resetButton {
   font-size: 2rem;
