@@ -22,6 +22,23 @@
 #github-link img:hover {
   transform: scale(1.12);
 }
+/* LinkedIn link: keep same styling as GitHub */
+#linkedin-link {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+#linkedin-link img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #0A66C2; /* LinkedIn blue */
+  transition: transform 0.2s;
+  object-fit: cover;
+}
+#linkedin-link img:hover {
+  transform: scale(1.12);
+}
 .info-header {
   margin-right: 16px;
 }
@@ -36,26 +53,39 @@
   display: none;
   position: fixed;
   z-index: 10000;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
   background: rgba(0,0,0,0.4);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px; /* safe spacing on small viewports */
+}
+
+/* If JS sets inline styles like style="display:block" or style="display:flex",
+   ensure the modal still uses flex centering. Inline styles can override stylesheet
+   rules; these attribute selectors force flex layout when display is present inline. */
+.modal[style*="display:block"],
+.modal[style*="display: block"],
+.modal[style*="display:flex"],
+.modal[style*="display: flex"] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 .modal-content {
   background: #fff;
   padding: 20px 20px;
   border-radius: 12px;
   width: min(520px, 92vw);
+  max-width: 92vw;
   box-shadow: 0 6px 30px rgba(0,0,0,0.18);
   font-family: var(--primary-font);
   font-size: 1rem;
   text-align: center;
   color: #222;
+  position: relative; /* for absolute close button */
+  max-height: calc(100vh - 64px);
+  overflow-y: auto; /* allow scrolling if content exceeds viewport */
 }
 .modal-content p {
   margin: 0 0 12px 0;
@@ -74,12 +104,12 @@
 }
 .close {
   color: #aaa;
-  float: right;
-  font-size: 2.5rem;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 2rem;
   font-weight: bold;
   cursor: pointer;
-  margin-top: -16px;
-  margin-right: -8px;
   transition: color 0.2s;
 }
 .close:hover {
